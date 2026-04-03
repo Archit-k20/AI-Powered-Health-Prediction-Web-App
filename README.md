@@ -14,50 +14,27 @@ A full-stack AI-powered web application for smart, interactive preliminary healt
 
 
 
-- **AI-powered Disease Prediction System**
-
+- **🤖 Agentic Triage Workflow**
+  - Uses Gemini 2.0 Flash to dynamically generate relevant follow-up questions based on initial symptoms.
+  - Synthesizes user answers with ML predictions to provide highly personalized health assessments.
   
+- **🧠 Retrieval-Augmented Generation (RAG)**
+  - Integrated local FAISS vector database powered by Hugging Face embeddings (`all-MiniLM-L6-v2`).
+  - Grounds ML disease predictions in verified medical literature to provide actionable precautions.
 
-  - Intuitive symptom search with autocomplete, synonym, and typo handling
-
-  - Multi-symptom selection and chip-style UI
-
-  - Upload PDFs/images/scanned lab reports  
-
-  - Optional personal info for demographic-aware analysis
-
-    
-
-- **End-to-End Machine Learning Pipeline**
-
+- **📄 LLM-Powered Lab Report Analyzer**
+  - Extracts structured medical data from PDFs and scanned images using the Gemini Vision API.
+  - Features **Graceful Degradation**: Automatically falls back to a robust local Regex extraction pipeline if API rate limits are reached.
   
+- **📊 Explainable Machine Learning (XAI)**
+  - End-to-end ML pipeline (Random Forest Classifier) trained on real-world health data (~85% accuracy).
+  - Integrates SHAP (SHapley Additive exPlanations) to transparently show "Why this prediction was made."
 
-  - Data collection, preprocessing, training, and explainability in modular notebooks
-
-  - Model: Random Forest Classifier trained on real-world health data
-
-    
-
-- **Explainability**
-
-  
-
-  - Automatic model explanation using SHAP: "Why this prediction?"
-
-    
-
-- **Modern, Responsive Frontend**
-
-  
-
-  - Built with TailwindCSS, vanilla JS, and FontAwesome icons
-
-  - Animated UI, smooth scrolling, copy/download/share options for reports
-
-
+- **🐳 Production-Ready Architecture**
+  - Fully containerized microservices using Docker and Nginx.
+  - Modern, responsive frontend built with TailwindCSS and Vanilla JS.
 
 ---
-
 
 
 ## 📦 Folder Structure
@@ -65,28 +42,18 @@ A full-stack AI-powered web application for smart, interactive preliminary healt
 ```
 
 backend/
-
-models/     # Trained model and feature metadata
-
-app.py      # FastAPI backend web server
-
-requirements.txt
-
-...
-
-data/         # Raw, processed, and lookup CSVs
-
-frontend/
-
-index.html
-
-script.js
-
-style.css
-
-notebooks/    # Jupyter ML pipeline and analysis
-
-.venv/        # (Not committed)
+├── models/             # Trained ML model and feature metadata
+├── faiss_index/        # Local Vector Database for RAG
+├── app.py              # FastAPI backend server
+├── vector_store.py     # LangChain/FAISS indexing logic
+├── requirements.txt
+├── .env                # API Keys (Not committed)
+data/                   # Raw, processed, and lookup CSVs
+frontend/               # HTML, JS, CSS for Nginx serving
+notebooks/              # Jupyter ML pipeline and SHAP analysis
+Dockerfile.backend      # Python/FastAPI environment setup
+Dockerfile.frontend     # Nginx web server setup
+docker-compose.yml      # Multi-container orchestration
 
 
 
@@ -152,54 +119,55 @@ notebooks/    # Jupyter ML pipeline and analysis
 
 
 
-1. Clone the repo:
+Method 1: Docker (Recommended)
+The easiest way to run the application is via Docker Compose, which handles all system dependencies (like Tesseract OCR and spaCy models) automatically.
 
-git clone https://github.com/Lamstersickness/ai-doctor-assistant.git
+Clone the repo:
 
+```Bash
+git clone [https://github.com/Lamstersickness/ai-doctor-assistant.git](https://github.com/Lamstersickness/ai-doctor-assistant.git)
 cd ai-doctor-assistant
+Set up Environment Variables:
+Create a .env file inside the backend/ folder and add your Gemini API key:
+```
 
+Plaintext
+GEMINI_API_KEY=your_actual_api_key_here
+Build and Run the Containers:
 
+```Bash
+docker-compose up --build
+Open your browser and navigate to http://localhost.
+```
+Method 2: Local Virtual Environment
+If you prefer to run the application without Docker:
 
+Clone the repo and navigate to it.
 
+Set up the .env file in the backend/ folder as shown above.
 
-2. Create and activate a Python virtual environment:
+Create and activate a virtual environment:
 
+```Bash
 python3 -m venv venv
-
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-
-
+source venv/bin/activate  # On Windows: .\venv\Scripts\activate
+Install Dependencies & Language Models:
+```
 
 
-3. Install dependencies:
-
-pip install -r backend/requirements.txt
-
-
-
-
-
-4. Run the FastAPI backend:
-
+```Bash
 cd backend
+pip install -r requirements.txt
+python -m spacy download en_core_web_sm
+Start the FastAPI Backend:
+```
 
+
+```Bash
 uvicorn app:app --reload
-
-
-
-
-
-5. Open the frontend:
-
-- Open `frontend/index.html` in your browser directly.
-
-- _or_ serve it with a static server (`python -m http.server` from inside the `frontend` folder), then open `http://localhost:8000/`.
-
-
-
----
-
+Open the Frontend:
+Directly open frontend/index.html in your browser.
+```
 
 
 ## 📝 Notebooks
@@ -224,11 +192,15 @@ uvicorn app:app --reload
 
 
 
-- **Frontend:** HTML, TailwindCSS, JS, FontAwesome
+- **Frontend:** HTML, TailwindCSS, JavaScript, Nginx
 
-- **Backend:** Python, FastAPI, scikit-learn, SHAP, pandas
+- **Backend:** Python, FastAPI, Docker, Docker Compose
 
-- **ML/Explainability:** Random Forest, SHAP
+- **AI/LLM Integration:** Gemini 2.0 Flash API (google-genai)
+
+- **RAG & Vector Search:** LangChain, FAISS, Hugging Face (all-MiniLM-L6-v2)
+
+- **ML/Explainability:** Random Forest, SHAP, Pandas
 
 - **OCR/NLP:** Pytesseract, spaCy, fuzzywuzzy
 
