@@ -30,3 +30,14 @@ typing-extensions
 
 # For nice forms/file handling support
 python-multipart
+# AI LLM Integration
+# AI LLM Integration
+# AI LLM Integration
+openai>=1.0.0
+python-dotenv>=1.0.0
+# RAG and Vector Store
+langchain>=0.1.0
+langchain-community>=0.0.10
+langchain-openai>=0.0.2
+faiss-cpu>=1.7.4
+tiktoken>=0.5.2

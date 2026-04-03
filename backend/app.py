@@ -1,6 +1,9 @@
-from fastapi import FastAPI, HTTPException, Form, UploadFile, File
+from fastapi import FastAPI, HTTPException, Form, UploadFile, File, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse
+from google import genai
+from dotenv import load_dotenv
 import joblib
 import pandas as pd
 import numpy as np
@@ -19,6 +22,7 @@ import pytesseract
 from PIL import Image
 import pdfplumber
 import shap
+from vector_store import get_medical_context
 
 ner_nlp = spacy.load("en_core_web_sm")
 def humanize_feature_name(feat):
@@ -26,14 +30,38 @@ def humanize_feature_name(feat):
 
 app = FastAPI()
 
+# Load environment variables
+load_dotenv()
+
+# Configure Gemini API for Lab Analysis using the NEW SDK
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+gemini_client = None
+
+if GEMINI_API_KEY:
+    try:
+        gemini_client = genai.Client(api_key=GEMINI_API_KEY)
+        print("✅ Gemini API configured successfully for lab analysis")
+    except Exception as e:
+        print(f"❌ Failed to configure Gemini API: {e}")
+else:
+    print("⚠️ Warning: GEMINI_API_KEY not found in .env file. Smart lab analysis will be disabled.")
+
+# Tightened CORS | Removed wildcard '*'
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:8001", "http://localhost:8001", "*"],
+    allow_origins=["*"], # Wildcard allows file:/// protocol to connect
     allow_credentials=True,
-    allow_methods=["POST", "OPTIONS", "GET"],
-    allow_headers=["Content-Type", "Authorization", "*"],
-    expose_headers=["*"]
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    print(f"Unhandled Server Error: {exc}")
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "An internal server error occurred. Please try again later."},
+    )
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(current_dir, "models", "disease_prediction_model.pkl")
@@ -43,29 +71,35 @@ feature_names_path = os.path.join(current_dir, "models", "feature_names.csv")
 print(f"\nModel path: {model_path}")
 print(f"Label mapping path: {label_mapping_path}")
 print(f"Features path: {feature_names_path}")
-
+# Initialize variables safely
+model = None
+label_mapping = {}
+features = []
+shap_explainer = None
 
 try:
-    print("\nLoading model...")
-    model = joblib.load(model_path)
-    print("✅ Model loaded successfully")
+    print("\nLoading model files...")
+    if os.path.exists(model_path):
+        model = joblib.load(model_path)
+        print("✅ Model loaded successfully")
+        shap_explainer = shap.TreeExplainer(model)
+        print("✅ SHAP explainer loaded")
+    else:
+        print(f"⚠️ Warning: Model file not found at {model_path}")
     
-    print("\nLoading label mapping...")
-    with open(label_mapping_path) as f:
-        label_mapping = json.load(f)
-    print(f"✅ Loaded {len(label_mapping)} diseases")
-    
-    print("\nLoading features...")
-    X = pd.read_csv(os.path.join(current_dir, "../data/X_processed.csv"))
-    features = list(X.columns)
-    print(f"✅ Loaded {len(features)} features from X_processed.csv")
-    print("Sample features:", features[:5])
-    
-    
+    if os.path.exists(label_mapping_path):
+        with open(label_mapping_path) as f:
+            label_mapping = json.load(f)
+        print(f"✅ Loaded {len(label_mapping)} diseases")
+        
+    features_path = os.path.join(current_dir, "../data/X_processed.csv")
+    if os.path.exists(features_path):
+        X = pd.read_csv(features_path)
+        features = list(X.columns)
+        print(f"✅ Loaded {len(features)} features")
+        
 except Exception as e:
-    print(f"❌ Error loading model files: {e}")
-    raise
-# SHAP Explainer (build once at startup)
+    print(f"❌ Error loading model files (Server boot continuing): {e}")
 try:
     shap_explainer = shap.TreeExplainer(model)
     print("✅ SHAP explainer loaded")
@@ -102,15 +136,47 @@ else:
 async def predict_options():
     return {"status": "ok"}
 
+@app.post("/agent_triage")
+async def agent_triage(symptoms: str = Form(...)):
+    if gemini_client is None:
+        return {"questions": []}
+        
+    try:
+        sym_list = json.loads(symptoms)
+        if not sym_list:
+            return {"questions": []}
+            
+        prompt = f"The patient reports these symptoms: {', '.join(sym_list)}. Ask 2 specific follow-up questions to narrow down the diagnosis. Output strict JSON with a single key 'questions' containing an array of 2 strings."
+        
+        # Using Gemini to generate the follow-up questions
+        response = gemini_client.models.generate_content(
+            model='gemini-2.0-flash',
+            contents=prompt,
+            config={
+                'response_mime_type': 'application/json',
+                'system_instruction': 'You are a medical triage AI. Output strict JSON.'
+            }
+        )
+        data = json.loads(response.text.strip())
+        return {"questions": data.get("questions", [])[:2]}
+    except Exception as e:
+        print(f"Agent Triage Error: {e}")
+        return {"questions": []}
+
 @app.post("/predict")
 async def predict_disease(
-    symptoms: str = Form(...),  # JSON string of symptoms
+    symptoms: str = Form(...),
     age: str = Form(None),
     gender: str = Form(None),
     weight: str = Form(None),
     height: str = Form(None),
+    agent_answers: str = Form(None), # <-- Added this parameter
     lab_reports: List[UploadFile] = File(None)
 ):
+    # Safety check added here
+    if model is None or not features:
+        raise HTTPException(status_code=503, detail="The AI prediction model is currently unavailable on the server.")
+    
     print(f"Received request: POST /predict")
     try:
         # Parse the symptoms JSON string
@@ -223,18 +289,48 @@ async def predict_disease(
                     )
             else:
                 explanation_text = "Explanation is not available due to a server limitation."
-        # Handle file uploads (optional processing)
-        if lab_reports:
-            print(f"Received {len(lab_reports)} lab report files")
-            for file in lab_reports:
-                print(f"File: {file.filename}, Size: {file.size} bytes")
-                # Add file processing logic here if needed (e.g., save or analyze)
+        # --- RAG INTEGRATION ---
+        recommendations = []
+        if predictions:
+            primary_disease = predictions[0]["disease"]
+            # Query FAISS vector store (Local HuggingFace)
+            medical_context = get_medical_context(primary_disease)
+            predictions[0]["description"] = medical_context["description"]
+            recommendations = medical_context["precautions"]
+
+        # --- AGENTIC SYNTHESIS (GEMINI) ---
+        if gemini_client and agent_answers:
+            try:
+                answers_dict = json.loads(agent_answers)
+                agent_context = "\n".join([f"Q: {q}\nA: {a}" for q, a in answers_dict.items()])
+                
+                synthesis_prompt = f"""
+                ML Prediction: {primary_disease}
+                ML Reasoning: {explanation_text}
+                
+                Patient answers to follow-ups:
+                {agent_context}
+                
+                Write a comforting 2-sentence explanation combining the ML reasoning and the patient's specific answers.
+                """
+                
+                res = gemini_client.models.generate_content(
+                    model='gemini-2.0-flash',
+                    contents=synthesis_prompt,
+                    config={
+                        'system_instruction': 'You are an empathetic AI doctor.'
+                    }
+                )
+                explanation_text = res.text.strip()
+            except Exception as e:
+                print(f"Agent synthesis failed: {e}")
 
         return {
             "most_likely": predictions[0] if predictions else None,
             "possible": predictions[1:4],
             "matched_symptoms": backend_symptoms,
-            "explanation": explanation_text
+            "explanation": explanation_text,
+            "recommendations": recommendations
         }
         
     except json.JSONDecodeError as e:
@@ -302,22 +398,8 @@ def extract_text_pdf(file_bytes):
     with pdfplumber.open(io.BytesIO(file_bytes)) as pdf:
         texts = [page.extract_text() for page in pdf.pages if page.extract_text()]
     return "\n".join(texts)
-
-@app.post("/analyze_lab_report")
-async def analyze_lab_report(file: UploadFile = File(...)):
-    ext = file.filename.lower().split('.')[-1]
-    raw_bytes = await file.read()
-    try:
-        if ext in ["jpg", "jpeg", "png"]:
-            text = ocr_image(raw_bytes)
-        elif ext == "pdf":
-            text = extract_text_pdf(raw_bytes)
-        else:
-            return {"error": "Unsupported file type"}
-    except Exception as e:
-        return {"error": f"Failed to process file: {str(e)}"}
-
-    # Basic extraction of "Test: Value Units (optional Ref Range)"
+def fallback_regex_extraction(text):
+    """Fallback method if the LLM API fails due to rate limits."""
     pattern = re.compile(r'([A-Za-z \(\)\-/]+)\s*[:\-]?\s*([\d\.]+)\s*([^\s\d]+)?(?:.*?(\d+\.?\d*)\s*[-–]\s*(\d+\.?\d*)\s*)?', re.I)
     findings = []
     for match in pattern.findall(text):
@@ -329,11 +411,77 @@ async def analyze_lab_report(file: UploadFile = File(...)):
                 "units": units.strip() if units else "",
                 "reference_range": f"{ref_lo}-{ref_hi}" if ref_lo and ref_hi else ""
             })
-    # Make a summary
-    summary = "Extracted results:\n" + "\n".join(
-        f"{f['test_name']}: {f['value']} {f['units']} (Ref: {f['reference_range']})" for f in findings
-    )
-    return {"findings": findings, "summary": summary, "raw": text[:1000]}  # limit raw for demo
+            
+    summary = "⚙️ Basic System Extraction (API Quota Reached):\n" + "-"*40 + "\n"
+    for f in findings:
+        summary += f"• {f['test_name']}: {f['value']} {f['units']} (Ref: {f['reference_range']})\n"
+        
+    return {"findings": findings, "summary": summary, "raw": text[:500]}
+@app.post("/analyze_lab_report")
+async def analyze_lab_report(file: UploadFile = File(...)):
+    if gemini_client is None:
+        return {"error": "LLM Analysis is not configured. Please check the server's OpenAI API key."}
+
+    ext = file.filename.lower().split('.')[-1]
+    raw_bytes = await file.read()
+    
+    # Step 1: Extract raw text via OCR or PDF parsing
+    try:
+        if ext in ["jpg", "jpeg", "png"]:
+            text = ocr_image(raw_bytes)
+        elif ext == "pdf":
+            text = extract_text_pdf(raw_bytes)
+        else:
+            return {"error": "Unsupported file type. Please upload a PDF or Image."}
+            
+        if not text.strip():
+            return {"error": "Could not extract any readable text from the file."}
+            
+    except Exception as e:
+        return {"error": f"Failed to process file: {str(e)}"}
+
+    # Step 2: Use OpenAI to intelligently structure the text
+    prompt = f"""
+    Analyze the following raw OCR text from a medical lab report. 
+    Extract the test results and return a JSON object with a single key named "findings". 
+    The value of "findings" must be an array of objects, where each object has these exact keys: "test_name", "value", "units", "reference_range".
+    If a specific piece of information is missing for a test, leave the string empty "".
+    
+    Raw Lab Report Text:
+    {text[:5000]}
+    """
+
+    try:
+        # Generate content using the new Gemini SDK
+        response = gemini_client.models.generate_content(
+            model='gemini-2.0-flash',
+            contents=prompt
+        )
+        response_text = response.text.strip()
+        
+        # Parse the JSON string
+        parsed_data = json.loads(response_text)
+        findings = parsed_data.get("findings", [])
+        
+        # Format a nice summary for the frontend
+        summary = "🩺 Smart AI Lab Extraction (OpenAI):\n" + "-"*35 + "\n"
+        for f in findings:
+            test = f.get('test_name', 'Unknown Test')
+            val = f.get('value', 'N/A')
+            unit = f.get('units', '')
+            ref = f.get('reference_range', 'No ref')
+            summary += f"• {test}: {val} {unit} (Ref: {ref})\n"
+            
+        return {"findings": findings, "summary": summary, "raw": text[:500]}
+        
+    except json.JSONDecodeError:
+        return {"error": "AI successfully analyzed the document but returned unparseable formatting. Please try again."}
+    except Exception as e:
+        error_msg = str(e)
+        if "429" in error_msg or "Quota" in error_msg or "RESOURCE_EXHAUSTED" in error_msg:
+            return {"error": "⚠️ The AI is currently processing too many requests. Please wait 1 minute and try again."}
+        return {"error": f"AI extraction failed: {error_msg}"}
+    
 
 if __name__ == "__main__":
     import uvicorn

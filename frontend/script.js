@@ -1,3 +1,9 @@
+// --- API CONFIGURATION ---
+const hostname = window.location.hostname;
+// If we are on localhost, OR if we opened the file directly (hostname is empty)
+const API_BASE_URL = (hostname === '127.0.0.1' || hostname === 'localhost' || hostname === '') 
+    ? 'http://127.0.0.1:8000' // Pointing to Uvicorn's default port
+    : 'https://your-production-api.com';
 // Array to store selected symptoms
         let selectedSymptoms = [];
         let uploadedFiles = [];
@@ -35,7 +41,7 @@
                 dropdown.style.display = 'none';
                 return;
             }
-            const resp = await fetch(`http://127.0.0.1:8001/symptom_suggest?query=${encodeURIComponent(query)}`);
+            const resp = await fetch(`${API_BASE_URL}/symptom_suggest?query=${encodeURIComponent(query)}`);
             const data = await resp.json();
             dropdown.innerHTML = '';
             data.suggestions.forEach((sym) => {
@@ -157,7 +163,7 @@
             if (!input.files.length) { alert('Please upload a file first'); return; }
             const form = new FormData();
             form.append('file', input.files[0]);
-            const resp = await fetch('http://127.0.0.1:8001/analyze_lab_report', {
+            const resp = await fetch(`${API_BASE_URL}/analyze_lab_report`, {
                 method: 'POST',
                 body: form
             });
@@ -168,102 +174,119 @@
                 document.getElementById('labExtractResult').innerHTML = `<pre>${data.summary}</pre>`;
         };
 
-        // Function to analyze symptoms with enhanced UI feedback
         async function analyzeSymptoms() {
-            if (selectedSymptoms.length === 0) {
-                const container = document.getElementById('selectedSymptoms');
-                container.classList.add('border-red-300', 'bg-red-50');
-                container.innerHTML = '<p class="text-red-500 text-sm w-full animate-bounce">⚠️ Please select at least one symptom to continue</p>';
-                
-                setTimeout(() => {
-                    container.classList.remove('border-red-300', 'bg-red-50');
-                    updateSelectedSymptoms();
-                }, 3000);
-                return;
-            }
-            
-            const analyzeBtn = document.querySelector('button[onclick="analyzeSymptoms()"]');
-            const originalHTML = analyzeBtn.innerHTML;
-            
-            analyzeBtn.innerHTML = `
-                <span class="flex items-center justify-center">
-                    <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-3"></div>
-                    <span class="loading-dots">Analyzing with AI</span>
-                </span>
-            `;
-            analyzeBtn.disabled = true;
-            analyzeBtn.classList.add('opacity-75', 'cursor-not-allowed');
-            
-            try {
-                const age = document.getElementById('age').value;
-                const gender = document.getElementById('gender').value;
-                const weight = document.getElementById('weight').value;
-                const height = document.getElementById('height').value;
-
-                const formData = new FormData();
-                formData.append('symptoms', JSON.stringify(selectedSymptoms));
-                if (age) formData.append('age', age);
-                if (gender) formData.append('gender', gender);
-                if (weight) formData.append('weight', weight);
-                if (height) formData.append('height', height);
-                uploadedFiles.forEach(file => formData.append('lab_reports', file));
-
-                const response = await fetch('http://127.0.0.1:8001/predict', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.detail || 'API request failed');
-                }
-                
-                const data = await response.json();
-                updateResults(data);
-                
-                const resultsSection = document.getElementById('predictionResults');
-                resultsSection.classList.remove('hidden');
-                resultsSection.style.opacity = '0';
-                resultsSection.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    resultsSection.style.transition = 'all 0.6s ease';
-                    resultsSection.style.opacity = '1';
-                    resultsSection.style.transform = 'translateY(0)';
-                    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
-                
-            } catch (error) {
-                console.error('Error:', error);
-                
-                const errorModal = document.createElement('div');
-                errorModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-                errorModal.innerHTML = `
-                    <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center shadow-2xl">
-                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-exclamation-triangle text-red-500 text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Analysis Failed</h3>
-                        <p class="text-gray-600 mb-6">${error.message || 'Unable to connect to our AI service. Please try again.'}</p>
-                        <button onclick="this.parentElement.parentElement.remove()" class="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition-colors">
-                            Try Again
-                        </button>
-                    </div>
-                `;
-                document.body.appendChild(errorModal);
-                
-                setTimeout(() => {
-                    if (errorModal.parentElement) {
-                        errorModal.remove();
-                    }
-                }, 5000);
-                
-            } finally {
-                analyzeBtn.innerHTML = originalHTML;
-                analyzeBtn.disabled = false;
-                analyzeBtn.classList.remove('opacity-75', 'cursor-not-allowed');
-            }
+        if (selectedSymptoms.length === 0) {
+            const container = document.getElementById('selectedSymptoms');
+            container.classList.add('border-red-300', 'bg-red-50');
+            container.innerHTML = '<p class="text-red-500 text-sm w-full animate-bounce">⚠️ Please select at least one symptom to continue</p>';
+            setTimeout(() => {
+                container.classList.remove('border-red-300', 'bg-red-50');
+                updateSelectedSymptoms();
+            }, 3000);
+            return;
         }
+        
+        const analyzeBtn = document.querySelector('button[onclick="analyzeSymptoms()"]');
+        const originalHTML = analyzeBtn.innerHTML;
+        analyzeBtn.innerHTML = '<span class="flex items-center justify-center"><div class="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-3"></div><span class="loading-dots">AI Triage...</span></span>';
+        analyzeBtn.disabled = true;
+        
+        try {
+            const formData = new FormData();
+            formData.append('symptoms', JSON.stringify(selectedSymptoms));
+            const triageResp = await fetch(`${API_BASE_URL}/agent_triage`, { method: 'POST', body: formData });
+            const triageData = await triageResp.json();
+            
+            if (triageData.questions && triageData.questions.length > 0) {
+                showAgentModal(triageData.questions, analyzeBtn, originalHTML);
+            } else {
+                submitFinalPrediction(null, analyzeBtn, originalHTML);
+            }
+        } catch (e) {
+            submitFinalPrediction(null, analyzeBtn, originalHTML);
+        }
+    }
+    
+    function showAgentModal(questions, btn, origHTML) {
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 transition-opacity';
+        
+        let inputsHTML = '';
+        questions.forEach((q, i) => {
+            inputsHTML += `
+                <div class="mb-4 text-left">
+                    <label class="block text-gray-700 font-medium mb-2">${q}</label>
+                    <input type="text" id="agentQ${i}" class="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your answer...">
+                </div>
+            `;
+        });
+        
+        modal.innerHTML = `
+            <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl">
+                <div class="flex items-center mb-4 text-blue-600">
+                    <i class="fas fa-user-md text-2xl mr-3"></i>
+                    <h3 class="text-xl font-bold">AI Doctor Follow-up</h3>
+                </div>
+                <p class="text-gray-600 text-sm mb-6 text-left">To give you the most accurate prediction, I have a couple of quick questions.</p>
+                ${inputsHTML}
+                <button id="submitAgentBtn" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-colors mt-2">
+                    Complete Analysis
+                </button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        
+        document.getElementById('submitAgentBtn').onclick = () => {
+            const answers = {};
+            questions.forEach((q, i) => {
+                answers[q] = document.getElementById(`agentQ${i}`).value || "No answer";
+            });
+            modal.remove();
+            submitFinalPrediction(JSON.stringify(answers), btn, origHTML);
+        };
+    }
+    
+    async function submitFinalPrediction(agentAnswers, analyzeBtn, originalHTML) {
+        analyzeBtn.innerHTML = '<span class="flex items-center justify-center"><div class="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-3"></div><span class="loading-dots">Finalizing...</span></span>';
+        
+        try {
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const weight = document.getElementById('weight').value;
+            const height = document.getElementById('height').value;
+
+            const formData = new FormData();
+            formData.append('symptoms', JSON.stringify(selectedSymptoms));
+            if (age) formData.append('age', age);
+            if (gender) formData.append('gender', gender);
+            if (weight) formData.append('weight', weight);
+            if (height) formData.append('height', height);
+            if (agentAnswers) formData.append('agent_answers', agentAnswers);
+            uploadedFiles.forEach(file => formData.append('lab_reports', file));
+
+            const response = await fetch(`${API_BASE_URL}/predict`, {
+                method: 'POST',
+                body: formData
+            });
+            
+            if (!response.ok) throw new Error('API request failed');
+            const data = await response.json();
+            updateResults(data);
+            
+            const resultsSection = document.getElementById('predictionResults');
+            resultsSection.classList.remove('hidden');
+            resultsSection.style.opacity = '1';
+            resultsSection.style.transform = 'translateY(0)';
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+        } catch (error) {
+            console.error(error);
+            alert("Analysis Failed. Please try again.");
+        } finally {
+            analyzeBtn.innerHTML = originalHTML;
+            analyzeBtn.disabled = false;
+        }
+    }
 
         // Function to update prediction results with enhanced animations
         function updateResults(data) {
