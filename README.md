@@ -91,7 +91,6 @@ Use **Node.js 24**, **Python 3.12**, and **Docker** for the OCR-enabled backend.
 ```sh
 git clone https://github.com/Archit-k20/AI-Powered-Health-Prediction-Web-App.git
 cd AI-Powered-Health-Prediction-Web-App
-git switch codex/shape-of-health
 ```
 
 ### 1. Start the backend

@@ -147,7 +147,7 @@ export default function Information({ page }: { page: string }) {
                 <br />
                 Vocabulary: {info.registry_version}
               </p>
-              <a href="https://github.com/Archit-k20/AI-Powered-Health-Prediction-Web-App/tree/codex/shape-of-health">
+              <a href="https://github.com/Archit-k20/AI-Powered-Health-Prediction-Web-App">
                 Training code and evaluation ↗
               </a>
               <p className="hash">Dataset SHA-256: {info.dataset_sha256}</p>
