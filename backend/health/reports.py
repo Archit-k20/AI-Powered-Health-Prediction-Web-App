@@ -1,118 +1,100 @@
-"""Local extraction only. Files and their text never leave this process tree."""
+"""Local document extraction, with bounded processes and no external AI calls."""
 
 import asyncio
 import io
 import logging
 import multiprocessing as mp
 import os
-import re
-import shutil
 import signal
 import time
 
 from PIL import Image
 from pypdf import PdfReader
 import pypdfium2 as pdfium
-import pytesseract
 
-from .schemas import Extraction, Finding
+from .document_layout import MAX_PIXELS, pdf_lines, ocr_lines, readable
+from .lab_parser import TESTS, parse_text, parse_lines
+from .report_clinical import classify_document, extract_mentions
+from .schemas import Extraction, ReportPage
 
-# Library diagnostics may include fragments of malformed input. Suppress them.
 _pdf_log = logging.getLogger("pypdf")
 _pdf_log.addHandler(logging.NullHandler())
 _pdf_log.propagate = False
-
 MAX_BYTES = 10 * 1024 * 1024
-MAX_PIXELS = 20_000_000
 Image.MAX_IMAGE_PIXELS = MAX_PIXELS
-TESTS = {
-    "Hemoglobin": r"(?:ha?emoglobin|hgb|hb)(?!a1c)",
-    "White blood cells": r"(?:white blood (?:cells?|count)|wbc|total leucocyte count)",
-    "Platelets": r"(?:platelets?(?: count)?|plt)",
-    "Glucose": r"(?:(?:fasting |random )?(?:blood )?glucose|blood sugar)",
-    "HbA1c": r"(?:hba1c|glycated ha?emoglobin)",
-    "Creatinine": r"(?:serum )?creatinine",
-    "Total cholesterol": r"(?:total )?cholesterol",
-    "HDL cholesterol": r"hdl(?: cholesterol)?",
-    "LDL cholesterol": r"ldl(?: cholesterol)?",
-    "Triglycerides": r"triglycerides?",
-    "TSH": r"(?:tsh|thyroid stimulating hormone)",
-    "Vitamin D": r"(?:vitamin d|25[- ]oh vitamin d)",
-    "Vitamin B12": r"vitamin b12",
-    "Bilirubin": r"(?:total )?bilirubin",
-    "ALT": r"(?:alt|sgpt)",
-    "AST": r"(?:ast|sgot)",
-    "Urea": r"(?:blood )?urea",
-    "Sodium": r"sodium",
-    "Potassium": r"potassium",
-    "Calcium": r"(?:serum )?calcium",
-    "Hematocrit": r"(?:ha?ematocrit|hct|pcv)",
-    "Red blood cells": r"(?:red blood (?:cells?|count)|rbc)",
-}
-NUM = r"[<>≤≥]?\s*\d+(?:[.,]\d+)?"
-RANGE = re.compile(
-    r"(?:\b(?:ref(?:erence)?(?: range)?|range)\s*[:=]?\s*|[([]\s*)?("
-    + NUM
-    + r"\s*[-–]\s*"
-    + NUM
-    + r")"
-)
-UNIT = re.compile(
-    r"^\s*((?:[x×]\s*)?10(?:\^?\d+|[³⁶⁹])\s*/\s*[a-zA-Zµμ]+|(?:[a-zA-Zµμ%]+(?:\^?\d+)?)(?:\s*/\s*[a-zA-Zµμ]+(?:\^?\d+)?)?)"
-)
 
 
-def parse_text(text, page, method):
-    findings = []
-    for line in text.splitlines():
-        line = " ".join(line.split())
-        for name, pattern in TESTS.items():
-            matched = re.match(r"^" + pattern + r"\b\s*[:|\-]?\s*", line, re.I)
-            if not matched:
-                continue
-            tail = line[matched.end() :]
-            number = re.match(NUM, tail)
-            value = number.group(0).strip() if number else None
-            after = tail[number.end() :].strip() if number else tail
-            ref = RANGE.search(after)
-            reference = ref.group(1).strip() if ref else None
-            unit_match = UNIT.match(after)
-            unit = unit_match.group(1).strip() if unit_match else None
-            if unit and unit.lower() in (
-                "ref",
-                "reference",
-                "range",
-                "low",
-                "high",
-                "normal",
-                "pending",
-            ):
-                unit = None
-            findings.append(
-                Finding(
-                    test_name=name,
-                    value=value,
-                    unit=unit,
-                    reference_range=reference,
-                    source_page=page,
-                    method=method,
-                    needs_review=method == "ocr" or not all([value, unit, reference]),
-                )
-            )
-            break
-    return findings
-
-
-def ocr(image):
-    if image.width * image.height > MAX_PIXELS:
-        raise ValueError("Image exceeds 20 megapixels.")
-    if not shutil.which("tesseract"):
-        raise RuntimeError("OCR is unavailable on this server.")
-    return pytesseract.image_to_string(image, config="--psm 6", timeout=18)
+def read_page(lines, page, method, warnings=None):
+    warnings = list(warnings or [])
+    text = "\n".join(line.text for line in lines)
+    supported = readable(text)
+    findings = parse_lines(lines, page, method) if supported else []
+    kind = classify_document(text, bool(findings)) if supported else "unknown"
+    mentions = extract_mentions(lines, page, method, kind) if supported else []
+    if any("recognition is uncertain" in warning for warning in warnings):
+        for mention in mentions:
+            mention.eligible = False
+            mention.review_reason = "The scan is too uncertain for symptom transfer. Check the original and enter current symptoms manually."
+    if any("rotated" in warning for warning in warnings):
+        # Layout coordinates refer to the OCR orientation, not the original preview.
+        for item in [*findings, *mentions]:
+            if item.evidence:
+                item.evidence.bbox = None
+    if kind == "template":
+        findings = []
+        warnings.append(
+            "This appears to be an unfilled report template. No patient findings were identified. Upload a completed report or enter symptoms yourself."
+        )
+    elif not supported:
+        warnings.append(
+            "This page could not be reliably read as English text. Upload a clearer English report or enter the information manually."
+        )
+    elif not findings and not mentions:
+        warnings.append(
+            "No supported clinical findings were identified on this page. This does not mean the report is normal; review the original or enter symptoms yourself."
+        )
+    if len(findings) >= 200 or len(mentions) >= 100:
+        warnings.append(
+            "This page reached the extraction limit. Review the remaining content manually."
+        )
+    if method == "ocr":
+        for finding in findings:
+            finding.needs_review = True
+    if any(f.needs_review for f in findings):
+        warnings.append(
+            "Some lab fields need review. Missing values are deliberately left blank."
+        )
+    if len(text) > 20000:
+        warnings.append(
+            "The reading transcript was shortened; use the original for the remaining text."
+        )
+    return (
+        findings,
+        mentions,
+        ReportPage(
+            page=page,
+            document_type=kind,
+            method=method,
+            quality="unreadable"
+            if not supported
+            else "review"
+            if warnings
+            else "readable",
+            text=text[:20000],
+            warnings=warnings,
+        ),
+    )
 
 
 def extract_sync(data, kind):
-    findings, warnings = [], []
+    findings, mentions, page_details = [], [], []
+
+    def collect(lines, number, method, warnings=None):
+        found, clinical, detail = read_page(lines, number, method, warnings)
+        findings.extend(found)
+        mentions.extend(clinical)
+        page_details.append(detail)
+
     if kind == "pdf":
         reader = PdfReader(io.BytesIO(data), strict=False)
         if reader.is_encrypted:
@@ -124,40 +106,65 @@ def extract_sync(data, kind):
             raise ValueError("Reports are limited to ten PDF pages.")
         if not pages:
             raise ValueError("This PDF has no pages.")
-        document = None
+        document = pdfium.PdfDocument(data)
         try:
-            for index, page in enumerate(reader.pages):
+            for index in range(pages):
+                page = document[index]
+                method, warnings = "embedded_text", []
                 try:
-                    text = page.extract_text() or ""
-                    method = "embedded_text"
-                    if len(text.strip()) < 30:
-                        document = document or pdfium.PdfDocument(data)
-                        pdf_page = document[index]
-                        try:
-                            w, h = pdf_page.get_size()
-                            if w * h * 4 > MAX_PIXELS:
-                                raise ValueError("Rendered page exceeds 20 megapixels.")
-                            bitmap = pdf_page.render(scale=2)
-                            try:
-                                text = ocr(bitmap.to_pil())
-                            finally:
-                                bitmap.close()
-                        finally:
-                            pdf_page.close()
-                        method = "ocr"
-                    found = parse_text(text, index + 1, method)
-                    findings.extend(found)
-                    if not found:
-                        warnings.append(
-                            f"Page {index + 1}: no supported test rows recognized. Check the original; this does not mean normal results."
-                        )
-                except Exception:
-                    warnings.append(
-                        f"Page {index + 1}: could not extract this page. Review the original or upload a clearer image."
+                    lines = pdf_lines(page)
+                    text = "\n".join(line.text for line in lines)
+                    # A selectable header must not hide an image-only report body.
+                    images = list(
+                        page.get_objects(filter=[pdfium.raw.FPDF_PAGEOBJ_IMAGE])
                     )
+                    width, height = page.get_size()
+                    substantial_image = any(
+                        (obj.get_bounds()[2] - obj.get_bounds()[0])
+                        * (obj.get_bounds()[3] - obj.get_bounds()[1])
+                        > width * height * 0.25
+                        for obj in images
+                    )
+                    if not readable(text) or substantial_image:
+                        scale = min(
+                            max(2.5, 1800 / width),
+                            (MAX_PIXELS / (width * height)) ** 0.5,
+                        )
+                        if width * height > MAX_PIXELS or scale < 1:
+                            raise ValueError("Rendered page exceeds 20 megapixels.")
+                        bitmap = page.render(scale=scale)
+                        try:
+                            scanned, ocr_warnings = ocr_lines(bitmap.to_pil())
+                        finally:
+                            bitmap.close()
+                        if scanned and (
+                            not readable(text)
+                            or sum(len(l.text) for l in scanned) >= len(text)
+                        ):
+                            lines, method = scanned, "ocr"
+                            warnings.extend(ocr_warnings)
+                        elif substantial_image:
+                            warnings.append(
+                                "An image region may contain unreadable information. Check the original page."
+                            )
+                    collect(lines, index + 1, method, warnings)
+                except Exception:
+                    page_details.append(
+                        ReportPage(
+                            page=index + 1,
+                            document_type="unknown",
+                            method=method,
+                            quality="unreadable",
+                            text="",
+                            warnings=[
+                                "Could not read this page. Try a clearer image or enter the information manually."
+                            ],
+                        )
+                    )
+                finally:
+                    page.close()
         finally:
-            if document:
-                document.close()
+            document.close()
     else:
         pages = 1
         with Image.open(io.BytesIO(data)) as image:
@@ -165,18 +172,30 @@ def extract_sync(data, kind):
                 raise ValueError("Only PDF, JPG and PNG reports are supported.")
             if image.width * image.height > MAX_PIXELS:
                 raise ValueError("Image exceeds 20 megapixels.")
-            text = ocr(image.convert("RGB"))
-            findings = parse_text(text, 1, "ocr")
-        if not findings:
-            warnings.append(
-                "No supported test rows recognized. Check the original report."
+            lines, warnings = ocr_lines(image)
+            collect(lines, 1, "ocr", warnings)
+    warnings = [f"Page {p.page}: {w}" for p in page_details for w in p.warnings]
+    # Conflicting mentions are evidence for review, not a vote to add a symptom.
+    for mention in mentions:
+        if mention.eligible and any(
+            other.symptom_id == mention.symptom_id
+            and other.id != mention.id
+            and (
+                other.polarity != "affirmed"
+                or other.timing != "unspecified"
+                or other.subject != "patient"
             )
-    if any(f.needs_review for f in findings):
-        warnings.append(
-            "Some fields are uncertain or missing. Correct them before exporting."
-        )
+            for other in mentions
+        ):
+            mention.eligible = False
+            mention.review_reason = "The report contains conflicting or differently timed mentions. Clarify in Symptoms; this item cannot be transferred automatically."
     return Extraction(
-        findings=findings, warnings=warnings, pages=pages, partial=bool(warnings)
+        findings=findings,
+        mentions=mentions,
+        page_details=page_details,
+        warnings=warnings,
+        pages=pages,
+        partial=bool(warnings),
     ).model_dump()
 
 

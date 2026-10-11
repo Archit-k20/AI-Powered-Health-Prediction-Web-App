@@ -125,7 +125,9 @@ export default function Information({ page }: { page: string }) {
               </p>
               <p>
                 Duration is context only. Suggested symptoms require
-                confirmation. Reports and BMI are separate from the model.
+                confirmation. Lab values, documented diagnoses and BMI are
+                separate from the model. Report-derived symptoms enter only
+                after you confirm they are current.
               </p>
             </div>
           </div>
@@ -262,9 +264,10 @@ export default function Information({ page }: { page: string }) {
             <h2>What happens in your browser.</h2>
             <div>
               <p>
-                Symptom selections, answers, report findings and BMI values stay
-                in application memory. Reloading or choosing “Clear session”
-                clears them. They are not written to browser storage.
+                Symptom selections, answers, uploaded files, extracted text,
+                confirmations and BMI values stay in application memory.
+                Reloading or choosing “Clear session” clears them. They are not
+                written to browser storage.
               </p>
               <p>
                 Only the motion preference is stored locally. No analytics,
@@ -279,8 +282,9 @@ export default function Information({ page }: { page: string }) {
               <p>
                 Live symptom selections and answers are sent to this project’s
                 Python backend on Google Cloud Run, in us-central1 (United
-                States). Reports are sent there for local text extraction or
-                OCR.
+                States). Reports are sent there for local text extraction or OCR
+                and rule-based clinical text extraction. No external AI service
+                receives these documents.
               </p>
               <p>
                 The server uses memory and short-lived OCR temporary files. It

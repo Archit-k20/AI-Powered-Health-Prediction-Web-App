@@ -72,7 +72,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/lab-reports/extract": {
+    "/api/v1/reports/extract": {
         parameters: {
             query?: never;
             header?: never;
@@ -82,7 +82,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** Extract */
-        post: operations["extract_api_v1_lab_reports_extract_post"];
+        post: operations["extract_api_v1_reports_extract_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -128,14 +128,23 @@ export interface components {
         /** AssessmentInput */
         AssessmentInput: {
             /** Symptoms */
-            symptoms: string[];
+            symptoms?: string[];
             /** Followups */
             followups?: components["schemas"]["Followup"][];
+            /** Report Symptoms */
+            report_symptoms?: components["schemas"]["ConfirmedReportSymptom"][];
         };
-        /** Body_extract_api_v1_lab_reports_extract_post */
-        Body_extract_api_v1_lab_reports_extract_post: {
+        /** Body_extract_api_v1_reports_extract_post */
+        Body_extract_api_v1_reports_extract_post: {
             /** File */
             file: string;
+        };
+        /** ConfirmedReportSymptom */
+        ConfirmedReportSymptom: {
+            /** Symptom Id */
+            symptom_id: string;
+            /** Confirmed Current */
+            confirmed_current: boolean;
         };
         /** Contribution */
         Contribution: {
@@ -159,6 +168,20 @@ export interface components {
         ErrorResponse: {
             error: components["schemas"]["ErrorDetail"];
         };
+        /** Evidence */
+        Evidence: {
+            /** Quote */
+            quote: string;
+            /** Page */
+            page: number;
+            /**
+             * Method
+             * @enum {string}
+             */
+            method: "embedded_text" | "ocr";
+            /** Bbox */
+            bbox?: number[] | null;
+        };
         /** Extraction */
         Extraction: {
             /** Findings */
@@ -169,9 +192,18 @@ export interface components {
             pages: number;
             /** Partial */
             partial: boolean;
+            /** Page Details */
+            page_details?: components["schemas"]["ReportPage"][];
+            /** Mentions */
+            mentions?: components["schemas"]["ReportMention"][];
+            /**
+             * Pipeline Version
+             * @default reports-2.0.0
+             */
+            pipeline_version: string;
             /**
              * Notice
-             * @default Review every extracted value against the original report. Lab findings do not change the symptom model.
+             * @default Check the original report. Only symptoms you confirm as current can enter the model; lab values and documented diagnoses stay separate. Extraction can miss information.
              */
             notice: string;
         };
@@ -194,6 +226,9 @@ export interface components {
             method: "embedded_text" | "ocr" | "fictional" | "manual";
             /** Needs Review */
             needs_review: boolean;
+            evidence?: components["schemas"]["Evidence"] | null;
+            /** Review Reason */
+            review_reason?: string | null;
         };
         /** Followup */
         Followup: {
@@ -305,6 +340,67 @@ export interface components {
             symptoms: components["schemas"]["Symptom"][];
             /** Questions */
             questions: components["schemas"]["Question"][];
+        };
+        /** ReportMention */
+        ReportMention: {
+            /** Id */
+            id: string;
+            /** Label */
+            label: string;
+            /**
+             * Category
+             * @enum {string}
+             */
+            category: "symptom" | "diagnosis" | "history" | "finding" | "cause";
+            /** Symptom Id */
+            symptom_id?: string | null;
+            /**
+             * Polarity
+             * @enum {string}
+             */
+            polarity: "affirmed" | "negated" | "uncertain";
+            /**
+             * Timing
+             * @enum {string}
+             */
+            timing: "unspecified" | "historical" | "hypothetical" | "resolved";
+            /**
+             * Subject
+             * @enum {string}
+             */
+            subject: "patient" | "family" | "unknown";
+            /**
+             * Eligible
+             * @default false
+             */
+            eligible: boolean;
+            /** Review Reason */
+            review_reason: string;
+            evidence: components["schemas"]["Evidence"];
+        };
+        /** ReportPage */
+        ReportPage: {
+            /** Page */
+            page: number;
+            /**
+             * Document Type
+             * @enum {string}
+             */
+            document_type: "laboratory" | "clinical_note" | "discharge_summary" | "radiology" | "template" | "unknown";
+            /**
+             * Method
+             * @enum {string}
+             */
+            method: "embedded_text" | "ocr";
+            /**
+             * Quality
+             * @enum {string}
+             */
+            quality: "readable" | "review" | "unreadable";
+            /** Text */
+            text: string;
+            /** Warnings */
+            warnings?: string[];
         };
         /** SampleExplanation */
         SampleExplanation: {
@@ -509,7 +605,7 @@ export interface operations {
             };
         };
     };
-    extract_api_v1_lab_reports_extract_post: {
+    extract_api_v1_reports_extract_post: {
         parameters: {
             query?: never;
             header?: never;
@@ -518,7 +614,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "multipart/form-data": components["schemas"]["Body_extract_api_v1_lab_reports_extract_post"];
+                "multipart/form-data": components["schemas"]["Body_extract_api_v1_reports_extract_post"];
             };
         };
         responses: {

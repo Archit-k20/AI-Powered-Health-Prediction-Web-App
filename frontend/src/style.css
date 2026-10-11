@@ -2151,3 +2151,200 @@ html[data-motion="off"] *::after {
     padding: 14px;
   }
 }
+
+/* Document reading stays task-focused: original beside a structured review. */
+.reports-workspace {
+  display: block;
+}
+.report-intro {
+  margin-bottom: 24px;
+}
+.report-intro > p {
+  max-width: 78ch;
+  font-size: 14px;
+}
+.report-intro .upload-zone {
+  padding: 24px;
+}
+.report-review-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 28px;
+  margin-top: 22px;
+}
+.report-original {
+  align-self: start;
+  position: sticky;
+  top: 90px;
+  min-width: 0;
+  padding: 18px;
+  background: #f5f8f7;
+  border-radius: 10px;
+}
+.report-original iframe {
+  width: 100%;
+  height: 490px;
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 6px;
+}
+.report-original img {
+  width: 100%;
+  height: auto;
+  max-height: 650px;
+  object-fit: contain;
+}
+.report-original a {
+  display: inline-block;
+  margin: 12px 0;
+  font-size: 13px;
+}
+.report-original select {
+  width: 100%;
+  padding: 9px;
+  margin: 8px 0 16px;
+  font: inherit;
+}
+.report-original h4,
+.report-section h4 {
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+.report-structured {
+  min-width: 0;
+}
+.report-section {
+  padding: 0 0 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.report-section > p,
+.report-section .muted {
+  font-size: 13px;
+  line-height: 1.6;
+}
+.report-section .primary {
+  margin-top: 18px;
+}
+.report-kind {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.report-kind span,
+.context-only {
+  font-size: 11px;
+  background: #eef5f2;
+  border-radius: 5px;
+  padding: 6px 9px;
+  display: inline-block;
+}
+.report-warnings {
+  margin: 18px 0;
+}
+.report-warnings summary,
+.reading-transcript summary,
+.finding-evidence summary {
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.reading-transcript pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font:
+    12px/1.7 Inter,
+    sans-serif;
+  max-height: 420px;
+  overflow: auto;
+  padding: 10px;
+  background: white;
+}
+.mention {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin: 14px 0;
+}
+.mention-status {
+  font-size: 11px;
+  color: var(--muted);
+}
+.mention blockquote,
+.finding-evidence blockquote,
+.source-quote blockquote {
+  margin: 12px 0;
+  padding-left: 12px;
+  border-left: 2px solid #a6c5ba;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.source-quote {
+  padding: 12px;
+  background: #e8f3ed;
+  margin: 12px 0;
+  border-radius: 6px;
+}
+.source-quote small {
+  font-size: 11px;
+}
+.report-empty {
+  background: #f2f7f4;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.report-empty p {
+  margin-bottom: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.finding-evidence {
+  margin-top: 12px;
+}
+@media (max-width: 800px) {
+  .report-review-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .report-original {
+    position: static;
+  }
+  .report-original iframe {
+    height: 340px;
+  }
+  .report-intro,
+  .report-results {
+    padding: 20px;
+  }
+  .report-intro {
+    position: static;
+  }
+}
+.pdf-preview {
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+}
+.pdf-preview > p {
+  padding: 15px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.pdf-page {
+  position: relative;
+}
+.pdf-page canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.evidence-highlight {
+  position: absolute;
+  background: #e5b94338;
+  outline: 2px solid #b38b23;
+  pointer-events: none;
+  min-height: 3px;
+}

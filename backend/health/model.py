@@ -67,7 +67,14 @@ class ModelService:
 
     def assess(self, payload):
         selected = []
-        for value in payload.symptoms:
+        if any(not item.confirmed_current for item in payload.report_symptoms):
+            raise InputError(
+                "Confirm that each report symptom is happening to you now before including it."
+            )
+        for value in [
+            *payload.symptoms,
+            *(item.symptom_id for item in payload.report_symptoms),
+        ]:
             key = ALIASES.get(normalize(value))
             if not key:
                 raise InputError(
@@ -76,6 +83,10 @@ class ModelService:
             if key not in selected:
                 selected.append(key)
         context = []
+        if payload.report_symptoms:
+            context.append(
+                "Report-derived symptoms were explicitly confirmed as current by the visitor. Lab values and documented diagnoses were not used."
+            )
         questions = {q["id"]: q for q in REGISTRY["questions"]}
         seen = set()
         for answer in payload.followups:
@@ -91,6 +102,8 @@ class ModelService:
                 and q["suggests"] not in selected
             ):
                 selected.append(q["suggests"])
+        if len(selected) > 50:
+            raise InputError("Use at most 50 distinct symptoms in an assessment.")
         if len(selected) < 2:
             raise InputError(
                 "Select at least two distinct supported symptoms. A single symptom is not enough for this demonstration."

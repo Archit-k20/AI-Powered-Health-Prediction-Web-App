@@ -2,9 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import registry from "../../shared/symptoms.json";
 import samples from "../../shared/samples.json";
+import reportExample from "../../shared/report-example.json";
 import { examples } from "./Home";
 import { Icon } from "./Icon";
-import { emptySession, usePreferences, useSession, type Report } from "./state";
+import {
+  emptySession,
+  usePreferences,
+  useSession,
+  selectedSymptoms,
+  confirmedReportSymptoms,
+  conflictingReportSymptoms,
+  type Report,
+} from "./state";
+import { ReportReview } from "./ReportReview";
 import { API, request } from "./api";
 import type {
   Assessment,
@@ -46,6 +56,8 @@ const fictionalFindings: Finding[] = [
 ];
 export default function Workspace() {
   const { session, setSession } = useSession();
+  const activeSymptoms = selectedSymptoms(session);
+  const reportConflicts = conflictingReportSymptoms(session.reports);
   const { motion, setMotion } = usePreferences();
   const [params, setParams] = useSearchParams();
   const tab = ["symptoms", "reports", "summary"].includes(
@@ -119,15 +131,43 @@ export default function Workspace() {
     setQuery("");
   }
   function invalidate(update: Partial<typeof session>) {
+    controller.current?.abort();
     setSession((s) => ({ ...s, ...update, result: null, sampleId: null }));
     setExplanation(null);
     setError("");
   }
   function toggle(id: string) {
+    const removing = activeSymptoms.includes(id);
     invalidate({
-      symptoms: session.symptoms.includes(id)
+      symptoms: removing
         ? session.symptoms.filter((x) => x !== id)
         : [...session.symptoms, id],
+      reports: removing
+        ? session.reports.map((r) => ({
+            ...r,
+            confirmedMentions: (r.confirmedMentions || []).filter(
+              (mid) => r.mentions?.find((m) => m.id === mid)?.symptom_id !== id,
+            ),
+          }))
+        : session.reports,
+    });
+  }
+  function confirmReportSymptom(
+    reportId: string,
+    mentionId: string,
+    checked: boolean,
+  ) {
+    invalidate({
+      reports: session.reports.map((r) =>
+        r.id !== reportId
+          ? r
+          : {
+              ...r,
+              confirmedMentions: checked
+                ? [...new Set([...(r.confirmedMentions || []), mentionId])]
+                : (r.confirmedMentions || []).filter((id) => id !== mentionId),
+            },
+      ),
     });
   }
   function followup(id: string, answer: string, confirmed = false) {
@@ -152,12 +192,16 @@ export default function Workspace() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             symptoms: session.symptoms,
+            report_symptoms: confirmedReportSymptoms(session.reports).map(
+              (symptom_id) => ({ symptom_id, confirmed_current: true }),
+            ),
             followups: session.followups,
           }),
           signal: controller.current.signal,
         },
         40000,
       );
+      if (controller.current.signal.aborted) return;
       setSession((s) => ({ ...s, result, sampleId: null }));
       setStatus("ready");
     } catch (e) {
@@ -186,6 +230,8 @@ export default function Workspace() {
   function updateReport(id: string, patch: Partial<Report>) {
     setSession((s) => ({
       ...s,
+      result: null,
+      sampleId: null,
       reports: s.reports.map((r) => (r.id === id ? { ...r, ...patch } : r)),
     }));
   }
@@ -207,12 +253,14 @@ export default function Workspace() {
         ...queue.map(({ file, id }) => ({
           id,
           name: file.name,
+          file,
           status: "queued" as const,
           findings: [],
           warnings: [],
         })),
       ],
     }));
+    controller.current?.abort();
     setExtracting(true);
     extractionController.current = new AbortController();
     const signal = extractionController.current.signal;
@@ -240,7 +288,7 @@ export default function Workspace() {
       body.append("file", file);
       try {
         const result = await request<Extraction>(
-          "/lab-reports/extract",
+          "/reports/extract",
           { method: "POST", body, signal },
           115000,
         );
@@ -248,6 +296,10 @@ export default function Workspace() {
           status: "done",
           findings: result.findings,
           warnings: result.warnings,
+          mentions: result.mentions || [],
+          pageDetails: result.page_details || [],
+          confirmedMentions: [],
+          partial: result.partial,
         });
       } catch (e) {
         updateReport(id, {
@@ -258,24 +310,6 @@ export default function Workspace() {
     }
     setExtracting(false);
     if (fileRef.current) fileRef.current.value = "";
-  }
-  function editFinding(
-    report: Report,
-    index: number,
-    key: keyof Finding,
-    value: string,
-  ) {
-    updateReport(report.id, {
-      findings: report.findings.map((f, i) =>
-        i === index
-          ? {
-              ...f,
-              [key]: key === "test_name" ? value : value || null,
-              needs_review: true,
-            }
-          : f,
-      ),
-    });
   }
   async function download() {
     setExporting(true);
@@ -312,7 +346,7 @@ export default function Workspace() {
       ? filtered
       : filtered.filter((s) => common.includes(s.id));
   const selectedCount = new Set([
-    ...session.symptoms,
+    ...activeSymptoms,
     ...session.followups
       .filter((f) => f.answer === "Yes" && f.confirmed)
       .map(
@@ -447,7 +481,7 @@ export default function Workspace() {
                   className="selected-symptoms"
                   aria-label="Selected symptoms"
                 >
-                  {session.symptoms.map((id) => (
+                  {activeSymptoms.map((id) => (
                     <button
                       disabled={busy}
                       key={id}
@@ -466,14 +500,12 @@ export default function Workspace() {
                     visibleSymptoms.map((s) => (
                       <button
                         disabled={busy}
-                        aria-pressed={session.symptoms.includes(s.id)}
+                        aria-pressed={activeSymptoms.includes(s.id)}
                         key={s.id}
                         onClick={() => toggle(s.id)}
                       >
                         <span>{s.label}</span>
-                        <span>
-                          {session.symptoms.includes(s.id) ? "−" : "+"}
-                        </span>
+                        <span>{activeSymptoms.includes(s.id) ? "−" : "+"}</span>
                       </button>
                     ))
                   ) : (
@@ -517,7 +549,7 @@ export default function Workspace() {
                         </select>
                         {q.suggests &&
                           a?.answer === "Yes" &&
-                          !session.symptoms.includes(q.suggests) && (
+                          !activeSymptoms.includes(q.suggests) && (
                             <label className="confirm-check">
                               <input
                                 disabled={busy}
@@ -616,7 +648,12 @@ export default function Workspace() {
           <div className="reports-workspace">
             <div className="report-intro">
               <span className="eyebrow">REPORT READER</span>
-              <h2>Read and review a lab report</h2>
+              <h2>Understand what your report says</h2>
+              <p>
+                Read English lab reports, doctor notes, discharge summaries and
+                written radiology reports. Check the findings, then confirm any
+                current symptoms.
+              </p>
               <p>
                 PDF, JPG or PNG. Up to three files, 10 MB each. PDFs can contain
                 up to ten pages; images up to 20 megapixels.
@@ -624,7 +661,10 @@ export default function Workspace() {
               <p className="muted">
                 Files are sent directly to the Python backend for local text
                 extraction and OCR. They are not sent to Gemini. Lab findings do
-                not influence symptom matches.
+                not influence symptom matches. Only symptoms you explicitly
+                confirm as current are included. Handwriting, non-English
+                reports and medical image interpretation are not supported
+                reliably.
               </p>
               <label className={`upload-zone ${extracting ? "disabled" : ""}`}>
                 <input
@@ -670,151 +710,61 @@ export default function Workspace() {
               >
                 Use a fictional report instead ↗
               </button>
+              <button
+                className="text-button"
+                disabled={extracting || session.reports.length >= 3}
+                onClick={() =>
+                  setSession((s) => ({
+                    ...s,
+                    reports: [
+                      ...s.reports,
+                      {
+                        id: crypto.randomUUID(),
+                        name: "Fictional doctor note",
+                        status: "done",
+                        findings: [],
+                        warnings: reportExample.warnings,
+                        mentions:
+                          reportExample.mentions as Extraction["mentions"],
+                        pageDetails:
+                          reportExample.page_details as Extraction["page_details"],
+                        confirmedMentions: [],
+                      },
+                    ],
+                  }))
+                }
+              >
+                Try a fictional doctor note ↗
+              </button>
             </div>
             <div className="report-results">
               {session.reports.length ? (
                 session.reports.map((r) => (
-                  <article className="report-card" key={r.id}>
-                    <div className="section-heading">
-                      <h3>{r.name}</h3>
-                      <button
-                        aria-label={`Remove ${r.name}`}
-                        disabled={extracting}
-                        onClick={() =>
-                          setSession((s) => ({
-                            ...s,
-                            reports: s.reports.filter((x) => x.id !== r.id),
-                          }))
-                        }
-                      >
-                        ×
-                      </button>
-                    </div>
-                    <p role="status" className="report-status">
-                      {r.status === "extracting"
-                        ? "Reading text and checking scanned pages…"
-                        : r.status === "queued"
-                          ? "Waiting in queue…"
-                          : r.status === "done"
-                            ? `${r.findings.length} findings · review against your original`
-                            : r.status === "cancelled"
-                              ? "Extraction cancelled. Select the file again to retry."
-                              : "Could not extract this report."}
-                    </p>
-                    {r.status === "extracting" && (
-                      <progress aria-label="Extraction in progress" />
-                    )}
-                    {r.error && <p className="message error">{r.error}</p>}
-                    {r.warnings.map((w) => (
-                      <p className="report-warning" key={w}>
-                        {w}
-                      </p>
-                    ))}
-                    {r.findings.map((f, i) => (
-                      <div className="finding" key={i}>
-                        <div className="finding-meta">
-                          <input
-                            className="test-name"
-                            aria-label={`Test name for row ${i + 1} in ${r.name}`}
-                            maxLength={80}
-                            value={f.test_name}
-                            onChange={(e) =>
-                              editFinding(r, i, "test_name", e.target.value)
-                            }
-                          />
-                          <small>
-                            {f.method === "manual"
-                              ? "Source page not recorded"
-                              : `Page ${f.source_page}`}{" "}
-                            · {f.method.replace("_", " ")}
-                            {f.needs_review ? " · Review required" : ""}
-                          </small>
-                        </div>
-                        <div className="finding-fields">
-                          {(["value", "unit", "reference_range"] as const).map(
-                            (key) => (
-                              <label key={key}>
-                                {key === "reference_range"
-                                  ? "Reference range"
-                                  : key === "value"
-                                    ? "Value"
-                                    : "Unit"}
-                                <input
-                                  aria-label={`${f.test_name} ${key.replace("_", " ")} in ${r.name}`}
-                                  maxLength={80}
-                                  value={f[key] || ""}
-                                  placeholder="Not extracted"
-                                  onChange={(e) =>
-                                    editFinding(r, i, key, e.target.value)
-                                  }
-                                />
-                              </label>
-                            ),
-                          )}
-                        </div>
-                        <label className="confirm-check">
-                          <input
-                            type="checkbox"
-                            checked={f.needs_review}
-                            onChange={(e) =>
-                              updateReport(r.id, {
-                                findings: r.findings.map((item, j) =>
-                                  i === j
-                                    ? {
-                                        ...item,
-                                        needs_review: e.target.checked,
-                                      }
-                                    : item,
-                                ),
-                              })
-                            }
-                          />
-                          Needs review against the original
-                        </label>
-                        <button
-                          className="text-button"
-                          onClick={() =>
-                            updateReport(r.id, {
-                              findings: r.findings.filter((_, j) => j !== i),
-                            })
-                          }
-                        >
-                          Remove row ×
-                        </button>
-                      </div>
-                    ))}
-                    {r.status === "done" && (
-                      <button
-                        className="text-button"
-                        onClick={() =>
-                          updateReport(r.id, {
-                            findings: [
-                              ...r.findings,
-                              {
-                                test_name: "New test",
-                                value: null,
-                                unit: null,
-                                reference_range: null,
-                                source_page: 0,
-                                method: "manual",
-                                needs_review: true,
-                              },
-                            ],
-                          })
-                        }
-                      >
-                        Add a missing finding +
-                      </button>
-                    )}
-                  </article>
+                  <ReportReview
+                    key={r.id}
+                    report={r}
+                    disabled={extracting}
+                    conflicts={reportConflicts}
+                    update={(patch) => updateReport(r.id, patch)}
+                    confirm={(id, checked) =>
+                      confirmReportSymptom(r.id, id, checked)
+                    }
+                    remove={() =>
+                      invalidate({
+                        reports: session.reports.filter((x) => x.id !== r.id),
+                      })
+                    }
+                    continueToSymptoms={() => changeTab("symptoms")}
+                  />
                 ))
               ) : (
                 <div className="empty-result">
                   <span className="eyebrow">Nothing uploaded</span>
                   <h3>Start with a report or an example.</h3>
                   <p>
-                    Extracted values appear here with their page and method.
-                    Missing or uncertain fields remain visible for review.
+                    Read the original beside extracted findings. Confirm current
+                    symptoms before continuing; uncertain or missing information
+                    stays visible.
                   </p>
                 </div>
               )}
@@ -846,8 +796,14 @@ export default function Workspace() {
               </button>
               <div className="summary-block">
                 <h3>Model inputs</h3>
+                {!!confirmedReportSymptoms(session.reports).length && (
+                  <p>
+                    {confirmedReportSymptoms(session.reports).length} current
+                    symptom(s) confirmed from reports.
+                  </p>
+                )}
                 <p>
-                  {(session.result?.symptoms || session.symptoms)
+                  {(session.result?.symptoms || activeSymptoms)
                     .map(label)
                     .join(", ") || "No symptoms selected."}
                 </p>

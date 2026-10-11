@@ -1,5 +1,6 @@
 import { jsPDF } from "jspdf";
 import type { Session } from "./state";
+import { selectedSymptoms, confirmedReportSymptoms } from "./state";
 import registry from "../../shared/symptoms.json";
 export function createSummary(session: Session) {
   const doc = new jsPDF();
@@ -60,7 +61,7 @@ export function createSummary(session: Session) {
     "Educational exploration only. This is not a diagnosis, a risk assessment or a substitute for professional medical care. For severe or sudden symptoms, seek urgent medical help.",
   );
   title("Selected model inputs");
-  const ids = session.result?.symptoms || session.symptoms;
+  const ids = session.result?.symptoms || selectedSymptoms(session);
   line(
     ids.length
       ? ids
@@ -123,11 +124,33 @@ export function createSummary(session: Session) {
     title(report.name);
     line(`Status: ${report.status}`);
     if (report.error) line(report.error);
-    for (const f of report.findings)
+    for (const page of report.pageDetails || [])
+      line(
+        `Page ${page.page}: ${page.document_type.replaceAll("_", " ")}; ${page.method}; ${page.quality}.`,
+        10,
+      );
+    for (const mention of report.mentions || []) {
+      const included =
+        mention.eligible &&
+        report.confirmedMentions?.includes(mention.id) &&
+        !!mention.symptom_id &&
+        confirmedReportSymptoms(session.reports).includes(mention.symptom_id);
+      line(
+        `${mention.label} [${mention.category}; ${mention.polarity}; ${mention.timing}; ${mention.subject}]. ${included ? "Confirmed as a current model input." : "Document context only; not a model input."}`,
+        10,
+      );
+      line(
+        `Source page ${mention.evidence.page} (${mention.evidence.method}): ${mention.evidence.quote}`,
+        10,
+      );
+    }
+    for (const f of report.findings) {
       line(
         `${f.test_name}: ${f.value || "not extracted"} ${f.unit || ""}; reference: ${f.reference_range || "not extracted"}; ${f.method === "manual" ? "source page not recorded" : `page ${f.source_page}`}; ${f.method}; review ${f.needs_review ? "required" : "still recommended"}.`,
         10,
       );
+      if (f.evidence) line(`Source: ${f.evidence.quote}`, 9);
+    }
     report.warnings.forEach((w) => line(w, 10));
   }
   title("Privacy and provenance");

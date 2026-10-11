@@ -20,3 +20,16 @@ The local report parser recognizes a bounded vocabulary of common analytes. Comp
 Gemini generation is optional. Missing credentials and provider failure produce a clearly labeled prepared explanation. A successful fallback does not prove a live Gemini response was generated.
 
 Public deployment verification and provider-specific limitations are recorded separately in `docs/RELEASE.md`.
+
+
+## Report review upgrade
+
+- Backend suite: 71 tests passed in the Linux runtime with actual Tesseract OCR, including the existing model/privacy/limits suite. Frontend suite: 21 tests, including explicit report confirmation, revocation, cross-document conflicts and PDF provenance.
+- Added regressions for numbered lab rows, reference-before-result order, positioned tables drawn in column order, reference-header ambiguity, missing values, qualitative results and false units.
+- Clinical cases cover negation, uncertain claims, resolved/history/family/hypothetical mentions, unsupported symptoms, ambiguous fever, conflicting mentions, diagnoses without invented symptoms and explicitly attributed causes.
+- Mixed PDFs with a selectable header and scanned clinical body exercise real OCR fallback. Low-quality OCR cannot offer automatic symptom transfer.
+- All committed test data is fictional. The user-supplied sample is not stored in the repository or deployment image.
+- This is a regression suite, not a measurement of clinical extraction accuracy. There is no representative labeled patient-report benchmark. Handwriting, non-English text, unusual layouts, imperfect context scope and unknown phrasing remain limitations.
+
+- Browser verification: confirmed two fictional report symptoms, completed a live assessment, and inspected all four pages of the exported PDF. Source evidence and context-only mentions were preserved. The report form has no page overflow at 390 pixels.
+- Public verification: the uploaded blank-template sample correctly produced no clinical inputs. The original preview uses PDF.js because this browser does not render native PDF iframes. Preview assets are deferred until a PDF is opened and are hosted with the app.

@@ -43,7 +43,7 @@ async def lifespan(app):
 
 app = FastAPI(
     title="The Shape of Health",
-    version="1.0.0",
+    version="1.1.0",
     lifespan=lifespan,
     responses={422: {"model": ErrorResponse}, 503: {"model": ErrorResponse}},
 )
@@ -127,6 +127,7 @@ async def health(request: Request):
             "assessments": bool(model),
             "pdf_text": True,
             "ocr": bool(shutil.which("tesseract")),
+            "report_review": True,
             "fictional_explanations": True,
             "gemini_configured": bool(os.getenv("GEMINI_API_KEY")),
         },
@@ -167,7 +168,10 @@ async def assess(payload: AssessmentInput, request: Request):
         )
 
 
-@app.post("/api/v1/lab-reports/extract", response_model=Extraction)
+@app.post(
+    "/api/v1/lab-reports/extract", response_model=Extraction, include_in_schema=False
+)
+@app.post("/api/v1/reports/extract", response_model=Extraction)
 async def extract(request: Request, file: UploadFile = File(...)):
     data = await file.read(MAX_BYTES + 1)
     await file.close()

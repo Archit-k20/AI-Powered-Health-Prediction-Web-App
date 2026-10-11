@@ -29,7 +29,7 @@ describe("simple healthcare entry points", () => {
       "true",
     );
     expect(
-      screen.getByRole("heading", { name: "Read and review a lab report" }),
+      screen.getByRole("heading", { name: "Understand what your report says" }),
     ).toBeVisible();
   });
   it("opens an offline example with technical explanations collapsed", async () => {

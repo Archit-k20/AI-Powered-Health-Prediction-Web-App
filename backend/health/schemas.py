@@ -39,9 +39,17 @@ class Followup(StrictModel):
     confirmed: bool = False
 
 
+class ConfirmedReportSymptom(StrictModel):
+    symptom_id: str = Field(max_length=80)
+    confirmed_current: bool
+
+
 class AssessmentInput(StrictModel):
-    symptoms: list[str] = Field(min_length=1, max_length=50)
+    symptoms: list[str] = Field(default_factory=list, max_length=50)
     followups: list[Followup] = Field(default_factory=list, max_length=10)
+    report_symptoms: list[ConfirmedReportSymptom] = Field(
+        default_factory=list, max_length=50
+    )
 
 
 class Contribution(StrictModel):
@@ -72,6 +80,43 @@ class Assessment(StrictModel):
     notice: str
 
 
+class Evidence(StrictModel):
+    quote: str
+    page: int
+    method: Literal["embedded_text", "ocr"]
+    # Normalized top-left coordinates: x, y, width, height.
+    bbox: list[float] | None = None
+
+
+class ReportMention(StrictModel):
+    id: str
+    label: str
+    category: Literal["symptom", "diagnosis", "history", "finding", "cause"]
+    symptom_id: str | None = None
+    polarity: Literal["affirmed", "negated", "uncertain"]
+    timing: Literal["unspecified", "historical", "hypothetical", "resolved"]
+    subject: Literal["patient", "family", "unknown"]
+    eligible: bool = False
+    review_reason: str
+    evidence: Evidence
+
+
+class ReportPage(StrictModel):
+    page: int
+    document_type: Literal[
+        "laboratory",
+        "clinical_note",
+        "discharge_summary",
+        "radiology",
+        "template",
+        "unknown",
+    ]
+    method: Literal["embedded_text", "ocr"]
+    quality: Literal["readable", "review", "unreadable"]
+    text: str
+    warnings: list[str] = Field(default_factory=list)
+
+
 class Finding(StrictModel):
     test_name: str
     value: str | None
@@ -80,6 +125,8 @@ class Finding(StrictModel):
     source_page: int
     method: Literal["embedded_text", "ocr", "fictional", "manual"]
     needs_review: bool
+    evidence: Evidence | None = None
+    review_reason: str | None = None
 
 
 class Extraction(StrictModel):
@@ -87,7 +134,10 @@ class Extraction(StrictModel):
     warnings: list[str]
     pages: int
     partial: bool
-    notice: str = "Review every extracted value against the original report. Lab findings do not change the symptom model."
+    page_details: list[ReportPage] = Field(default_factory=list)
+    mentions: list[ReportMention] = Field(default_factory=list)
+    pipeline_version: str = "reports-2.0.0"
+    notice: str = "Check the original report. Only symptoms you confirm as current can enter the model; lab values and documented diagnoses stay separate. Extraction can miss information."
 
 
 class Health(StrictModel):

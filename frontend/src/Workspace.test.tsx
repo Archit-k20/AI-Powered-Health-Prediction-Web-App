@@ -140,7 +140,7 @@ describe("health workspace", () => {
     let inFlight = 0,
       maxFlight = 0;
     vi.mocked(request).mockImplementation(async (path, options) => {
-      if (path != "/lab-reports/extract") throw new Error("Unexpected route");
+      if (path != "/reports/extract") throw new Error("Unexpected route");
       inFlight++;
       maxFlight = Math.max(maxFlight, inFlight);
       const file = (options!.body as FormData).get("file") as File;
@@ -166,7 +166,9 @@ describe("health workspace", () => {
     ]);
     await waitFor(() =>
       expect(
-        screen.getAllByText("0 findings · review against your original"),
+        screen.getAllByText(
+          "0 lab findings · 0 text mentions · review against your original",
+        ),
       ).toHaveLength(2),
     );
     expect(screen.getByText("Unreadable report")).toBeInTheDocument();
@@ -221,4 +223,126 @@ describe("health workspace", () => {
     expect(spy).not.toHaveBeenCalled();
     spy.mockRestore();
   });
+});
+
+it("requires individual report confirmation and sends only confirmed symptoms", async () => {
+  vi.mocked(request).mockResolvedValue(samples[0].assessment);
+  const user = setup("/workspace?tab=reports");
+  await user.click(
+    screen.getByRole("button", { name: "Try a fictional doctor note ↗" }),
+  );
+  expect(
+    screen.getByRole("checkbox", { name: "I currently have cough" }),
+  ).not.toBeChecked();
+  expect(
+    screen.queryByRole("checkbox", { name: /I currently have shortness/ }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole("checkbox", { name: /I currently have nausea/ }),
+  ).not.toBeInTheDocument();
+  await user.click(
+    screen.getByRole("button", { name: /Review symptoms & continue/ }),
+  );
+  expect(
+    screen.getByRole("button", { name: "See possible matches ↗" }),
+  ).toBeDisabled();
+  await user.click(screen.getByRole("tab", { name: "02Reports" }));
+  await user.click(
+    screen.getByRole("checkbox", { name: "I currently have cough" }),
+  );
+  await user.click(
+    screen.getByRole("checkbox", { name: "I currently have fatigue" }),
+  );
+  await user.click(
+    screen.getByRole("button", { name: /Review symptoms & continue/ }),
+  );
+  expect(screen.getByText("2 selected")).toBeInTheDocument();
+  await user.click(
+    screen.getByRole("button", { name: "See possible matches ↗" }),
+  );
+  const call = vi
+    .mocked(request)
+    .mock.calls.find((c) => c[0] === "/assessments")!;
+  const body = JSON.parse(call[1]!.body as string);
+  expect(body.symptoms).toEqual([]);
+  expect(body.report_symptoms).toEqual(
+    expect.arrayContaining([
+      { symptom_id: "cough", confirmed_current: true },
+      { symptom_id: "fatigue", confirmed_current: true },
+    ]),
+  );
+  expect(body.report_symptoms).toHaveLength(2);
+  expect(call[1]!.body).not.toContain("Migraine");
+});
+
+it("removing a report revokes its confirmed inputs and invalidates results", async () => {
+  const user = setup("/workspace?tab=reports");
+  await user.click(
+    screen.getByRole("button", { name: "Try a fictional doctor note ↗" }),
+  );
+  await user.click(
+    screen.getByRole("checkbox", { name: "I currently have cough" }),
+  );
+  await user.click(
+    screen.getByRole("button", { name: "Remove Fictional doctor note" }),
+  );
+  await user.click(screen.getByRole("tab", { name: "01Symptoms" }));
+  expect(screen.getByText("0 selected")).toBeInTheDocument();
+  expect(
+    screen.getByRole("button", { name: "See possible matches ↗" }),
+  ).toBeDisabled();
+});
+
+it("removing a confirmed symptom through the symptom list revokes the checkbox", async () => {
+  const user = setup("/workspace?tab=reports");
+  await user.click(
+    screen.getByRole("button", { name: "Try a fictional doctor note ↗" }),
+  );
+  await user.click(
+    screen.getByRole("checkbox", { name: "I currently have cough" }),
+  );
+  await user.click(
+    screen.getByRole("button", { name: /Review symptoms & continue/ }),
+  );
+  await user.click(screen.getByRole("button", { name: "Remove Cough" }));
+  await user.click(screen.getByRole("tab", { name: "02Reports" }));
+  expect(
+    screen.getByRole("checkbox", { name: "I currently have cough" }),
+  ).not.toBeChecked();
+});
+
+it("keeps unfilled templates and unreadable pages actionable without prediction", async () => {
+  vi.mocked(request).mockResolvedValue({
+    findings: [],
+    mentions: [],
+    warnings: ["This appears to be an unfilled report template."],
+    page_details: [
+      {
+        page: 1,
+        document_type: "template",
+        method: "ocr",
+        quality: "review",
+        text: "Medical report template",
+        warnings: [],
+      },
+    ],
+    pages: 1,
+    partial: true,
+  });
+  const user = setup("/workspace?tab=reports");
+  await user.upload(
+    document.querySelector("input[type=file]") as HTMLInputElement,
+    new File(["%PDF"], "empty.pdf", { type: "application/pdf" }),
+  );
+  expect(
+    await screen.findByText("Unfilled report template"),
+  ).toBeInTheDocument();
+  expect(screen.getByText("No symptom inputs identified")).toBeInTheDocument();
+  expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
+  await user.click(
+    screen.getByRole("button", { name: /Review symptoms & continue/ }),
+  );
+  expect(
+    screen.getByRole("button", { name: "See possible matches ↗" }),
+  ).toBeDisabled();
 });

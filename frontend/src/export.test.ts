@@ -44,3 +44,27 @@ it("preserves the meaning of scientific units in the PDF font", () => {
   });
   expect(doc.output()).toContain("x10^3/uL");
 });
+
+it("exports source evidence and separates confirmed symptoms from document claims", async () => {
+  const { default: example } = await import("../../shared/report-example.json");
+  const doc = createSummary({
+    ...emptySession,
+    reports: [
+      {
+        id: "note",
+        name: "Fictional note",
+        status: "done",
+        warnings: [],
+        findings: [],
+        mentions: example.mentions as import("./types").ReportMention[],
+        confirmedMentions: example.mentions
+          .filter((m) => m.eligible)
+          .map((m) => m.id),
+      },
+    ],
+  });
+  expect(doc.output()).toContain("Confirmed as a current model input.");
+  expect(doc.output()).toContain("Document context only; not a model input.");
+  expect(doc.output()).toContain("Patient denies shortness of breath.");
+  expect(doc.getNumberOfPages()).toBeGreaterThan(1);
+});

@@ -83,7 +83,7 @@ export default function Home() {
                 <Icon name="report" />
               </span>
               <span>
-                <strong>I have a lab report</strong>
+                <strong>I have a medical report</strong>
                 <small>
                   Turn a PDF or image into findings you can review and edit.
                 </small>

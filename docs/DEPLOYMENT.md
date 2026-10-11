@@ -15,10 +15,10 @@ Build an AMD64 image from the repository root. Cloud Run cannot use the ARM-only
 ```sh
 gcloud auth configure-docker us-central1-docker.pkg.dev
 docker buildx build --platform linux/amd64 -f backend/Dockerfile.backend \
-  -t us-central1-docker.pkg.dev/shape-health-archit-2026/health-demo/api:v2 --push .
+  -t us-central1-docker.pkg.dev/shape-health-archit-2026/health-demo/api:v3 --push .
 gcloud run deploy health-api --project shape-health-archit-2026 \
   --region us-central1 \
-  --image us-central1-docker.pkg.dev/shape-health-archit-2026/health-demo/api:v2 \
+  --image us-central1-docker.pkg.dev/shape-health-archit-2026/health-demo/api:v3 \
   --service-account health-runtime@shape-health-archit-2026.iam.gserviceaccount.com \
   --cpu 1 --memory 1Gi --min 0 --max 1 --min-instances 0 --max-instances 1 \
   --concurrency 4 --timeout 120 --cpu-throttling --no-cpu-boost \
@@ -29,7 +29,7 @@ gcloud run deploy health-api --project shape-health-archit-2026 \
 
 Set exact origins; wildcard CORS is rejected by configuration. Native Cloud Run request metadata may be retained by Google; do not enable request body logging or an APM integration that captures bodies. Application access logs are disabled. There are no startup network downloads.
 
-The app allows one active extraction and up to two waiting extractions, with a 105-second total queue/processing bound and a 90-second processing deadline. Each OCR invocation is limited to 18 seconds. Disconnection kills the worker process group. Requests are limited per peer and globally in memory. These limits complement, but do not replace, Cloud Run’s max instance and request limits.
+The app allows one active extraction and up to two waiting extractions, with a 105-second total queue/processing bound and a 90-second processing deadline. Each OCR text pass is limited to 18 seconds. Orientation detection is capped at five seconds; uncertain pages may receive one alternate-layout OCR pass, within the same 90-second document deadline. Disconnection kills the worker process group. Requests are limited per peer and globally in memory. These limits complement, but do not replace, Cloud Run’s max instance and request limits.
 
 Core features require **no Gemini key**. For optional fictional explanations, store a key in Secret Manager and grant the runtime account access to that single secret, then configure `GEMINI_API_KEY` as a secret environment reference. Do not put the key in frontend variables, repository files, build arguments or deployment command text. Set `GEMINI_MODEL` separately if needed.
 

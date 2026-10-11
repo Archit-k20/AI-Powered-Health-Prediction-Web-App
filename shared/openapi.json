@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "The Shape of Health",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "paths": {
     "/api/v1/health": {
@@ -167,15 +167,15 @@
         }
       }
     },
-    "/api/v1/lab-reports/extract": {
+    "/api/v1/reports/extract": {
       "post": {
         "summary": "Extract",
-        "operationId": "extract_api_v1_lab_reports_extract_post",
+        "operationId": "extract_api_v1_reports_extract_post",
         "requestBody": {
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/Body_extract_api_v1_lab_reports_extract_post"
+                "$ref": "#/components/schemas/Body_extract_api_v1_reports_extract_post"
               }
             }
           },
@@ -326,7 +326,6 @@
             },
             "type": "array",
             "maxItems": 50,
-            "minItems": 1,
             "title": "Symptoms"
           },
           "followups": {
@@ -336,16 +335,21 @@
             "type": "array",
             "maxItems": 10,
             "title": "Followups"
+          },
+          "report_symptoms": {
+            "items": {
+              "$ref": "#/components/schemas/ConfirmedReportSymptom"
+            },
+            "type": "array",
+            "maxItems": 50,
+            "title": "Report Symptoms"
           }
         },
         "additionalProperties": false,
         "type": "object",
-        "required": [
-          "symptoms"
-        ],
         "title": "AssessmentInput"
       },
-      "Body_extract_api_v1_lab_reports_extract_post": {
+      "Body_extract_api_v1_reports_extract_post": {
         "properties": {
           "file": {
             "type": "string",
@@ -357,7 +361,27 @@
         "required": [
           "file"
         ],
-        "title": "Body_extract_api_v1_lab_reports_extract_post"
+        "title": "Body_extract_api_v1_reports_extract_post"
+      },
+      "ConfirmedReportSymptom": {
+        "properties": {
+          "symptom_id": {
+            "type": "string",
+            "maxLength": 80,
+            "title": "Symptom Id"
+          },
+          "confirmed_current": {
+            "type": "boolean",
+            "title": "Confirmed Current"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "symptom_id",
+          "confirmed_current"
+        ],
+        "title": "ConfirmedReportSymptom"
       },
       "Contribution": {
         "properties": {
@@ -420,6 +444,48 @@
         ],
         "title": "ErrorResponse"
       },
+      "Evidence": {
+        "properties": {
+          "quote": {
+            "type": "string",
+            "title": "Quote"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "embedded_text",
+              "ocr"
+            ],
+            "title": "Method"
+          },
+          "bbox": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bbox"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "quote",
+          "page",
+          "method"
+        ],
+        "title": "Evidence"
+      },
       "Extraction": {
         "properties": {
           "findings": {
@@ -444,10 +510,29 @@
             "type": "boolean",
             "title": "Partial"
           },
+          "page_details": {
+            "items": {
+              "$ref": "#/components/schemas/ReportPage"
+            },
+            "type": "array",
+            "title": "Page Details"
+          },
+          "mentions": {
+            "items": {
+              "$ref": "#/components/schemas/ReportMention"
+            },
+            "type": "array",
+            "title": "Mentions"
+          },
+          "pipeline_version": {
+            "type": "string",
+            "title": "Pipeline Version",
+            "default": "reports-2.0.0"
+          },
           "notice": {
             "type": "string",
             "title": "Notice",
-            "default": "Review every extracted value against the original report. Lab findings do not change the symptom model."
+            "default": "Check the original report. Only symptoms you confirm as current can enter the model; lab values and documented diagnoses stay separate. Extraction can miss information."
           }
         },
         "additionalProperties": false,
@@ -516,6 +601,27 @@
           "needs_review": {
             "type": "boolean",
             "title": "Needs Review"
+          },
+          "evidence": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Evidence"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "review_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Review Reason"
           }
         },
         "additionalProperties": false,
@@ -832,6 +938,151 @@
           "questions"
         ],
         "title": "Registry"
+      },
+      "ReportMention": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "symptom",
+              "diagnosis",
+              "history",
+              "finding",
+              "cause"
+            ],
+            "title": "Category"
+          },
+          "symptom_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Symptom Id"
+          },
+          "polarity": {
+            "type": "string",
+            "enum": [
+              "affirmed",
+              "negated",
+              "uncertain"
+            ],
+            "title": "Polarity"
+          },
+          "timing": {
+            "type": "string",
+            "enum": [
+              "unspecified",
+              "historical",
+              "hypothetical",
+              "resolved"
+            ],
+            "title": "Timing"
+          },
+          "subject": {
+            "type": "string",
+            "enum": [
+              "patient",
+              "family",
+              "unknown"
+            ],
+            "title": "Subject"
+          },
+          "eligible": {
+            "type": "boolean",
+            "title": "Eligible",
+            "default": false
+          },
+          "review_reason": {
+            "type": "string",
+            "title": "Review Reason"
+          },
+          "evidence": {
+            "$ref": "#/components/schemas/Evidence"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "category",
+          "polarity",
+          "timing",
+          "subject",
+          "review_reason",
+          "evidence"
+        ],
+        "title": "ReportMention"
+      },
+      "ReportPage": {
+        "properties": {
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "document_type": {
+            "type": "string",
+            "enum": [
+              "laboratory",
+              "clinical_note",
+              "discharge_summary",
+              "radiology",
+              "template",
+              "unknown"
+            ],
+            "title": "Document Type"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "embedded_text",
+              "ocr"
+            ],
+            "title": "Method"
+          },
+          "quality": {
+            "type": "string",
+            "enum": [
+              "readable",
+              "review",
+              "unreadable"
+            ],
+            "title": "Quality"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "page",
+          "document_type",
+          "method",
+          "quality",
+          "text"
+        ],
+        "title": "ReportPage"
       },
       "SampleExplanation": {
         "properties": {
