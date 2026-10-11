@@ -1,0 +1,576 @@
+[
+  {
+    "condition": "Fungal infection",
+    "label": "Fungal infection",
+    "description": "Fungi can cause infections in the skin and other parts of the body.",
+    "sources": [
+      {
+        "id": "medlineplus-fungalinfections",
+        "title": "MedlinePlus: Fungal infection",
+        "url": "https://medlineplus.gov/fungalinfections.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Allergy",
+    "label": "Allergy",
+    "description": "An allergy is an immune response to a substance that is usually harmless.",
+    "sources": [
+      {
+        "id": "medlineplus-allergy",
+        "title": "MedlinePlus: Allergy",
+        "url": "https://medlineplus.gov/allergy.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "GERD",
+    "label": "Gastroesophageal reflux disease",
+    "description": "GERD involves stomach contents flowing back into the esophagus.",
+    "sources": [
+      {
+        "id": "medlineplus-gerd",
+        "title": "MedlinePlus: Gastroesophageal reflux disease",
+        "url": "https://medlineplus.gov/gerd.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Chronic cholestasis",
+    "label": "Cholestasis",
+    "description": "Cholestasis describes reduced or blocked bile flow. This broad dataset label does not identify its cause.",
+    "sources": [
+      {
+        "id": "medlineplus-liverdiseases",
+        "title": "MedlinePlus: Cholestasis",
+        "url": "https://medlineplus.gov/ency/article/000215.htm",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Drug Reaction",
+    "label": "Drug reaction",
+    "description": "Medicines can cause unwanted reactions. A symptom match cannot establish which medicine caused a reaction.",
+    "sources": [
+      {
+        "id": "medlineplus-drugreactions",
+        "title": "MedlinePlus: Drug reaction",
+        "url": "https://medlineplus.gov/drugreactions.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Peptic ulcer diseae",
+    "label": "Peptic ulcer disease",
+    "description": "Peptic ulcers are sores in the lining of the stomach or upper small intestine.",
+    "sources": [
+      {
+        "id": "medlineplus-pepticulcer",
+        "title": "MedlinePlus: Peptic ulcer disease",
+        "url": "https://medlineplus.gov/pepticulcer.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "AIDS",
+    "label": "HIV / AIDS",
+    "description": "HIV affects the immune system. AIDS is its most advanced stage; symptoms alone cannot establish HIV status.",
+    "sources": [
+      {
+        "id": "medlineplus-hiv",
+        "title": "MedlinePlus: HIV / AIDS",
+        "url": "https://medlineplus.gov/hiv.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Diabetes",
+    "label": "Diabetes",
+    "description": "Diabetes is associated with persistently high blood glucose. Diagnosis requires appropriate clinical testing.",
+    "sources": [
+      {
+        "id": "medlineplus-diabetes",
+        "title": "MedlinePlus: Diabetes",
+        "url": "https://medlineplus.gov/diabetes.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Gastroenteritis",
+    "label": "Gastroenteritis",
+    "description": "Gastroenteritis is inflammation of the stomach and intestines, often associated with diarrhea and vomiting.",
+    "sources": [
+      {
+        "id": "medlineplus-gastroenteritis",
+        "title": "MedlinePlus: Gastroenteritis",
+        "url": "https://medlineplus.gov/gastroenteritis.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Bronchial Asthma",
+    "label": "Asthma",
+    "description": "Asthma affects the airways and can cause episodes of breathing difficulty.",
+    "sources": [
+      {
+        "id": "medlineplus-asthma",
+        "title": "MedlinePlus: Asthma",
+        "url": "https://medlineplus.gov/asthma.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Hypertension",
+    "label": "High blood pressure",
+    "description": "High blood pressure often has no symptoms and is identified by measuring blood pressure.",
+    "sources": [
+      {
+        "id": "medlineplus-highbloodpressure",
+        "title": "MedlinePlus: High blood pressure",
+        "url": "https://medlineplus.gov/highbloodpressure.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Migraine",
+    "label": "Migraine",
+    "description": "Migraine can involve recurrent headache and sensitivity to light or sound, sometimes with nausea.",
+    "sources": [
+      {
+        "id": "medlineplus-migraine",
+        "title": "MedlinePlus: Migraine",
+        "url": "https://medlineplus.gov/migraine.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Cervical spondylosis",
+    "label": "Cervical spondylosis",
+    "description": "Cervical spondylosis involves age-related changes in the neck portion of the spine.",
+    "sources": [
+      {
+        "id": "medlineplus-neckinjuriesanddisorders",
+        "title": "MedlinePlus: Cervical spondylosis",
+        "url": "https://medlineplus.gov/ency/article/000436.htm",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Paralysis (brain hemorrhage)",
+    "label": "Hemorrhagic stroke",
+    "description": "Bleeding in the brain can cause a stroke. Sudden weakness or difficulty speaking needs emergency assessment.",
+    "sources": [
+      {
+        "id": "medlineplus-stroke",
+        "title": "MedlinePlus: Hemorrhagic stroke",
+        "url": "https://medlineplus.gov/stroke.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Jaundice",
+    "label": "Jaundice",
+    "description": "Jaundice is yellowing of the skin or eyes due to bilirubin buildup. It is a sign with several possible causes.",
+    "sources": [
+      {
+        "id": "medlineplus-jaundice",
+        "title": "MedlinePlus: Jaundice",
+        "url": "https://medlineplus.gov/jaundice.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Malaria",
+    "label": "Malaria",
+    "description": "Malaria is a parasitic infection usually spread through bites from infected mosquitoes.",
+    "sources": [
+      {
+        "id": "medlineplus-malaria",
+        "title": "MedlinePlus: Malaria",
+        "url": "https://medlineplus.gov/malaria.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Chicken pox",
+    "label": "Chickenpox",
+    "description": "Chickenpox is a contagious viral infection that can cause an itchy blistering rash.",
+    "sources": [
+      {
+        "id": "medlineplus-chickenpox",
+        "title": "MedlinePlus: Chickenpox",
+        "url": "https://medlineplus.gov/chickenpox.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Dengue",
+    "label": "Dengue",
+    "description": "Dengue is a viral infection spread by infected mosquitoes.",
+    "sources": [
+      {
+        "id": "medlineplus-dengue",
+        "title": "MedlinePlus: Dengue",
+        "url": "https://medlineplus.gov/dengue.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Typhoid",
+    "label": "Typhoid fever",
+    "description": "Typhoid fever is a bacterial infection that can spread through contaminated food or water.",
+    "sources": [
+      {
+        "id": "medlineplus-typhoidfever",
+        "title": "MedlinePlus: Typhoid fever",
+        "url": "https://medlineplus.gov/ency/article/001332.htm",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "hepatitis A",
+    "label": "Hepatitis A",
+    "description": "Hepatitis A is a viral liver infection that can spread through contaminated food or water.",
+    "sources": [
+      {
+        "id": "medlineplus-hepatitisa",
+        "title": "MedlinePlus: Hepatitis A",
+        "url": "https://medlineplus.gov/hepatitisa.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Hepatitis B",
+    "label": "Hepatitis B",
+    "description": "Hepatitis B is a viral liver infection that may be short-term or chronic.",
+    "sources": [
+      {
+        "id": "medlineplus-hepatitisb",
+        "title": "MedlinePlus: Hepatitis B",
+        "url": "https://medlineplus.gov/hepatitisb.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Hepatitis C",
+    "label": "Hepatitis C",
+    "description": "Hepatitis C is a bloodborne viral liver infection that can become chronic.",
+    "sources": [
+      {
+        "id": "medlineplus-hepatitisc",
+        "title": "MedlinePlus: Hepatitis C",
+        "url": "https://medlineplus.gov/hepatitisc.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Hepatitis D",
+    "label": "Hepatitis D",
+    "description": "Hepatitis D is a viral liver infection that occurs in people with hepatitis B.",
+    "sources": [
+      {
+        "id": "medlineplus-hepatitis",
+        "title": "MedlinePlus: Hepatitis D",
+        "url": "https://medlineplus.gov/hepatitis.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Hepatitis E",
+    "label": "Hepatitis E",
+    "description": "Hepatitis E is a viral liver infection often spread through contaminated water.",
+    "sources": [
+      {
+        "id": "medlineplus-hepatitis",
+        "title": "MedlinePlus: Hepatitis E",
+        "url": "https://medlineplus.gov/hepatitis.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Alcoholic hepatitis",
+    "label": "Alcohol-associated hepatitis",
+    "description": "Alcohol-associated hepatitis is liver inflammation associated with alcohol use.",
+    "sources": [
+      {
+        "id": "medlineplus-alcoholicfattyliverdisease",
+        "title": "MedlinePlus: Alcohol-associated hepatitis",
+        "url": "https://medlineplus.gov/ency/article/000281.htm",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Tuberculosis",
+    "label": "Tuberculosis",
+    "description": "Tuberculosis is a bacterial infection that commonly affects the lungs and can spread through the air.",
+    "sources": [
+      {
+        "id": "medlineplus-tuberculosis",
+        "title": "MedlinePlus: Tuberculosis",
+        "url": "https://medlineplus.gov/tuberculosis.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Common Cold",
+    "label": "Common cold",
+    "description": "The common cold is a viral infection of the upper respiratory tract.",
+    "sources": [
+      {
+        "id": "medlineplus-commoncold",
+        "title": "MedlinePlus: Common cold",
+        "url": "https://medlineplus.gov/commoncold.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Pneumonia",
+    "label": "Pneumonia",
+    "description": "Pneumonia is an infection in the lungs that can have several causes.",
+    "sources": [
+      {
+        "id": "medlineplus-pneumonia",
+        "title": "MedlinePlus: Pneumonia",
+        "url": "https://medlineplus.gov/pneumonia.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Dimorphic hemmorhoids(piles)",
+    "label": "Hemorrhoids",
+    "description": "Hemorrhoids are swollen veins around the anus or lower rectum. The original dataset uses a nonstandard label.",
+    "sources": [
+      {
+        "id": "medlineplus-hemorrhoids",
+        "title": "MedlinePlus: Hemorrhoids",
+        "url": "https://medlineplus.gov/hemorrhoids.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Heart attack",
+    "label": "Heart attack",
+    "description": "A heart attack occurs when blood flow to part of the heart is blocked. Suspected symptoms require emergency help.",
+    "sources": [
+      {
+        "id": "medlineplus-heartattack",
+        "title": "MedlinePlus: Heart attack",
+        "url": "https://medlineplus.gov/heartattack.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Varicose veins",
+    "label": "Varicose veins",
+    "description": "Varicose veins are enlarged, twisted veins, most commonly in the legs.",
+    "sources": [
+      {
+        "id": "medlineplus-varicoseveins",
+        "title": "MedlinePlus: Varicose veins",
+        "url": "https://medlineplus.gov/varicoseveins.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Hypothyroidism",
+    "label": "Underactive thyroid",
+    "description": "Hypothyroidism means the thyroid does not produce enough thyroid hormone.",
+    "sources": [
+      {
+        "id": "medlineplus-hypothyroidism",
+        "title": "MedlinePlus: Underactive thyroid",
+        "url": "https://medlineplus.gov/hypothyroidism.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Hyperthyroidism",
+    "label": "Overactive thyroid",
+    "description": "Hyperthyroidism means the thyroid produces more thyroid hormone than the body needs.",
+    "sources": [
+      {
+        "id": "medlineplus-hyperthyroidism",
+        "title": "MedlinePlus: Overactive thyroid",
+        "url": "https://medlineplus.gov/hyperthyroidism.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Hypoglycemia",
+    "label": "Low blood glucose",
+    "description": "Hypoglycemia means blood glucose is too low; a symptom model cannot measure glucose.",
+    "sources": [
+      {
+        "id": "medlineplus-hypoglycemia",
+        "title": "MedlinePlus: Low blood glucose",
+        "url": "https://medlineplus.gov/hypoglycemia.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Osteoarthristis",
+    "label": "Osteoarthritis",
+    "description": "Osteoarthritis involves changes in joint tissues, including cartilage, and may cause pain and stiffness.",
+    "sources": [
+      {
+        "id": "medlineplus-osteoarthritis",
+        "title": "MedlinePlus: Osteoarthritis",
+        "url": "https://medlineplus.gov/osteoarthritis.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Arthritis",
+    "label": "Arthritis",
+    "description": "Arthritis is a broad term for conditions affecting joints. Different forms have different causes.",
+    "sources": [
+      {
+        "id": "medlineplus-arthritis",
+        "title": "MedlinePlus: Arthritis",
+        "url": "https://medlineplus.gov/arthritis.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "(vertigo) Paroymsal Positional Vertigo",
+    "label": "Positional vertigo",
+    "description": "Positional vertigo can produce brief episodes of a spinning sensation when head position changes.",
+    "sources": [
+      {
+        "id": "medlineplus-dizzinessandvertigo",
+        "title": "MedlinePlus: Positional vertigo",
+        "url": "https://medlineplus.gov/ency/article/001420.htm",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Acne",
+    "label": "Acne",
+    "description": "Acne occurs when hair follicles become blocked and can cause several types of skin lesions.",
+    "sources": [
+      {
+        "id": "medlineplus-acne",
+        "title": "MedlinePlus: Acne",
+        "url": "https://medlineplus.gov/acne.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Urinary tract infection",
+    "label": "Urinary tract infection",
+    "description": "A urinary tract infection affects part of the urinary system, often the bladder.",
+    "sources": [
+      {
+        "id": "medlineplus-urinarytractinfections",
+        "title": "MedlinePlus: Urinary tract infection",
+        "url": "https://medlineplus.gov/urinarytractinfections.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Psoriasis",
+    "label": "Psoriasis",
+    "description": "Psoriasis is a chronic inflammatory skin condition that can cause patches of thick, scaly skin.",
+    "sources": [
+      {
+        "id": "medlineplus-psoriasis",
+        "title": "MedlinePlus: Psoriasis",
+        "url": "https://medlineplus.gov/psoriasis.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  },
+  {
+    "condition": "Impetigo",
+    "label": "Impetigo",
+    "description": "Impetigo is a contagious bacterial skin infection that commonly causes sores and crusting.",
+    "sources": [
+      {
+        "id": "medlineplus-impetigo",
+        "title": "MedlinePlus: Impetigo",
+        "url": "https://medlineplus.gov/impetigo.html",
+        "publisher": "U.S. National Library of Medicine",
+        "accessed": "2026-10-11"
+      }
+    ]
+  }
+]

@@ -1,0 +1,1084 @@
+{
+  "version": "health-rf-1.0.0",
+  "registry_version": "symptoms-1.0.0",
+  "registry_sha256": "cff4ea25de99b8729386191592788a4505deef79721b7f62feb69f282f5e9ffa",
+  "dataset_sha256": "ebbd391c4ba4d64f57a00eb3d0a55f0ca9b920b0c5de6b9af4234e72519c9618",
+  "artifact_sha256": "e7a87c9452e8d8fa51570504e99abd0d14de6323d5356594b2f8f9839f804394",
+  "features": [
+    "abdominal_pain",
+    "abnormal_menstruation",
+    "acidity",
+    "acute_liver_failure",
+    "altered_sensorium",
+    "anxiety",
+    "back_pain",
+    "belly_pain",
+    "blackheads",
+    "bladder_discomfort",
+    "blister",
+    "blood_in_sputum",
+    "bloody_stool",
+    "blurred_and_distorted_vision",
+    "breathlessness",
+    "brittle_nails",
+    "bruising",
+    "burning_micturition",
+    "chest_pain",
+    "chills",
+    "cold_hands_and_feets",
+    "coma",
+    "congestion",
+    "constipation",
+    "continuous_feel_of_urine",
+    "continuous_sneezing",
+    "cough",
+    "cramps",
+    "dark_urine",
+    "dehydration",
+    "depression",
+    "diarrhoea",
+    "dischromic_patches",
+    "distention_of_abdomen",
+    "dizziness",
+    "drying_and_tingling_lips",
+    "enlarged_thyroid",
+    "excessive_hunger",
+    "extra_marital_contacts",
+    "family_history",
+    "fast_heart_rate",
+    "fatigue",
+    "fluid_overload",
+    "foul_smell_of_urine",
+    "headache",
+    "high_fever",
+    "hip_joint_pain",
+    "history_of_alcohol_consumption",
+    "increased_appetite",
+    "indigestion",
+    "inflammatory_nails",
+    "internal_itching",
+    "irregular_sugar_level",
+    "irritability",
+    "irritation_in_anus",
+    "itching",
+    "joint_pain",
+    "knee_pain",
+    "lack_of_concentration",
+    "lethargy",
+    "loss_of_appetite",
+    "loss_of_balance",
+    "loss_of_smell",
+    "malaise",
+    "mild_fever",
+    "mood_swings",
+    "movement_stiffness",
+    "mucoid_sputum",
+    "muscle_pain",
+    "muscle_wasting",
+    "muscle_weakness",
+    "nausea",
+    "neck_pain",
+    "nodal_skin_eruptions",
+    "obesity",
+    "pain_behind_the_eyes",
+    "pain_during_bowel_movements",
+    "pain_in_anal_region",
+    "painful_walking",
+    "palpitations",
+    "passage_of_gases",
+    "patches_in_throat",
+    "phlegm",
+    "polyuria",
+    "prominent_veins_on_calf",
+    "puffy_face_and_eyes",
+    "pus_filled_pimples",
+    "receiving_blood_transfusion",
+    "receiving_unsterile_injections",
+    "red_sore_around_nose",
+    "red_spots_over_body",
+    "redness_of_eyes",
+    "restlessness",
+    "runny_nose",
+    "rusty_sputum",
+    "scurring",
+    "shivering",
+    "silver_like_dusting",
+    "sinus_pressure",
+    "skin_peeling",
+    "skin_rash",
+    "slurred_speech",
+    "small_dents_in_nails",
+    "spinning_movements",
+    "spotting_urination",
+    "stiff_neck",
+    "stomach_bleeding",
+    "stomach_pain",
+    "sunken_eyes",
+    "sweating",
+    "swelled_lymph_nodes",
+    "swelling_joints",
+    "swelling_of_stomach",
+    "swollen_blood_vessels",
+    "swollen_extremeties",
+    "swollen_legs",
+    "throat_irritation",
+    "toxic_look_(typhos)",
+    "ulcers_on_tongue",
+    "unsteadiness",
+    "visual_disturbances",
+    "vomiting",
+    "watering_from_eyes",
+    "weakness_in_limbs",
+    "weakness_of_one_body_side",
+    "weight_gain",
+    "weight_loss",
+    "yellow_crust_ooze",
+    "yellow_urine",
+    "yellowing_of_eyes",
+    "yellowish_skin"
+  ],
+  "classes": [
+    "(vertigo) Paroymsal Positional Vertigo",
+    "AIDS",
+    "Acne",
+    "Alcoholic hepatitis",
+    "Allergy",
+    "Arthritis",
+    "Bronchial Asthma",
+    "Cervical spondylosis",
+    "Chicken pox",
+    "Chronic cholestasis",
+    "Common Cold",
+    "Dengue",
+    "Diabetes",
+    "Dimorphic hemmorhoids(piles)",
+    "Drug Reaction",
+    "Fungal infection",
+    "GERD",
+    "Gastroenteritis",
+    "Heart attack",
+    "Hepatitis B",
+    "Hepatitis C",
+    "Hepatitis D",
+    "Hepatitis E",
+    "Hypertension",
+    "Hyperthyroidism",
+    "Hypoglycemia",
+    "Hypothyroidism",
+    "Impetigo",
+    "Jaundice",
+    "Malaria",
+    "Migraine",
+    "Osteoarthristis",
+    "Paralysis (brain hemorrhage)",
+    "Peptic ulcer diseae",
+    "Pneumonia",
+    "Psoriasis",
+    "Tuberculosis",
+    "Typhoid",
+    "Urinary tract infection",
+    "Varicose veins",
+    "hepatitis A"
+  ],
+  "dependencies": {
+    "numpy": "2.2.5",
+    "scikit-learn": "1.6.1",
+    "shap": "0.47.2",
+    "joblib": "1.4.2"
+  },
+  "seed": 42,
+  "raw_rows": 4920,
+  "unique_patterns": 304,
+  "train_count": 243,
+  "test_count": 61,
+  "train_pattern_hashes": [
+    "3178c5fbda83053d644f2b6bc8bd13fc8d4e894b5264cad15685a00d75c8ec40",
+    "9c88cca8361f203bc6b1abdf8b36de33a79c6bcd9656d25a2c853967b6258621",
+    "1c03f5f58c24d1615b426e1b74a17458a586d745608330465ab123b1ec414629",
+    "ba04d49be076b4d2061323756e96b2842dc9b09af5d08d131e1ea89eb033cfa4",
+    "689febc41818c33f916ed730366a847207e5d668f6ae68b057274646d037aa0b",
+    "3ccfd183d1aa73ae341bfe59d305b6ebddf2d2aa2095ac6293e6aa67378cef61",
+    "f4926dee1d29892461c0331300d5afbc1b003d906a5eec27853fdcbd323a286f",
+    "15f40b8ad31e5302ba820190926503a274d4534df987daabf555129baa7ed955",
+    "ffe869388bce45e315e7e9cb1f84fdebe3074182c8bcf7997454ecc026c7442b",
+    "8868f2571c02adb3edf215bd1edcc01f2162bb3612911f52c253206d21f28da4",
+    "d8c7f556d9932640f288e2ff91d9434eaabbb00e2780fe2290c385418b17696a",
+    "94e374eb8fd8e0c28b1dbe25bd8fd27b089c218c5c62655f0763107df327d83c",
+    "047a9e146bd78e3c03480868556805580b5b2024479491c618e07efc034228b0",
+    "1def3383e82f05395c4cde565d01f45cfcfbd4e6291ab048aa26fc27000b214f",
+    "325f4a1e30d134f09a7e168533935df926f62eaac6316e832c8947060cf985c6",
+    "36bef0330b43b12b8d4eaa554e41c724eda889d8637e246ad8a3ea01af45dca6",
+    "d23603a8d3bafff2b50fd214fe8d3fe17457a564a91565840851c71e02eed613",
+    "25a113474e2ead36481a798292af5857c96caa7c520264fdde6d14105bd89658",
+    "ac65e5b621e22b2b3a1dde84b20bdf7726fb870b7d0b5a9c28d2c913062f2cd6",
+    "96b7b9480656a2af700d5896d534db4921355e2b05024eb475451323b78dcf67",
+    "f359a0ca9ec0da460a5af7f05fbe1fef6a45052390d97324c6e604a89ba0ab50",
+    "772e0320319ccb96ee5965a111ce7c393b06cbf686af04267b86b584db937ac5",
+    "79e4580798c617213b09dfb0b86569c4ba9841038ef0f1665acf003f0f5f9bbf",
+    "aeb9c8dcf098b398aefab2363d181e17eeb148bc5e50b1e66e170577dbc81568",
+    "05138396c3d31657d143d32032f44cbfcdb8ce8ae08364d2234e80b2f69291d6",
+    "5bf8958e20ce179fd7cd75a453eb763188e5d5d4366efbd72c8e2e0833144c7e",
+    "76cc3f218d2555f9b3f94cb4ea2a8ff539bbf7f74ba035e0b1930f413d43b35a",
+    "231b19d78ff4077b5d7929f73dfd4d1f5da2a2e75cb79605256e9135009026bd",
+    "52974dc481b37a2e78558ac91e8c30fd903ece0b9b21c7532e377f1af210fcad",
+    "71adaa916c3f5648ae77285734f36cbebc423106cc65a3b68d9f2ac12847a7be",
+    "5e078c52ba2160cf13aa40e5672e1b841694e69c35693d5623afe8f127550b47",
+    "d93d3133e19e9e78f64c06f4167a51cb9b57b807777493cad3e330dfb92bcd98",
+    "515e64f3ca74a010d906d85580b1476bae4b6421efb1825523a398353eba4fa8",
+    "6f6f3020e57e71be957e201263bb0ec305feb0a01b1334e637bb3e69bc853e48",
+    "be63dc54ea841db82528e3631615aa1369f46a9ba94f1597c2700933c1275a15",
+    "f06880fc1d5df4d7b5781fb7b6b8b8d0f526c1c1bdafa1abca293b33e9532435",
+    "316518880316b5d03264051c596f4727f26096c5111ba910a6ebfe5715373778",
+    "73051e9cc6df71e4253a24d7585d500c81447520bb0249ba40efd012235d35e0",
+    "f6d860cc3dc49be5fe0558271a6ce07b84440a04d05b336208edd69c3992b633",
+    "d7aa342cd60b9533ed06d0566d999290f824b048ce68f8b9920381a866a0964d",
+    "d8e951d351c9a2a56e5ace9ad4f6fd54cc8ff612d3dc6832589b43e78b2d1813",
+    "b3e3b802a79b260ac2ccc74b9f1fbed7753ab8e9f3fe0941d1e63f748ae44b93",
+    "1902b47ef1cfb2f423ccc318b2e11941cc2cbf03e3708054b982837f853e851d",
+    "8433ecef2141710336eca728ea485254ab67e1a910930d104ca431b2c7b6ac0c",
+    "8b03a10dcfb84ddffc3e01d0ae055704a958a2e5c4673c24195522b50632281b",
+    "bcdc863ca02c057711154268a3392151f821de3fee9fb7a800bf70fc4e90dc80",
+    "839badd6df00c29e566ee73e70254d5a365ae6335d26735ba115457fc9a73b24",
+    "fed4a43a7765f7a7aadffe3d1f13e0e18c64a7a1e2482664eafee5640c088910",
+    "e5041f807b5c9bc5fc41e50f353640d8ab01fa4e793efff09cd13af75b7afabf",
+    "066c55a5a6ccd279aaac9c5f5e943c3ed5bb86977b60ebcd8132c5b09bca9c28",
+    "f4899e75ab159918d1305ffc4a392e863080a6b89725360bca1748e93f33d6cc",
+    "4b3d5c5f12ae48e34db06f9919df4915284bf9f6d186e87e52b7dd9c0276a66e",
+    "4563b379a0920e802d87920baee3cb3764ed6b9de7f150c78b5b574e202b77f1",
+    "42f5a4f3ddbd5fa9a352bd372f5d368057b89cbe2c4198c8fad6ce403ace45fc",
+    "569eaa0763e3e1c950e43fbed3746d33082fcea9fc38cad67d6816510e34d6e4",
+    "48d6d3349863adaadd7d1ceff2683294c22401841d85180836c40a00a0957ef0",
+    "eeef455030881b675639f1e3987ae383c56f0dd3c2c42de493a27e35e51d433a",
+    "c02859f0a66f7e261314c564f3797a2b6129359363af6f40bc7b467687a72590",
+    "dd2fe5cca915ccae229a6d088941b5d0c151a73c46ab867adbaaeb0ee4a2eafb",
+    "21116f36536ac2a78c5118e775ee30fe6c5b2de4cd3b4cc45a4c00fb20301bb8",
+    "adf8fd26c76b6570d1fa6b52c41eabf4094019bdd631185f9fc3497bcd2d796c",
+    "a75f4bd1233ceca1d20f19de41a35434f372a4d2a99d4d0deb416776da108875",
+    "0307cb7bd37b97b35dd35cffd6fb7a1b8cf8f08d1207f86a4f333c9184ae6c4b",
+    "6b4991e841241a990b3af8bc51ace7301f0456b3246781117957ad1e748ea2b2",
+    "7876e36d951c511f8d64f7eeecb8e94246892a9997d5ab6eca942df47132550b",
+    "646a4c41808a75f843b05b34a8011963a506227dbeadc72a4d22935c951e375c",
+    "cc079ab32c9ae1ab84999992e3e305640f4574c039864a56ab4db2b617ddc1bd",
+    "dd95965d91ff3770784c8cef41271f5408e6d33035d7d51556ce6a0b012292ba",
+    "9adc983d5d714eca33c0a97b07f5f6728a4f94fdddbafba9020e8a78d38b76bd",
+    "ac2110d739511de4b6e0788bc0fb676e27f5dd619b1f400e0786752352cf1600",
+    "9f1f8d9d6281214e5406eef56f633d0426d07535421226183604dadd888a3907",
+    "fbf650fadf12ec5931080b636fa4132d028b3edaf1c94d09447364837c714b27",
+    "3e728ba7168a3912d90fb138d8bbcbb1791a8851392fd8ad3961cdfc1efe1a78",
+    "78fada93c7cc5687995868921ff11f1ae24cfe1514e028dd2294c4e830a09846",
+    "cc248cd4898ff33cd10e9782fb26f0e4c0615552ddd9031e8208040738d735c8",
+    "afca4749b07003dde7d4ac6ab3881790be2b7011caaaa9b261d005fa34ef6af3",
+    "fe6cb1fd61a815b0eae6ff59234bcf0ec830eebc7ee03722e4396169abe99e07",
+    "e994833636c817d67b5bb9821e9fe3137226bc62feefb552544b7927aa6bc61c",
+    "9080df60fa211a351a34f57abc8f7d071f5a00080f55731f201a57f7fa11b242",
+    "051f44f1562564847be2eb83a3e35e63f1cd4018f38899478417250af492be4b",
+    "ffa1d8313093c58d0ed6d12c7a3acdc66ed9cb768f49bbc13baff11e37802710",
+    "0ab8eca4e4fa047cfdb23915e8171b766fcdc525e2253d959a779acddab95fad",
+    "bd522a9292f7ebd72db7f856afb63c1420949dafb09d4edd02ea3a8ce11bcb53",
+    "371b4bb827a960378cb9d372a9faf6c27e54e4d2287366010e123b0d9c301fa2",
+    "074c4f35b721c875e6d6c998ef9ebc84857131f395a549b583676be7ef471c80",
+    "cf2614811bb787b2c41b42ff75a687a34fcd21b7ca6bfbd766c7a0569b2a882f",
+    "9b9c36efbc23f35732f41cdf052717cb1a286354cb7503f152a244e4b7923ecf",
+    "84359ed1b7703cb12e777b1a531163f3de37d125dac16de9aac088ee984437a1",
+    "993ca7c3c945be6a1ea6df975d827cef055e5a68a6cb857ca9af69b2fd6d960f",
+    "37104baa50e30a81182f9a5830449cd1f597d0c2daddf51bc7fd34006bbbba22",
+    "1b88154e6289c76c38ffafeb109a24814143c920e4595e027d653dbc7b613c6f",
+    "0b2d4b8376dc88e6a46101890cb1899c9e9865897c5bdd0cb429e757aade9cc9",
+    "ae64ec21eae0034291480be245ef1fefc2f498282b4f7da40684a13595b3df31",
+    "b50cb908f54e5c4722606d4400a6f1cc983f1fca0931b25ea0ea62c025c6b43d",
+    "a7940e8154370cbe0db9c27e29140a733d226e8076b935c3208ecfd3715af71c",
+    "836d45b83021befb7fc756617e7219af1748d28ad1d3e7afe8a54fa2f8cfab24",
+    "d380f5df759a00a3e5cd61aa7d99faca810bfbe9773cd122427564f78db85536",
+    "76d167dd47ded79e5892272ee3ecadce02586505e98a257f138c1b588c6712e4",
+    "607607e20a5fdb731d3ace9edf0832b1ae6169a9e8caf03714cdb1292703b975",
+    "6b7e01a20b7e502173069ebc705e3bde2b1b60e851b696bdbae2c43ed8783f38",
+    "3c8095cfbef2846e7fb9a18f85612692d36cd746d0abc2702d91a0ae7ced60ea",
+    "ea9b47a57522ca1621b46dd01a570df70962e53be5fac7301d7ae3c41ed695f9",
+    "9d07352e9539204cff03bd4e929017c09e7b2a6493bb6465360031a8a62f94be",
+    "a8fb33a0698e8f590dc5587f490abc7fe6aca7dc7ebcb594eff4d2e62e703ee9",
+    "b935041a2e5a5fc2c58b4799d015ef1170f12f491f04a55e817280ca16f2edcf",
+    "34d9b511d84ebcf2c4ba6adbbe1db4b8b6a5c203a47313d26861c7c5d4ba23f8",
+    "054b9ee2024eb16b1ddc703e22d62625d93224ea6b8c88f5b0ec498a789146d5",
+    "0ac3216f442e4a544c9d91e095d55c5e04068e7dd8c2df128db667bb9d614a48",
+    "8d4d00f8eef11464a3a046f0358cf655acfca35963e1a85f61c67a424ea572da",
+    "073cd08713267d98245b15b8a66269fbe560f1f5c02ab98607184be40fa2c12d",
+    "27ce5989a98c38d0f38c9be3996cae86e42305ee4fc1b5ddd34c7a0eb395ad57",
+    "67a7466a64fc9bdf0893d16189594ef4462a1aaa5ff5347a7e9ce234c7493eb3",
+    "4f521ff0a1a0c49132939b683ae26ec9275b038f119c319ef4e304afa3a85417",
+    "32a6bc614abea92e33510b8ef4c7564b9caec53982e1a46041bb4e14b1ed98aa",
+    "3845ac937fd13b21e19405081f2064074ddbba986f6dd0d6594b0ec2f4fe1e4d",
+    "0ee86e81d7b7746b842b3364a3c3611a436691bfb4d8e64f29c318fb6896e8c3",
+    "8b1aa22dedbdfe7c0d722e7d843260fb1a232942b97fea62b5beaaf77d5c5ba4",
+    "29ad227291d785403533c01d04f9fc88af9e3efdf0c0137eedff83fe8be68a26",
+    "35fb39db7d3c2464f0716d3a5e96f3617326fcd2d66ff45acba11cadadc6f127",
+    "e7f1aac1ecbaba5f24d6107d06f9b145e4c2c3277b9d9e90787bfd949e9e92fc",
+    "c87805c4d43cfefc02fbcbef046ceaef5e3954ed411796fe79044ef1259dbbed",
+    "bb48ff488ae23362caba26e9e85f618e5210adb06f7a43d85a6536a43a72d265",
+    "e3dabf23b4327ce039e6b5928ca9f348158a5e284323fbc60583b1d611640158",
+    "c2986b67c312f855f148c386c586b1d446600695fc9a4d64cdeb81dc936513e6",
+    "14b44c088cdc394216b82669ec0fa27b5acda2915526f62a88ffbe0f3b274700",
+    "fc7b0b14622aa06a617051d10577d968fc0ed016c46e9882ac918b0fc365c520",
+    "dce7c9582527b1c5d6833b1179c5d27b4eac096b04f86bb48cb73d38e6d3155b",
+    "f3676df301c6523271947a9d8d125c80a302c413523505c385fd55b9b67fe2ba",
+    "17044b69f2f666061a5aada22e22413ddf069a5652a7240e366c6bf02f0015e5",
+    "dfbb2f91affb7a61de62190790ccde3eaaed2be3426f54ca086d5200d0c3bb74",
+    "8f02bb1aa26ef312f2b9ce0eaad9c9dc527386c49a22dad81cd87e8bd2e3fa59",
+    "12335161472d7965cf06b2f25d1b0997604278ac0a20317d13f6f0a21fb3ff39",
+    "839affa6c8652deb4f3954d2b34149098f29f735fc226fd5552b8749634d4bb7",
+    "3c86a13818a3b8726802aa9e2ced0f144a4398a4b1153fe31b4dbf82865ef271",
+    "cfa50eb52d34023ab03c9fb80b03a999fbd8be817653cd4e979f8e090bb8588d",
+    "17dd1a11a1a6c516c2d4d491486a7e1db092cf6e3ebb7b932e2ba5dd64d38d56",
+    "ebe23bb5913fb690169d610afcfe1d3229d785482c0ee73f07da7d5141b72854",
+    "0188b4f5ec943f7fac80bc2eeab98d5c85120bf82537710fe199103686014ec8",
+    "fd8ef2a61d9ec2c9bc449bd414142cadf36928ead3edbbc978bfe38f6ea1c89d",
+    "d8711d45b4f8115ca0cb989b21ded23f9d7f5d47aba8af385ffad0a731ba78f9",
+    "c524550885188f0422c57418ce5aef9b5b8abe346ec070ac247625d2ba310380",
+    "06f853560055b5585e84ea256df5573b60f0ca4593ee0970e7f9f1d74dea190d",
+    "5c0c9f0bac25779d69e06b4d490d995b598a6104a5bf805b620f30a084f6cf50",
+    "251e0d55d875f7694af697e39de54745d85b222b3e60210c4385cc9efc49f34e",
+    "2e3423312b800a1b76f1972f77f731c078dd110faf1d992f546d3f84e1cc21a2",
+    "d879416fbf763510a884d053e0b98c7620c074856d888598ed906a7a6a887d0d",
+    "334e5aea9b680cddb375db5f69d901d67032a20e4dcd04ef3e1fe5e6ed36f8e4",
+    "d2b5948a95222186e4fc6af96427776d6f69f5dfc7dd38ed2e45c73136b5a260",
+    "0ca7ecce4bce88b7b9e69c47b696ef29a77c964d8e966c430c4d322ce1259345",
+    "4f0bcc370f9eef33f0306e1f794128622406907f3c540f54c3765e3eeeccf993",
+    "0dceaa10eef409c29bef3911f11e9abddfed4382282e5a151f732b8ae37734e7",
+    "643ccf30e1072252d2499ecac36a44b027e48fa61b9b0408b1699fa9e0f09f86",
+    "726bc57876f7101bb03b72974f6b410e1dbc5435adfaff0c98660b5c9cc7d9c8",
+    "0a1d052dd58732c3a18e683656569bfdf87429e06788fc699a4d08ff4724ceb7",
+    "89bae1a0ee6d28d53ba5b93b604400f413711c2fe492530fe71b05be7a749641",
+    "7349525e45537c14bbe777236e744c76430ac0daf7ae4e78046dafd4712105db",
+    "f3d4e5cc22d1c57b1e7914803b9013d3153f586cf02f7d10b5b5fb9ae4e06128",
+    "541b110b81f03769da80d48d139cfb0c9b5f30af7cf59f3b642c6d417ad37c6a",
+    "393514e895057b503ebffd8167847212e017173a0328574610ffeed923a72abc",
+    "848594a08f62bffda9bfe79983cd2497cef63c6f5c192ead9997adad18dc1c66",
+    "8dcf66dea68be38892e18f949f1be4b3f790ceaff81951b0407c2bfa23c088db",
+    "2f9dd2893ae057f7ac585b472fa49dddb4ea8b0adf6e630577c48a1b9c8ebd9a",
+    "dd9d6cab914f3ec1fd2916329c326f9c882b0e0f7711a7b334e9db85aaf847cb",
+    "f178099f4c2b110cccf73a275f421371c4dc11e3ae9fa50890431ba7bf3bdd6c",
+    "665f6f6a76a55b93063a19d2ab31a0f62a288219fabe206beeee33603b77657b",
+    "344c2b0dc527acc5d278b813d0ae5c50743d4ef765f1d3e6ecece5a21e10e2b3",
+    "772bc5bb9fc4cf8f8968de0fd21e1144091d588105189e58738d2c1d4a7f2a02",
+    "7771c2bd63bc20a6204df656b78c18b2ea94e2a95bf346ea50af5f1fe18b563a",
+    "717f9b2a18e0ee6a83f53d240191388f8018fd2e124faccb4087a7a914a6beb6",
+    "42983cb206ca04817815f2413ffa396370803b7f75c99385cc862166b15aad9a",
+    "0a276248ea75d552f9934fc75104b3e99df6783e8fbfa17293747ab4b052ac70",
+    "d6b8cda09c002407f833c0b731f6bcf32a21f8cc7697abfee49ec489ae8f744d",
+    "a4163830b30e8bd7061ba6d7c0186122522e94375b773d8ac0eb6040c7e7d481",
+    "f6ec12421388452f6e097cb3e33a59c4cbd957d224ced3406301c9cdf3b4f52d",
+    "f722c4b6534af6a59a2f0c5888f2f9c3473d0b5ba0d127048d49cec3fc40df62",
+    "1ac7f89bea7e899608d1a915a8742dad4475e35222c673ad680812fd3e656dbd",
+    "7c25e7e4edd701f4fffb806f670ae6cc08aa96b52f7b788132288b64c02df013",
+    "9c5d36d1ab6b6fd50209461edc29f5d30aead4663755b4a61bdf504e7ffa1bb2",
+    "e652339a8cceb2edb3aea4fe879d8ee7bd6d63b1d16bda688752b85da13a3108",
+    "1fa6f01f6b90e02bf3a115f21941de860ca3120fdec6bbeb1f15f4b6b0f41f6c",
+    "4b57f6638228684f32ffb328773918c37185dcbca3678e381c09a41cbde7b57c",
+    "97527c60e6f5509b7a8a17fb1ed0522401ab70b70e2087f81d99095ad25f0682",
+    "d4eb76204eda88baaf60260bbd72131ad02e962299cc75d5f5dd7f0418894cba",
+    "b5714cfc6d534d6d3a66c9e2c0a41f131cba2b0bbb7c22d5f5c09fcb2adf593e",
+    "95e99bc5bff62b52e81be80d9d7f05e10a5eb9263e5f853e688b913f7884157f",
+    "875532942a74461e7796f3c5124fa86a855f507c10f0e09ace01fd3ac2a7e40d",
+    "d195dfd84e0d7c226a164f2d0cb00d33f2d2c7116aee28bbdbdb1a7648cf0b3f",
+    "9165dfa418fdcd3a28dafd76c3edd3b207f318fe5bf0904e0d7469c658531039",
+    "cdb04b5a946607b3670283e1573b57840b367c65cc3631faece43d0b266dbfcc",
+    "36c6ff5d101bac665e5397008949794434bc70399a83d282aa2881800741b1a3",
+    "a9dd88ca9ea699ba977f45335147f8875a63715d0d4db1782bc080a0847eccff",
+    "84aed89378b51776fdc4b5b2eaf5fe207b1bd74b63bfd649036f3ce19ad54e4e",
+    "898a32e7b84d1bc3a82df6240acaf582dca2c0706373b48623e04b1ca32e987e",
+    "8b0e51d09a7aa386af863e269fd142c598be33cd03c4886de9de51e970249527",
+    "2af388328d5539f1de46f991ad7db29af0b2128b6c4b7b564e325b83f30a9cac",
+    "808ef69e14fccddf2d5d9bb647d243428dfb5daea5b8555a5390508209f39405",
+    "28391858690cff3616354b02d4259dda5b829cd07a3447a03efa91007cfe631f",
+    "4c955eebec3fb843643e3366fe34091a38decf1ecd3b513495fb9804a2f06430",
+    "ce0e07af3353859cce2bca89e48aaf8d68ebcaebfa549254cf66e983cf6a3521",
+    "cfa6abe6487523a23accc636739849b9000a8869e0702750db39b93f87d90f06",
+    "ec5207eaeafb3af13cafb9da6cc50d31f2dc554a72d46ab10d05c755b2aa1223",
+    "d9ffa4481367155fa48c10d75ceb9a91293e3e43c25411b53e57563b45562cbe",
+    "5158f522698b9db72119de33f16767b5869d16c1323003bfdda37a5abc14612d",
+    "62b139f2e84c19b8d73f8567ba4fc3fd6af68ed4cdfe049bb481606a28a961c1",
+    "9d9dd5bf31c274048417dfbf12f2b54fb3060b821eb957d8809eb60eea412a6a",
+    "2d273f76747feb981397434768274319805137b31b398712d0eb83df70f7ac97",
+    "0b27a350751e026f3f37e6841429195615b3e74b6eac89c699d5f78734505cbd",
+    "8547f22c1e19aef7e4fb37acd2c6156398b6d6e5eb0d0bddeabc0d7623417625",
+    "d73b54762ee81fb686a27a7f0a7d63a264ad57c08fcca8b64ca064bad82fbc87",
+    "031b81dc3b95e9a2c306e037e6b4a54eb80627eb700ec43e8f4ec0bf12bb409b",
+    "3dcfda38b3590bb332628369409ac9625b0c5cd44715661f5876df3396b038fb",
+    "c5f1d1858aa3f90d36a14ffe6dcbacb306ae116a884a1d17164f8e5064642ad5",
+    "81f6583728f8eb2de943e4d895da172cdc88fdacf8428f57dfb2f6a2a27c833f",
+    "fcddc628480133bedaff8f1fd49c29cd90ac6b667d18e7a648c7712534b20bf0",
+    "3350295b0723cbfdb2f6d2e631afff036df7025cf99252f43a4fcda0bd530570",
+    "c07dd9e1b39712df619a40ff6ccd566bf68cf5384a488d4f7e356b49fc8e33d3",
+    "3a8093f55880cd9255bb2476d74c6ae7f09c73340d2e5b0189844d42af4076c2",
+    "1b416052d5f6f814bc6b56f2901c0aee8c4a04af7bb5578a9eab6e8444142acf",
+    "da26237d84f321ea6bd80cd8911943d9708c67b8f7505414b334797d8a4e5c4c",
+    "aacb523db4b740ce69ac36a53be0846d2e0a2503b1030e757b5a7b6efc7edb71",
+    "a018542c795d0806a72707062d8fff96e39d7ec2a4d38253e439b7a945b7ea59",
+    "b829b01e6752a54f86c6fc4477aabe303096a32cb265279303bdae4c08ea6580",
+    "29fd4ee5070a7bb76ba5943e6600dc108bb972357802261a26b608b5d46931b7",
+    "57eff2b131184dcfd62e67e112b784669cfe49549d53688cb7ad1a4e383e5015",
+    "f936bce1bd792a4cc2fcfd5005964cb181b865dc5483931a2ae719f51afb646d",
+    "287d1e345741a4b557e32e6a5736c04b14559624efd111c744f75d895bc326b7",
+    "b51ddbba4a471e1983335ed43f730c38bbaec1439b60b574286664e96448c092",
+    "7a6eac390c52e9dfff30b06db9481bc8a439c0eed5289778f2b689e0d94b04df",
+    "5a0b29dfc49464b6704ee30a848a774c5dc667685a8120722cdee39e0a8dff6e",
+    "374a92b50b2994b52798e53a593cf52c3c7ea2b1493f444c8c36a8fad00fac15",
+    "3433639b1bf11b941216c6fb56279e6bf13597e0b57b38d448851d96d031782b",
+    "821d02d914082aadb1731b64ba42bd95226f274857c7696bd98c37c6c6dd8ac9",
+    "0da800ba15abed830a6d1b772cdcb09e23994e962bc923913f9833d9d97cfd21",
+    "48b3a8ed43ea01f65dde4cdb2845a3c29d49f1b454af8ddaa695d248fe55a03e",
+    "4d053bf5b39c9790642ee0ca800be0c8df13648929d333a8a405d7215ff56134",
+    "c0d1539ff0c5c8ee1f31212ced3364d1b2ca7cc68b6a165eb8575e35e0b3c996",
+    "aa7a854d8d529729705f5a6e36e89b92bdff64e77f20476f65a2ef2ec9d4b5c3",
+    "2968b14f79dfbba16c7258af8311c31c0fafcf0c5ea327bcc4b9189ad73b9562",
+    "6063782716f04b6ad6d1bbea842334b73b440a938cf140a549500698495a0bb4",
+    "1075303f3c4020b9424b189063386c27f239228b30a32313c2e4f98964d38948",
+    "3206733135a7a9cb6858cb6691a48f650750be79cd3cc49f23bb3ecc71a99ed2",
+    "8d8ad9460866d25be9e04c2c285cc009e44f78c23f5edcd428d7162edeed5a5f",
+    "8ab5bd67559fce53e2e461d56293a8e28b1581efd84e6ab8af2ca22713fa205d"
+  ],
+  "test_pattern_hashes": [
+    "2ea90180a5a1dcf9de77b016770b8f00993d0638981dcd1a1757ebee41e68f55",
+    "51c4ffe4b1f362f17f0c332c378a61c24c6c3aa0e4c337b4360d6fd4d35f4ae5",
+    "5788070f5aff5b27b3fd4a3301dbf2f30d871a8ff1e47538b3daeffad76528ff",
+    "148814ac724d2f9077d993482051aaf20dbcf91846e37eb9feedbe46a4981fc1",
+    "ce3742fcc8cea63c8951a9a2cc2136329fd3ffea37a314f17d529c3fe126ad99",
+    "84b381a6f951a2f2706b5ab8c9e5b9663af81186b7a68ca1a188eb2086a2f0bb",
+    "947ff4c9fb8d670af59164f57b821364640dff5dd9b3cdcf884bf426095b3101",
+    "b6bf3175cfe8e8ac14e36a8ce1ea20cc3c9514ad903f63ccb8b28f203f232d2a",
+    "c592ad9bd94166b32553239fb355166f72e0048b0474b6cfebd21d4cdd33c833",
+    "e9a76624d15b436e51c95cabd14327fd2e7d2d267e5db90e766242046df48869",
+    "0bbb4b369dc5ee3c8456dfdd6a9239c46f343be1d6dde48a3a9d4d6a51158ae7",
+    "c8ec613edd065e753ab0f4f1f837fae00f7e7d63cc2df6faf2c44726821eb540",
+    "892ba436aa3defe1ad3645c499b7e2d4269c7a7e45e47d4be5c6b4c0e48e1c13",
+    "612c6ee0ea9dc0cd948cd0bf7469681773fc5f3e3f5c98d972bfeee61f76f692",
+    "9c47397fa772f6d97a2a39aecec3df3d06283eec45413de0d85c7d9b15bd3680",
+    "08cd27604138726ed5ecf33c0b62528e1bcbffd77a33b4ecc2c1cd0811ac2650",
+    "bb4319248d03a7a59e7b50f43eeaead4dc0ec367b2d30223c8eddb06868b7608",
+    "81c56fc473287c2034012638cd8c97b4dd845779352237d2920f3f3a0823a4b3",
+    "cd613b213fa2d5340a12538062f834cab4ec1bb2f8c1b547f34fa0508b7f76e9",
+    "0a33c256235cd195f26800c9443402e909601ba9d9428aec0c86a9c6dd31969a",
+    "eb16f5d67b588f70c9d602a1a0dcbb798c2b62dbfd232f1c43ef3108b423fae7",
+    "9573ecc6752fa1c59b5fd2dffb80540d227511c4bbb36e7911fdea6e70003cfd",
+    "1c6ef1ac0b5cf8012856858d9a03836e36338fc7657167c7d509ac99ab332077",
+    "22641fa632c6d8b6fcdcb837d98fcab4374307d0ea96d5e2fbecf9a126f31edf",
+    "d52b46e11ef4c390c079e73ed0433705ea6cd115473005facf889180bf8a6fca",
+    "bc64e45421697c4e3f5cde9ceab0f08b9527b472219045994f8784ac20d1f207",
+    "2e78f3287da0dbe1bfdf0b6d7b8776928afc8ef00ab000fc06ff6edd67f8aefb",
+    "157fd2d323dbf5c151d2815456c81e5ad7faaee279623825e0f9f5d345b3a9a6",
+    "ecb585b9c063decfb87e733525f7aa04784f0bd119c9524d14d428cf0d25f81a",
+    "7cd14eec2d0021dbb85795eb29e4339c3dba05bdcf98ee1c4864208f9b68e60e",
+    "3838ed3ddc6351807bb488911053ab1f58a2be6acfcca6329c245dab52c975c1",
+    "dad87a7c1655226b63b903bc0542636396311a159acd804a717259fc74722243",
+    "5fcecf3cea83d66373ccaf75af620ecfdbf2cd6d1a098aebbf46719d30ed0aff",
+    "68e295cf3f9319f7670d61d6ee65a60dcc2312e82095df40764961608a8c6c3d",
+    "8d86c711081146388f52790d9edcffd4536975b753cb5d419723a34be4d2e8f6",
+    "6af9b5d2a20c23bfcfeafcf4e098f8a2a644db10f30720b5b63517f00020c030",
+    "73331e661ed140a2c340bbf4f47c7565397a60a11bfd52ff3a650e77b8be11b4",
+    "63fffae0c60a5885d741fb78da2b4004d2d899c009dbdcc2089f13809688c37f",
+    "dbbbca8360d681d4cbd320bc82a39a427d1fde6ef71b44d1804dde3a64180c8b",
+    "64a37a82b43061a06c35a5632a6b6c489dc4f38054394ce5a1051e00aa999285",
+    "2772c35a2c36d03e6c135a385a346af265984db2e5a43c4b2f7fb8c09c3acfd8",
+    "555383d1ef60ed87a3618436c2609f5bfc38d32ba0128a8e5726c3cbc7eb3f52",
+    "4c70a3248af713368cd5a540ca943191515675868a1d13e8275c2a676d2e0902",
+    "43ade44c86d78003a3c5a1ee384c27fd44d315d0429bc94a84ca84d07efca054",
+    "ec9a9da4bae73c7e8b0f6fdb2129aa8b576ffadc784c7b9bffa9bc9383f7cb51",
+    "ce6770e61afff8c44a38f301fe1ddce87dcdc08bea39026bb724eb625d321ad1",
+    "3e9f4b6da31a9b4587ac4c9926dca900ea4c27dc84def9b5809cb51bf9bf9790",
+    "a44bc7ec3fa6ab2fc164f8bf7743a2fec04b59824c0078185f238d38248dd27e",
+    "8912108baf3159c0deb47d361aa103b3c0584718e2abac5246ab706d8233cf74",
+    "6e7d1d1e8f5de191afe03a8dc522567eb33440458c57a28d506a3fa4b7753f7e",
+    "2ed860bcd5a9ad99e8df4967d1b2d4ecad66978b05d596c0bb8eb2162a11b53f",
+    "ceaa5587cadb7bff253b92fdb0bd285219e7f0bd683e0373bd7d9ab99600b8d3",
+    "5b3a356abaa1ec198a7ac8894a9af86949233a1021228b11949adb013ed5aad6",
+    "e0a6aaff7e6baf596d8afe158271dae5bc58b5a7bd203ef043d9fa5bff131b5e",
+    "9b6311f5d827b482dd78510c27a610ad17502b34d1d2ef71d1d9510ff2644cce",
+    "d3bd559be53e0e2756bf300b73617a4d63b6d866a5ad54ba506bed670630ae50",
+    "c32838ad2f02c93d2f5ec051f44b4247b527b54541b791234e49e6ceee64c58a",
+    "393e5c9aca69e3d9152e74bd2ccd314cafbdcb79f1f8eb69afa55942863917fa",
+    "1f54231d1e6f2fb29ce77ca41f3af794ef33552bbc5a728fef4bc039ce214cb6",
+    "514933cf2a396b315005e9806f4efa579c7dba32b1cf405fbda3b9ddcca4efa8",
+    "c0f0d01e6916be26dae89a4e9236d798344754b6b94d359a227e7da3cc188653"
+  ],
+  "evaluation": {
+    "random_forest": {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "top_three_recall": 1.0,
+      "cross_validation": {
+        "accuracy": {
+          "mean": 0.9959016393442623,
+          "folds": [
+            0.9836065573770492,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "macro_f1": {
+          "mean": 0.9926829268292683,
+          "folds": [
+            0.9707317073170731,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "per_class": {
+        "(vertigo) Paroymsal Positional Vertigo": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "AIDS": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Acne": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Alcoholic hepatitis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Allergy": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Arthritis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Bronchial Asthma": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Cervical spondylosis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Chicken pox": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Chronic cholestasis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Common Cold": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Dengue": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Diabetes": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Dimorphic hemmorhoids(piles)": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Drug Reaction": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Fungal infection": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "GERD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Gastroenteritis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Heart attack": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Hepatitis B": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Hepatitis C": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Hepatitis D": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Hepatitis E": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Hypertension": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Hyperthyroidism": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Hypoglycemia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Hypothyroidism": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Impetigo": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Jaundice": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Malaria": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Migraine": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Osteoarthristis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Paralysis (brain hemorrhage)": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Peptic ulcer diseae": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Pneumonia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Psoriasis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Tuberculosis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Typhoid": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Urinary tract infection": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Varicose veins": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "hepatitis A": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 61.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 61.0
+        }
+      }
+    },
+    "logistic_regression": {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "top_three_recall": 1.0,
+      "cross_validation": {
+        "accuracy": {
+          "mean": 1.0,
+          "folds": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "macro_f1": {
+          "mean": 1.0,
+          "folds": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "per_class": {
+        "(vertigo) Paroymsal Positional Vertigo": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "AIDS": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Acne": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Alcoholic hepatitis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Allergy": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Arthritis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Bronchial Asthma": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Cervical spondylosis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Chicken pox": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Chronic cholestasis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Common Cold": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Dengue": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Diabetes": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Dimorphic hemmorhoids(piles)": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Drug Reaction": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Fungal infection": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "GERD": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Gastroenteritis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Heart attack": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Hepatitis B": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Hepatitis C": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Hepatitis D": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Hepatitis E": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Hypertension": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Hyperthyroidism": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Hypoglycemia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Hypothyroidism": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Impetigo": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Jaundice": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Malaria": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Migraine": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Osteoarthristis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Paralysis (brain hemorrhage)": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Peptic ulcer diseae": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Pneumonia": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Psoriasis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Tuberculosis": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Typhoid": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "Urinary tract infection": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 1.0
+        },
+        "Varicose veins": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "hepatitis A": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 2.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 61.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 61.0
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Educational model; not clinically validated and not a diagnosis.",
+    "The original dataset's clinical provenance, collection process and population are undocumented.",
+    "4,920 rows collapse to 304 distinct symptom patterns across 41 labels. Templates are highly repetitive.",
+    "Small internal holdout; results do not establish performance on real people or unseen conditions.",
+    "Only recorded symptom presence is modeled. Missing selections are encoded as absent; age, duration and lab values are not model inputs.",
+    "Ranked matches are model similarities, not personal disease probabilities. Some dataset labels describe symptoms or syndromes rather than diagnoses."
+  ]
+}

@@ -1,0 +1,207 @@
+[
+  {
+    "condition": "Fungal infection",
+    "url": "https://medlineplus.gov/fungalinfections.html",
+    "status": 200
+  },
+  {
+    "condition": "Allergy",
+    "url": "https://medlineplus.gov/allergy.html",
+    "status": 200
+  },
+  {
+    "condition": "GERD",
+    "url": "https://medlineplus.gov/gerd.html",
+    "status": 200
+  },
+  {
+    "condition": "Chronic cholestasis",
+    "url": "https://medlineplus.gov/ency/article/000215.htm",
+    "status": 200
+  },
+  {
+    "condition": "Drug Reaction",
+    "url": "https://medlineplus.gov/drugreactions.html",
+    "status": 200
+  },
+  {
+    "condition": "Peptic ulcer diseae",
+    "url": "https://medlineplus.gov/pepticulcer.html",
+    "status": 200
+  },
+  {
+    "condition": "AIDS",
+    "url": "https://medlineplus.gov/hiv.html",
+    "status": 200
+  },
+  {
+    "condition": "Diabetes",
+    "url": "https://medlineplus.gov/diabetes.html",
+    "status": 200
+  },
+  {
+    "condition": "Gastroenteritis",
+    "url": "https://medlineplus.gov/gastroenteritis.html",
+    "status": 200
+  },
+  {
+    "condition": "Bronchial Asthma",
+    "url": "https://medlineplus.gov/asthma.html",
+    "status": 200
+  },
+  {
+    "condition": "Hypertension",
+    "url": "https://medlineplus.gov/highbloodpressure.html",
+    "status": 200
+  },
+  {
+    "condition": "Migraine",
+    "url": "https://medlineplus.gov/migraine.html",
+    "status": 200
+  },
+  {
+    "condition": "Cervical spondylosis",
+    "url": "https://medlineplus.gov/ency/article/000436.htm",
+    "status": 200
+  },
+  {
+    "condition": "Paralysis (brain hemorrhage)",
+    "url": "https://medlineplus.gov/stroke.html",
+    "status": 200
+  },
+  {
+    "condition": "Jaundice",
+    "url": "https://medlineplus.gov/jaundice.html",
+    "status": 200
+  },
+  {
+    "condition": "Malaria",
+    "url": "https://medlineplus.gov/malaria.html",
+    "status": 200
+  },
+  {
+    "condition": "Chicken pox",
+    "url": "https://medlineplus.gov/chickenpox.html",
+    "status": 200
+  },
+  {
+    "condition": "Dengue",
+    "url": "https://medlineplus.gov/dengue.html",
+    "status": 200
+  },
+  {
+    "condition": "Typhoid",
+    "url": "https://medlineplus.gov/ency/article/001332.htm",
+    "status": 200
+  },
+  {
+    "condition": "hepatitis A",
+    "url": "https://medlineplus.gov/hepatitisa.html",
+    "status": 200
+  },
+  {
+    "condition": "Hepatitis B",
+    "url": "https://medlineplus.gov/hepatitisb.html",
+    "status": 200
+  },
+  {
+    "condition": "Hepatitis C",
+    "url": "https://medlineplus.gov/hepatitisc.html",
+    "status": 200
+  },
+  {
+    "condition": "Hepatitis D",
+    "url": "https://medlineplus.gov/hepatitis.html",
+    "status": 200
+  },
+  {
+    "condition": "Hepatitis E",
+    "url": "https://medlineplus.gov/hepatitis.html",
+    "status": 200
+  },
+  {
+    "condition": "Alcoholic hepatitis",
+    "url": "https://medlineplus.gov/ency/article/000281.htm",
+    "status": 200
+  },
+  {
+    "condition": "Tuberculosis",
+    "url": "https://medlineplus.gov/tuberculosis.html",
+    "status": 200
+  },
+  {
+    "condition": "Common Cold",
+    "url": "https://medlineplus.gov/commoncold.html",
+    "status": 200
+  },
+  {
+    "condition": "Pneumonia",
+    "url": "https://medlineplus.gov/pneumonia.html",
+    "status": 200
+  },
+  {
+    "condition": "Dimorphic hemmorhoids(piles)",
+    "url": "https://medlineplus.gov/hemorrhoids.html",
+    "status": 200
+  },
+  {
+    "condition": "Heart attack",
+    "url": "https://medlineplus.gov/heartattack.html",
+    "status": 200
+  },
+  {
+    "condition": "Varicose veins",
+    "url": "https://medlineplus.gov/varicoseveins.html",
+    "status": 200
+  },
+  {
+    "condition": "Hypothyroidism",
+    "url": "https://medlineplus.gov/hypothyroidism.html",
+    "status": 200
+  },
+  {
+    "condition": "Hyperthyroidism",
+    "url": "https://medlineplus.gov/hyperthyroidism.html",
+    "status": 200
+  },
+  {
+    "condition": "Hypoglycemia",
+    "url": "https://medlineplus.gov/hypoglycemia.html",
+    "status": 200
+  },
+  {
+    "condition": "Osteoarthristis",
+    "url": "https://medlineplus.gov/osteoarthritis.html",
+    "status": 200
+  },
+  {
+    "condition": "Arthritis",
+    "url": "https://medlineplus.gov/arthritis.html",
+    "status": 200
+  },
+  {
+    "condition": "(vertigo) Paroymsal Positional Vertigo",
+    "url": "https://medlineplus.gov/ency/article/001420.htm",
+    "status": 200
+  },
+  {
+    "condition": "Acne",
+    "url": "https://medlineplus.gov/acne.html",
+    "status": 200
+  },
+  {
+    "condition": "Urinary tract infection",
+    "url": "https://medlineplus.gov/urinarytractinfections.html",
+    "status": 200
+  },
+  {
+    "condition": "Psoriasis",
+    "url": "https://medlineplus.gov/psoriasis.html",
+    "status": 200
+  },
+  {
+    "condition": "Impetigo",
+    "url": "https://medlineplus.gov/impetigo.html",
+    "status": 200
+  }
+]

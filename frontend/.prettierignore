@@ -1,0 +1,4 @@
+src/generated/api.ts
+node_modules
+dist
+.vercel
