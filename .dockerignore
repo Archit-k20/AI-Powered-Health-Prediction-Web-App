@@ -2,12 +2,10 @@
 .git
 .venv
 frontend
-notebooks
 data
 training
 docs
 backend/tests
-backend/faiss_index
 **/__pycache__
 **/*.pyc
 .pytest_cache
