@@ -1,0 +1,120 @@
+{
+  "findings": [],
+  "mentions": [
+    {
+      "id": "p1-m1",
+      "label": "Fatigue",
+      "category": "symptom",
+      "symptom_id": "fatigue",
+      "polarity": "affirmed",
+      "timing": "unspecified",
+      "subject": "patient",
+      "eligible": true,
+      "review_reason": "Check the wording and confirm this symptom is happening to you now.",
+      "evidence": {
+        "quote": "cough and fatigue for three days.",
+        "page": 1,
+        "method": "embedded_text",
+        "bbox": null
+      }
+    },
+    {
+      "id": "p1-m2",
+      "label": "Cough",
+      "category": "symptom",
+      "symptom_id": "cough",
+      "polarity": "affirmed",
+      "timing": "unspecified",
+      "subject": "patient",
+      "eligible": true,
+      "review_reason": "Check the wording and confirm this symptom is happening to you now.",
+      "evidence": {
+        "quote": "cough and fatigue for three days.",
+        "page": 1,
+        "method": "embedded_text",
+        "bbox": null
+      }
+    },
+    {
+      "id": "p1-m3",
+      "label": "Shortness of breath",
+      "category": "symptom",
+      "symptom_id": "breathlessness",
+      "polarity": "negated",
+      "timing": "unspecified",
+      "subject": "patient",
+      "eligible": false,
+      "review_reason": "Kept as document context; not added to the symptom model.",
+      "evidence": {
+        "quote": "Patient denies shortness of breath.",
+        "page": 1,
+        "method": "embedded_text",
+        "bbox": null
+      }
+    },
+    {
+      "id": "p1-m4",
+      "label": "Migraine.",
+      "category": "history",
+      "symptom_id": null,
+      "polarity": "affirmed",
+      "timing": "historical",
+      "subject": "patient",
+      "eligible": false,
+      "review_reason": "Kept as document context; not added to the symptom model.",
+      "evidence": {
+        "quote": "Past medical history: Migraine.",
+        "page": 1,
+        "method": "embedded_text",
+        "bbox": null
+      }
+    },
+    {
+      "id": "p1-m5",
+      "label": "Migraine",
+      "category": "diagnosis",
+      "symptom_id": null,
+      "polarity": "affirmed",
+      "timing": "historical",
+      "subject": "patient",
+      "eligible": false,
+      "review_reason": "Kept as document context; not added to the symptom model.",
+      "evidence": {
+        "quote": "Migraine.",
+        "page": 1,
+        "method": "embedded_text",
+        "bbox": null
+      }
+    },
+    {
+      "id": "p1-m6",
+      "label": "Nausea",
+      "category": "symptom",
+      "symptom_id": "nausea",
+      "polarity": "affirmed",
+      "timing": "hypothetical",
+      "subject": "patient",
+      "eligible": false,
+      "review_reason": "Kept as document context; not added to the symptom model.",
+      "evidence": {
+        "quote": "review if nausea develops.",
+        "page": 1,
+        "method": "embedded_text",
+        "bbox": null
+      }
+    }
+  ],
+  "page_details": [
+    {
+      "page": 1,
+      "document_type": "clinical_note",
+      "method": "embedded_text",
+      "quality": "readable",
+      "text": "FICTIONAL CLINICAL NOTE\nSymptoms: cough and fatigue for three days.\nPatient denies shortness of breath.\nPast medical history: Migraine.\nPlan: review if nausea develops.",
+      "warnings": []
+    }
+  ],
+  "warnings": [
+    "Fictional example for exploring the review flow; not a patient record."
+  ]
+}

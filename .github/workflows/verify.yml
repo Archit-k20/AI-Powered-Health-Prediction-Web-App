@@ -1,0 +1,33 @@
+name: Verify the health demo
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
+      - run: pip install -r training/requirements.txt
+      - run: python -m pytest backend/tests -q
+      - run: python training/train.py && python training/export_samples.py
+      - run: |
+          git diff --exit-code -- backend/models shared ":(exclude)shared/samples.json"
+          python training/verify_samples.py
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+        working-directory: frontend
+      - run: npm run types && npm test && npm run build
+        working-directory: frontend
+      - run: git diff --exit-code -- frontend/src/generated/api.ts

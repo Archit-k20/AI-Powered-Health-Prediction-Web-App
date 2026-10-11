@@ -1,0 +1,1001 @@
+{
+  "version": "symptoms-1.0.0",
+  "symptoms": [
+    {
+      "id": "abdominal_pain",
+      "label": "Abdominal pain",
+      "aliases": [
+        "abdominal pain",
+        "abdominal cramps"
+      ]
+    },
+    {
+      "id": "abnormal_menstruation",
+      "label": "Abnormal menstruation",
+      "aliases": [
+        "abnormal menstruation"
+      ]
+    },
+    {
+      "id": "acidity",
+      "label": "Acidity",
+      "aliases": [
+        "acidity"
+      ]
+    },
+    {
+      "id": "acute_liver_failure",
+      "label": "Acute liver failure",
+      "aliases": [
+        "acute liver failure"
+      ]
+    },
+    {
+      "id": "altered_sensorium",
+      "label": "Confusion or reduced awareness",
+      "aliases": [
+        "altered sensorium"
+      ]
+    },
+    {
+      "id": "anxiety",
+      "label": "Anxiety",
+      "aliases": [
+        "anxiety"
+      ]
+    },
+    {
+      "id": "back_pain",
+      "label": "Back pain",
+      "aliases": [
+        "back pain"
+      ]
+    },
+    {
+      "id": "belly_pain",
+      "label": "Belly pain",
+      "aliases": [
+        "belly pain"
+      ]
+    },
+    {
+      "id": "blackheads",
+      "label": "Blackheads",
+      "aliases": [
+        "blackheads"
+      ]
+    },
+    {
+      "id": "bladder_discomfort",
+      "label": "Bladder discomfort",
+      "aliases": [
+        "bladder discomfort"
+      ]
+    },
+    {
+      "id": "blister",
+      "label": "Blister",
+      "aliases": [
+        "blister"
+      ]
+    },
+    {
+      "id": "blood_in_sputum",
+      "label": "Blood in sputum",
+      "aliases": [
+        "blood in sputum"
+      ]
+    },
+    {
+      "id": "bloody_stool",
+      "label": "Bloody stool",
+      "aliases": [
+        "bloody stool"
+      ]
+    },
+    {
+      "id": "blurred_and_distorted_vision",
+      "label": "Blurred and distorted vision",
+      "aliases": [
+        "blurred and distorted vision"
+      ]
+    },
+    {
+      "id": "breathlessness",
+      "label": "Shortness of breath",
+      "aliases": [
+        "breathlessness",
+        "shortness of breath",
+        "difficulty breathing",
+        "breathing difficulty",
+        "dyspnea"
+      ]
+    },
+    {
+      "id": "brittle_nails",
+      "label": "Brittle nails",
+      "aliases": [
+        "brittle nails"
+      ]
+    },
+    {
+      "id": "bruising",
+      "label": "Bruising",
+      "aliases": [
+        "bruising"
+      ]
+    },
+    {
+      "id": "burning_micturition",
+      "label": "Burning when urinating",
+      "aliases": [
+        "burning micturition",
+        "painful urination",
+        "burning urination",
+        "dysuria"
+      ]
+    },
+    {
+      "id": "chest_pain",
+      "label": "Chest pain",
+      "aliases": [
+        "chest pain",
+        "chest discomfort"
+      ]
+    },
+    {
+      "id": "chills",
+      "label": "Chills",
+      "aliases": [
+        "chills"
+      ]
+    },
+    {
+      "id": "cold_hands_and_feets",
+      "label": "Cold hands and feet",
+      "aliases": [
+        "cold hands and feets"
+      ]
+    },
+    {
+      "id": "coma",
+      "label": "Coma",
+      "aliases": [
+        "coma"
+      ]
+    },
+    {
+      "id": "congestion",
+      "label": "Congestion",
+      "aliases": [
+        "congestion"
+      ]
+    },
+    {
+      "id": "constipation",
+      "label": "Constipation",
+      "aliases": [
+        "constipation",
+        "difficulty passing stool"
+      ]
+    },
+    {
+      "id": "continuous_feel_of_urine",
+      "label": "Persistent urge to urinate",
+      "aliases": [
+        "continuous feel of urine"
+      ]
+    },
+    {
+      "id": "continuous_sneezing",
+      "label": "Frequent sneezing",
+      "aliases": [
+        "continuous sneezing",
+        "sneezing"
+      ]
+    },
+    {
+      "id": "cough",
+      "label": "Cough",
+      "aliases": [
+        "cough",
+        "coughing"
+      ]
+    },
+    {
+      "id": "cramps",
+      "label": "Cramps",
+      "aliases": [
+        "cramps"
+      ]
+    },
+    {
+      "id": "dark_urine",
+      "label": "Dark urine",
+      "aliases": [
+        "dark urine"
+      ]
+    },
+    {
+      "id": "dehydration",
+      "label": "Dehydration",
+      "aliases": [
+        "dehydration"
+      ]
+    },
+    {
+      "id": "depression",
+      "label": "Depression",
+      "aliases": [
+        "depression"
+      ]
+    },
+    {
+      "id": "diarrhoea",
+      "label": "Diarrhoea",
+      "aliases": [
+        "diarrhoea",
+        "diarrhea",
+        "loose stools"
+      ]
+    },
+    {
+      "id": "dischromic_patches",
+      "label": "Discoloured skin patches",
+      "aliases": [
+        "dischromic patches"
+      ]
+    },
+    {
+      "id": "distention_of_abdomen",
+      "label": "Abdominal swelling",
+      "aliases": [
+        "distention of abdomen"
+      ]
+    },
+    {
+      "id": "dizziness",
+      "label": "Dizziness",
+      "aliases": [
+        "dizziness",
+        "lightheadedness",
+        "dizzy"
+      ]
+    },
+    {
+      "id": "drying_and_tingling_lips",
+      "label": "Drying and tingling lips",
+      "aliases": [
+        "drying and tingling lips"
+      ]
+    },
+    {
+      "id": "enlarged_thyroid",
+      "label": "Enlarged thyroid",
+      "aliases": [
+        "enlarged thyroid"
+      ]
+    },
+    {
+      "id": "excessive_hunger",
+      "label": "Excessive hunger",
+      "aliases": [
+        "excessive hunger"
+      ]
+    },
+    {
+      "id": "extra_marital_contacts",
+      "label": "Sexual exposure concern",
+      "aliases": [
+        "extra marital contacts"
+      ]
+    },
+    {
+      "id": "family_history",
+      "label": "Family history",
+      "aliases": [
+        "family history"
+      ]
+    },
+    {
+      "id": "fast_heart_rate",
+      "label": "Fast heart rate",
+      "aliases": [
+        "fast heart rate"
+      ]
+    },
+    {
+      "id": "fatigue",
+      "label": "Fatigue",
+      "aliases": [
+        "fatigue",
+        "tired",
+        "tiredness",
+        "exhaustion"
+      ]
+    },
+    {
+      "id": "fluid_overload",
+      "label": "Fluid retention",
+      "aliases": [
+        "fluid overload"
+      ]
+    },
+    {
+      "id": "foul_smell_of_urine",
+      "label": "Strong-smelling urine",
+      "aliases": [
+        "foul smell of urine"
+      ]
+    },
+    {
+      "id": "headache",
+      "label": "Headache",
+      "aliases": [
+        "headache",
+        "head pain"
+      ]
+    },
+    {
+      "id": "high_fever",
+      "label": "High fever",
+      "aliases": [
+        "high fever",
+        "fever",
+        "temperature",
+        "hot"
+      ]
+    },
+    {
+      "id": "hip_joint_pain",
+      "label": "Hip joint pain",
+      "aliases": [
+        "hip joint pain"
+      ]
+    },
+    {
+      "id": "history_of_alcohol_consumption",
+      "label": "History of alcohol consumption",
+      "aliases": [
+        "history of alcohol consumption"
+      ]
+    },
+    {
+      "id": "increased_appetite",
+      "label": "Increased appetite",
+      "aliases": [
+        "increased appetite"
+      ]
+    },
+    {
+      "id": "indigestion",
+      "label": "Indigestion",
+      "aliases": [
+        "indigestion"
+      ]
+    },
+    {
+      "id": "inflammatory_nails",
+      "label": "Inflammatory nails",
+      "aliases": [
+        "inflammatory nails"
+      ]
+    },
+    {
+      "id": "internal_itching",
+      "label": "Internal itching",
+      "aliases": [
+        "internal itching"
+      ]
+    },
+    {
+      "id": "irregular_sugar_level",
+      "label": "Irregular sugar level",
+      "aliases": [
+        "irregular sugar level"
+      ]
+    },
+    {
+      "id": "irritability",
+      "label": "Irritability",
+      "aliases": [
+        "irritability"
+      ]
+    },
+    {
+      "id": "irritation_in_anus",
+      "label": "Irritation in anus",
+      "aliases": [
+        "irritation in anus"
+      ]
+    },
+    {
+      "id": "itching",
+      "label": "Itching",
+      "aliases": [
+        "itching",
+        "itchy",
+        "pruritus"
+      ]
+    },
+    {
+      "id": "joint_pain",
+      "label": "Joint pain",
+      "aliases": [
+        "joint pain",
+        "aching joints"
+      ]
+    },
+    {
+      "id": "knee_pain",
+      "label": "Knee pain",
+      "aliases": [
+        "knee pain"
+      ]
+    },
+    {
+      "id": "lack_of_concentration",
+      "label": "Lack of concentration",
+      "aliases": [
+        "lack of concentration"
+      ]
+    },
+    {
+      "id": "lethargy",
+      "label": "Low energy",
+      "aliases": [
+        "lethargy"
+      ]
+    },
+    {
+      "id": "loss_of_appetite",
+      "label": "Loss of appetite",
+      "aliases": [
+        "loss of appetite",
+        "no appetite",
+        "poor appetite"
+      ]
+    },
+    {
+      "id": "loss_of_balance",
+      "label": "Loss of balance",
+      "aliases": [
+        "loss of balance"
+      ]
+    },
+    {
+      "id": "loss_of_smell",
+      "label": "Loss of smell",
+      "aliases": [
+        "loss of smell"
+      ]
+    },
+    {
+      "id": "malaise",
+      "label": "Feeling generally unwell",
+      "aliases": [
+        "malaise"
+      ]
+    },
+    {
+      "id": "mild_fever",
+      "label": "Mild fever",
+      "aliases": [
+        "mild fever",
+        "low grade fever"
+      ]
+    },
+    {
+      "id": "mood_swings",
+      "label": "Mood swings",
+      "aliases": [
+        "mood swings"
+      ]
+    },
+    {
+      "id": "movement_stiffness",
+      "label": "Movement stiffness",
+      "aliases": [
+        "movement stiffness"
+      ]
+    },
+    {
+      "id": "mucoid_sputum",
+      "label": "Mucus in coughed-up phlegm",
+      "aliases": [
+        "mucoid sputum"
+      ]
+    },
+    {
+      "id": "muscle_pain",
+      "label": "Muscle pain",
+      "aliases": [
+        "muscle pain",
+        "body aches",
+        "myalgia"
+      ]
+    },
+    {
+      "id": "muscle_wasting",
+      "label": "Loss of muscle",
+      "aliases": [
+        "muscle wasting"
+      ]
+    },
+    {
+      "id": "muscle_weakness",
+      "label": "Muscle weakness",
+      "aliases": [
+        "muscle weakness"
+      ]
+    },
+    {
+      "id": "nausea",
+      "label": "Nausea",
+      "aliases": [
+        "nausea",
+        "feeling sick"
+      ]
+    },
+    {
+      "id": "neck_pain",
+      "label": "Neck pain",
+      "aliases": [
+        "neck pain"
+      ]
+    },
+    {
+      "id": "nodal_skin_eruptions",
+      "label": "Small raised skin lesions",
+      "aliases": [
+        "nodal skin eruptions"
+      ]
+    },
+    {
+      "id": "obesity",
+      "label": "Obesity",
+      "aliases": [
+        "obesity"
+      ]
+    },
+    {
+      "id": "pain_behind_the_eyes",
+      "label": "Pain behind the eyes",
+      "aliases": [
+        "pain behind the eyes"
+      ]
+    },
+    {
+      "id": "pain_during_bowel_movements",
+      "label": "Pain during bowel movements",
+      "aliases": [
+        "pain during bowel movements"
+      ]
+    },
+    {
+      "id": "pain_in_anal_region",
+      "label": "Pain in anal region",
+      "aliases": [
+        "pain in anal region"
+      ]
+    },
+    {
+      "id": "painful_walking",
+      "label": "Painful walking",
+      "aliases": [
+        "painful walking"
+      ]
+    },
+    {
+      "id": "palpitations",
+      "label": "Palpitations",
+      "aliases": [
+        "palpitations"
+      ]
+    },
+    {
+      "id": "passage_of_gases",
+      "label": "Passing gas",
+      "aliases": [
+        "passage of gases"
+      ]
+    },
+    {
+      "id": "patches_in_throat",
+      "label": "Patches in throat",
+      "aliases": [
+        "patches in throat"
+      ]
+    },
+    {
+      "id": "phlegm",
+      "label": "Phlegm",
+      "aliases": [
+        "phlegm"
+      ]
+    },
+    {
+      "id": "polyuria",
+      "label": "Passing urine frequently",
+      "aliases": [
+        "polyuria"
+      ]
+    },
+    {
+      "id": "prominent_veins_on_calf",
+      "label": "Prominent veins on calf",
+      "aliases": [
+        "prominent veins on calf"
+      ]
+    },
+    {
+      "id": "puffy_face_and_eyes",
+      "label": "Puffy face and eyes",
+      "aliases": [
+        "puffy face and eyes"
+      ]
+    },
+    {
+      "id": "pus_filled_pimples",
+      "label": "Pus-filled pimples",
+      "aliases": [
+        "pus filled pimples"
+      ]
+    },
+    {
+      "id": "receiving_blood_transfusion",
+      "label": "Receiving blood transfusion",
+      "aliases": [
+        "receiving blood transfusion"
+      ]
+    },
+    {
+      "id": "receiving_unsterile_injections",
+      "label": "Receiving unsterile injections",
+      "aliases": [
+        "receiving unsterile injections"
+      ]
+    },
+    {
+      "id": "red_sore_around_nose",
+      "label": "Red sore around nose",
+      "aliases": [
+        "red sore around nose"
+      ]
+    },
+    {
+      "id": "red_spots_over_body",
+      "label": "Red spots over body",
+      "aliases": [
+        "red spots over body"
+      ]
+    },
+    {
+      "id": "redness_of_eyes",
+      "label": "Redness of eyes",
+      "aliases": [
+        "redness of eyes"
+      ]
+    },
+    {
+      "id": "restlessness",
+      "label": "Restlessness",
+      "aliases": [
+        "restlessness"
+      ]
+    },
+    {
+      "id": "runny_nose",
+      "label": "Runny nose",
+      "aliases": [
+        "runny nose",
+        "running nose",
+        "rhinorrhea"
+      ]
+    },
+    {
+      "id": "rusty_sputum",
+      "label": "Rust-coloured phlegm",
+      "aliases": [
+        "rusty sputum"
+      ]
+    },
+    {
+      "id": "scurring",
+      "label": "Scaly skin",
+      "aliases": [
+        "scurring"
+      ]
+    },
+    {
+      "id": "shivering",
+      "label": "Shivering",
+      "aliases": [
+        "shivering"
+      ]
+    },
+    {
+      "id": "silver_like_dusting",
+      "label": "Silvery skin scales",
+      "aliases": [
+        "silver like dusting"
+      ]
+    },
+    {
+      "id": "sinus_pressure",
+      "label": "Sinus pressure",
+      "aliases": [
+        "sinus pressure"
+      ]
+    },
+    {
+      "id": "skin_peeling",
+      "label": "Skin peeling",
+      "aliases": [
+        "skin peeling"
+      ]
+    },
+    {
+      "id": "skin_rash",
+      "label": "Skin rash",
+      "aliases": [
+        "skin rash",
+        "rash",
+        "skin eruption"
+      ]
+    },
+    {
+      "id": "slurred_speech",
+      "label": "Slurred speech",
+      "aliases": [
+        "slurred speech"
+      ]
+    },
+    {
+      "id": "small_dents_in_nails",
+      "label": "Small dents in nails",
+      "aliases": [
+        "small dents in nails"
+      ]
+    },
+    {
+      "id": "spinning_movements",
+      "label": "Spinning sensation",
+      "aliases": [
+        "spinning movements"
+      ]
+    },
+    {
+      "id": "spotting_urination",
+      "label": "Spotting when urinating",
+      "aliases": [
+        "spotting urination"
+      ]
+    },
+    {
+      "id": "stiff_neck",
+      "label": "Stiff neck",
+      "aliases": [
+        "stiff neck"
+      ]
+    },
+    {
+      "id": "stomach_bleeding",
+      "label": "Stomach bleeding",
+      "aliases": [
+        "stomach bleeding"
+      ]
+    },
+    {
+      "id": "stomach_pain",
+      "label": "Stomach pain",
+      "aliases": [
+        "stomach pain",
+        "stomach ache",
+        "stomachache"
+      ]
+    },
+    {
+      "id": "sunken_eyes",
+      "label": "Sunken eyes",
+      "aliases": [
+        "sunken eyes"
+      ]
+    },
+    {
+      "id": "sweating",
+      "label": "Sweating",
+      "aliases": [
+        "sweating"
+      ]
+    },
+    {
+      "id": "swelled_lymph_nodes",
+      "label": "Swollen lymph nodes",
+      "aliases": [
+        "swelled lymph nodes",
+        "swollen glands",
+        "swollen lymph nodes"
+      ]
+    },
+    {
+      "id": "swelling_joints",
+      "label": "Swollen joints",
+      "aliases": [
+        "swelling joints"
+      ]
+    },
+    {
+      "id": "swelling_of_stomach",
+      "label": "Swelling of stomach",
+      "aliases": [
+        "swelling of stomach"
+      ]
+    },
+    {
+      "id": "swollen_blood_vessels",
+      "label": "Swollen blood vessels",
+      "aliases": [
+        "swollen blood vessels"
+      ]
+    },
+    {
+      "id": "swollen_extremeties",
+      "label": "Swollen hands or feet",
+      "aliases": [
+        "swollen extremeties"
+      ]
+    },
+    {
+      "id": "swollen_legs",
+      "label": "Swollen legs",
+      "aliases": [
+        "swollen legs"
+      ]
+    },
+    {
+      "id": "throat_irritation",
+      "label": "Throat irritation",
+      "aliases": [
+        "throat irritation"
+      ]
+    },
+    {
+      "id": "toxic_look_(typhos)",
+      "label": "Very unwell appearance",
+      "aliases": [
+        "toxic look (typhos)"
+      ]
+    },
+    {
+      "id": "ulcers_on_tongue",
+      "label": "Ulcers on tongue",
+      "aliases": [
+        "ulcers on tongue"
+      ]
+    },
+    {
+      "id": "unsteadiness",
+      "label": "Unsteadiness",
+      "aliases": [
+        "unsteadiness"
+      ]
+    },
+    {
+      "id": "visual_disturbances",
+      "label": "Visual disturbances",
+      "aliases": [
+        "visual disturbances"
+      ]
+    },
+    {
+      "id": "vomiting",
+      "label": "Vomiting",
+      "aliases": [
+        "vomiting",
+        "throwing up",
+        "being sick"
+      ]
+    },
+    {
+      "id": "watering_from_eyes",
+      "label": "Watering from eyes",
+      "aliases": [
+        "watering from eyes",
+        "watery eyes"
+      ]
+    },
+    {
+      "id": "weakness_in_limbs",
+      "label": "Weakness in limbs",
+      "aliases": [
+        "weakness in limbs"
+      ]
+    },
+    {
+      "id": "weakness_of_one_body_side",
+      "label": "Weakness of one body side",
+      "aliases": [
+        "weakness of one body side"
+      ]
+    },
+    {
+      "id": "weight_gain",
+      "label": "Weight gain",
+      "aliases": [
+        "weight gain"
+      ]
+    },
+    {
+      "id": "weight_loss",
+      "label": "Weight loss",
+      "aliases": [
+        "weight loss",
+        "losing weight"
+      ]
+    },
+    {
+      "id": "yellow_crust_ooze",
+      "label": "Yellow crust or ooze",
+      "aliases": [
+        "yellow crust ooze"
+      ]
+    },
+    {
+      "id": "yellow_urine",
+      "label": "Yellow urine",
+      "aliases": [
+        "yellow urine"
+      ]
+    },
+    {
+      "id": "yellowing_of_eyes",
+      "label": "Yellowing of eyes",
+      "aliases": [
+        "yellowing of eyes"
+      ]
+    },
+    {
+      "id": "yellowish_skin",
+      "label": "Yellowish skin",
+      "aliases": [
+        "yellowish skin",
+        "yellow skin"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "duration",
+      "prompt": "How long have you noticed these symptoms?",
+      "options": [
+        "Less than a day",
+        "1–3 days",
+        "4–7 days",
+        "More than a week",
+        "Not sure"
+      ],
+      "suggests": null
+    },
+    {
+      "id": "fever_check",
+      "prompt": "Have you also noticed a high fever?",
+      "options": [
+        "Yes",
+        "No",
+        "Not sure"
+      ],
+      "suggests": "high_fever"
+    },
+    {
+      "id": "breathing_check",
+      "prompt": "Have you also noticed shortness of breath?",
+      "options": [
+        "Yes",
+        "No",
+        "Not sure"
+      ],
+      "suggests": "breathlessness"
+    }
+  ]
+}

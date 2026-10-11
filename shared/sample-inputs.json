@@ -1,0 +1,45 @@
+[
+  {
+    "id": "cold",
+    "name": "A change in season",
+    "subtitle": "Sneezing, a runny nose, a cough.",
+    "symptoms": [
+      "continuous_sneezing",
+      "runny_nose",
+      "cough",
+      "congestion",
+      "throat_irritation",
+      "loss_of_smell"
+    ],
+    "duration": "1–3 days",
+    "condition": "Common Cold"
+  },
+  {
+    "id": "migraine",
+    "name": "A difficult afternoon",
+    "subtitle": "Headache, visual changes, a stiff neck.",
+    "symptoms": [
+      "headache",
+      "blurred_and_distorted_vision",
+      "acidity",
+      "visual_disturbances",
+      "stiff_neck",
+      "indigestion"
+    ],
+    "duration": "Less than a day",
+    "condition": "Migraine"
+  },
+  {
+    "id": "skin",
+    "name": "Something on the surface",
+    "subtitle": "Itching, a rash, discoloured patches.",
+    "symptoms": [
+      "itching",
+      "skin_rash",
+      "dischromic_patches",
+      "nodal_skin_eruptions"
+    ],
+    "duration": "4–7 days",
+    "condition": "Fungal infection"
+  }
+]

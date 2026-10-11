@@ -1,43 +1,13 @@
-fastapi>=0.68.0
-uvicorn[standard]>=0.15.0
-scikit-learn>=1.0.0
-pandas>=1.3.0
-joblib>=1.0.0
-python-multipart
-
-# NLP / Synonyms / Fuzzy
-spacy>=3.0.0
-textblob>=0.17.1
-fuzzywuzzy>=0.18.0
-python-Levenshtein>=0.12.0
-
-# Data
-numpy>=1.21.0
-
-# OCR and PDF
-pytesseract>=0.3.8
-Pillow>=8.0.0
-pdfplumber>=0.6.0
-
-# Explainability
-shap>=0.40.0
-
-# For notebook environments
-jupyter
-
-# For typing and static checks (optional)
-typing-extensions
-
-# For nice forms/file handling support
-python-multipart
-# AI LLM Integration
-# AI LLM Integration
-# AI LLM Integration
-openai>=1.0.0
-python-dotenv>=1.0.0
-# RAG and Vector Store
-langchain>=0.1.0
-langchain-community>=0.0.10
-langchain-openai>=0.0.2
-faiss-cpu>=1.7.4
-tiktoken>=0.5.2
+fastapi==0.143.0
+uvicorn==0.34.2
+python-multipart==0.0.32
+numpy==2.2.5
+scikit-learn==1.6.1
+shap==0.47.2
+joblib==1.4.2
+pydantic==2.14.0
+pypdf==6.20.0
+pypdfium2==5.14.0
+pillow==12.3.0
+pytesseract==0.3.13
+httpx==0.28.1

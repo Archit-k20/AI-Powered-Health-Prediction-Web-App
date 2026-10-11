@@ -1,24 +1,16 @@
-# Python cache and virtualenv
+.venv/
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-venv/
-
-# Jupyter Notebook checkpoints
+*.py[cod]
+.pytest_cache/
+node_modules/
+frontend/dist/
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example
+.vercel/
+.coverage
 .ipynb_checkpoints/
 
-# Model artifacts (optionally)
-*.pkl
-
-# OS/system files
-.DS_Store
-Thumbs.db
-
-# VS Code
-.vscode/
-
-# Logs (optional)
-*.log
-# Security
-**/.env
+*.tsbuildinfo

@@ -1,0 +1,789 @@
+[
+  {
+    "id": "cold",
+    "name": "A change in season",
+    "subtitle": "Sneezing, a runny nose, a cough.",
+    "symptoms": [
+      "continuous_sneezing",
+      "runny_nose",
+      "cough",
+      "congestion",
+      "throat_irritation",
+      "loss_of_smell"
+    ],
+    "duration": "1–3 days",
+    "condition": "Common Cold",
+    "assessment": {
+      "model_version": "health-rf-1.0.0",
+      "symptoms": [
+        "continuous_sneezing",
+        "runny_nose",
+        "cough",
+        "congestion",
+        "throat_irritation",
+        "loss_of_smell"
+      ],
+      "context": [
+        "How long have you noticed these symptoms? 1–3 days"
+      ],
+      "matches": [
+        {
+          "rank": 1,
+          "condition": "Common Cold",
+          "label": "Common cold",
+          "description": "The common cold is a viral infection of the upper respiratory tract.",
+          "supporting_symptoms": [
+            "congestion",
+            "continuous_sneezing",
+            "cough",
+            "loss_of_smell",
+            "runny_nose",
+            "throat_irritation"
+          ],
+          "contributions": [
+            {
+              "symptom_id": "loss_of_smell",
+              "label": "Loss of smell",
+              "present": true,
+              "contribution": 0.09329448278758644
+            },
+            {
+              "symptom_id": "congestion",
+              "label": "Congestion",
+              "present": true,
+              "contribution": 0.06737581316578589
+            },
+            {
+              "symptom_id": "throat_irritation",
+              "label": "Throat irritation",
+              "present": true,
+              "contribution": 0.04829873084633263
+            },
+            {
+              "symptom_id": "runny_nose",
+              "label": "Runny nose",
+              "present": true,
+              "contribution": 0.02597173760105467
+            },
+            {
+              "symptom_id": "redness_of_eyes",
+              "label": "Redness of eyes",
+              "present": false,
+              "contribution": -0.0077239083714887085
+            },
+            {
+              "symptom_id": "continuous_sneezing",
+              "label": "Frequent sneezing",
+              "present": true,
+              "contribution": 0.006927870355482074
+            },
+            {
+              "symptom_id": "phlegm",
+              "label": "Phlegm",
+              "present": false,
+              "contribution": -0.00610244239072884
+            },
+            {
+              "symptom_id": "muscle_pain",
+              "label": "Muscle pain",
+              "present": false,
+              "contribution": -0.005080316161620854
+            }
+          ],
+          "base_value": 0.027448559670781875,
+          "model_output": 0.3,
+          "sources": [
+            {
+              "id": "medlineplus-commoncold",
+              "title": "MedlinePlus: Common cold",
+              "url": "https://medlineplus.gov/commoncold.html",
+              "publisher": "U.S. National Library of Medicine",
+              "accessed": "2026-10-11"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "condition": "Allergy",
+          "label": "Allergy",
+          "description": "An allergy is an immune response to a substance that is usually harmless.",
+          "supporting_symptoms": [
+            "continuous_sneezing"
+          ],
+          "contributions": [
+            {
+              "symptom_id": "continuous_sneezing",
+              "label": "Frequent sneezing",
+              "present": true,
+              "contribution": 0.04430217619410741
+            },
+            {
+              "symptom_id": "watering_from_eyes",
+              "label": "Watering from eyes",
+              "present": false,
+              "contribution": -0.02066906629014907
+            },
+            {
+              "symptom_id": "cough",
+              "label": "Cough",
+              "present": true,
+              "contribution": -0.013123412787701303
+            },
+            {
+              "symptom_id": "vomiting",
+              "label": "Vomiting",
+              "present": false,
+              "contribution": 0.008803089675946186
+            },
+            {
+              "symptom_id": "chills",
+              "label": "Chills",
+              "present": false,
+              "contribution": -0.007730792250449852
+            },
+            {
+              "symptom_id": "shivering",
+              "label": "Shivering",
+              "present": false,
+              "contribution": -0.006881965224245651
+            },
+            {
+              "symptom_id": "congestion",
+              "label": "Congestion",
+              "present": true,
+              "contribution": -0.006722059178912283
+            },
+            {
+              "symptom_id": "itching",
+              "label": "Itching",
+              "present": false,
+              "contribution": 0.0044509224240157534
+            }
+          ],
+          "base_value": 0.01625514403292181,
+          "model_output": 0.14,
+          "sources": [
+            {
+              "id": "medlineplus-allergy",
+              "title": "MedlinePlus: Allergy",
+              "url": "https://medlineplus.gov/allergy.html",
+              "publisher": "U.S. National Library of Medicine",
+              "accessed": "2026-10-11"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "condition": "Bronchial Asthma",
+          "label": "Asthma",
+          "description": "Asthma affects the airways and can cause episodes of breathing difficulty.",
+          "supporting_symptoms": [
+            "cough"
+          ],
+          "contributions": [
+            {
+              "symptom_id": "cough",
+              "label": "Cough",
+              "present": true,
+              "contribution": 0.05648148492171716
+            },
+            {
+              "symptom_id": "mucoid_sputum",
+              "label": "Mucus in coughed-up phlegm",
+              "present": false,
+              "contribution": -0.016245568949474667
+            },
+            {
+              "symptom_id": "breathlessness",
+              "label": "Shortness of breath",
+              "present": false,
+              "contribution": -0.011366044531498157
+            },
+            {
+              "symptom_id": "loss_of_smell",
+              "label": "Loss of smell",
+              "present": true,
+              "contribution": -0.010356754052367285
+            },
+            {
+              "symptom_id": "family_history",
+              "label": "Family history",
+              "present": false,
+              "contribution": -0.010149391321612616
+            },
+            {
+              "symptom_id": "high_fever",
+              "label": "High fever",
+              "present": false,
+              "contribution": -0.007724161547706466
+            },
+            {
+              "symptom_id": "vomiting",
+              "label": "Vomiting",
+              "present": false,
+              "contribution": 0.007451261227350106
+            },
+            {
+              "symptom_id": "chest_pain",
+              "label": "Chest pain",
+              "present": false,
+              "contribution": 0.005083807067307956
+            }
+          ],
+          "base_value": 0.022839506172839506,
+          "model_output": 0.12,
+          "sources": [
+            {
+              "id": "medlineplus-asthma",
+              "title": "MedlinePlus: Asthma",
+              "url": "https://medlineplus.gov/asthma.html",
+              "publisher": "U.S. National Library of Medicine",
+              "accessed": "2026-10-11"
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Educational model; not clinically validated and not a diagnosis.",
+        "The original dataset's clinical provenance, collection process and population are undocumented.",
+        "4,920 rows collapse to 304 distinct symptom patterns across 41 labels. Templates are highly repetitive.",
+        "Small internal holdout; results do not establish performance on real people or unseen conditions.",
+        "Only recorded symptom presence is modeled. Missing selections are encoded as absent; age, duration and lab values are not model inputs.",
+        "Ranked matches are model similarities, not personal disease probabilities. Some dataset labels describe symptoms or syndromes rather than diagnoses."
+      ],
+      "notice": "Educational exploration only. These are ranked dataset matches, not a diagnosis or personal disease risk. For severe or sudden symptoms, seek urgent medical help; do not rely on this demo."
+    },
+    "explanation": {
+      "sample_id": "cold",
+      "mode": "prepared",
+      "text": "In this fictional walkthrough, the selected symptoms illustrate how a small dataset can associate a pattern with common cold. The common cold is a viral infection of the upper respiratory tract. Other explanations are possible. The classifier's ranking is not a diagnosis and the source describes the condition; it does not validate the model.",
+      "source_ids": [
+        "medlineplus-commoncold"
+      ],
+      "notice": "Prepared educational explanation for a fictional case. No visitor input was used."
+    }
+  },
+  {
+    "id": "migraine",
+    "name": "A difficult afternoon",
+    "subtitle": "Headache, visual changes, a stiff neck.",
+    "symptoms": [
+      "headache",
+      "blurred_and_distorted_vision",
+      "acidity",
+      "visual_disturbances",
+      "stiff_neck",
+      "indigestion"
+    ],
+    "duration": "Less than a day",
+    "condition": "Migraine",
+    "assessment": {
+      "model_version": "health-rf-1.0.0",
+      "symptoms": [
+        "headache",
+        "blurred_and_distorted_vision",
+        "acidity",
+        "visual_disturbances",
+        "stiff_neck",
+        "indigestion"
+      ],
+      "context": [
+        "How long have you noticed these symptoms? Less than a day"
+      ],
+      "matches": [
+        {
+          "rank": 1,
+          "condition": "Migraine",
+          "label": "Migraine",
+          "description": "Migraine can involve recurrent headache and sensitivity to light or sound, sometimes with nausea.",
+          "supporting_symptoms": [
+            "acidity",
+            "blurred_and_distorted_vision",
+            "headache",
+            "indigestion",
+            "stiff_neck",
+            "visual_disturbances"
+          ],
+          "contributions": [
+            {
+              "symptom_id": "visual_disturbances",
+              "label": "Visual disturbances",
+              "present": true,
+              "contribution": 0.12487143519092536
+            },
+            {
+              "symptom_id": "blurred_and_distorted_vision",
+              "label": "Blurred and distorted vision",
+              "present": true,
+              "contribution": 0.07569056902379138
+            },
+            {
+              "symptom_id": "acidity",
+              "label": "Acidity",
+              "present": true,
+              "contribution": 0.04692208682788471
+            },
+            {
+              "symptom_id": "stiff_neck",
+              "label": "Stiff neck",
+              "present": true,
+              "contribution": 0.043270298346412404
+            },
+            {
+              "symptom_id": "indigestion",
+              "label": "Indigestion",
+              "present": true,
+              "contribution": 0.038236958865136235
+            },
+            {
+              "symptom_id": "depression",
+              "label": "Depression",
+              "present": false,
+              "contribution": -0.03658455785642139
+            },
+            {
+              "symptom_id": "headache",
+              "label": "Headache",
+              "present": true,
+              "contribution": 0.02788807999908821
+            },
+            {
+              "symptom_id": "irritability",
+              "label": "Irritability",
+              "present": false,
+              "contribution": -0.012399234825581683
+            }
+          ],
+          "base_value": 0.03539094650205761,
+          "model_output": 0.52,
+          "sources": [
+            {
+              "id": "medlineplus-migraine",
+              "title": "MedlinePlus: Migraine",
+              "url": "https://medlineplus.gov/migraine.html",
+              "publisher": "U.S. National Library of Medicine",
+              "accessed": "2026-10-11"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "condition": "GERD",
+          "label": "Gastroesophageal reflux disease",
+          "description": "GERD involves stomach contents flowing back into the esophagus.",
+          "supporting_symptoms": [
+            "acidity"
+          ],
+          "contributions": [
+            {
+              "symptom_id": "acidity",
+              "label": "Acidity",
+              "present": true,
+              "contribution": 0.07428451075094122
+            },
+            {
+              "symptom_id": "depression",
+              "label": "Depression",
+              "present": false,
+              "contribution": 0.01247300121924001
+            },
+            {
+              "symptom_id": "headache",
+              "label": "Headache",
+              "present": true,
+              "contribution": -0.010619428500750455
+            },
+            {
+              "symptom_id": "vomiting",
+              "label": "Vomiting",
+              "present": false,
+              "contribution": -0.008714179748168429
+            },
+            {
+              "symptom_id": "cough",
+              "label": "Cough",
+              "present": false,
+              "contribution": -0.007514568104976967
+            },
+            {
+              "symptom_id": "stiff_neck",
+              "label": "Stiff neck",
+              "present": true,
+              "contribution": -0.006983143085831113
+            },
+            {
+              "symptom_id": "stomach_pain",
+              "label": "Stomach pain",
+              "present": false,
+              "contribution": -0.006874998216011417
+            },
+            {
+              "symptom_id": "indigestion",
+              "label": "Indigestion",
+              "present": true,
+              "contribution": -0.006763094744968175
+            }
+          ],
+          "base_value": 0.023086419753086417,
+          "model_output": 0.12,
+          "sources": [
+            {
+              "id": "medlineplus-gerd",
+              "title": "MedlinePlus: Gastroesophageal reflux disease",
+              "url": "https://medlineplus.gov/gerd.html",
+              "publisher": "U.S. National Library of Medicine",
+              "accessed": "2026-10-11"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "condition": "Peptic ulcer diseae",
+          "label": "Peptic ulcer disease",
+          "description": "Peptic ulcers are sores in the lining of the stomach or upper small intestine.",
+          "supporting_symptoms": [
+            "indigestion"
+          ],
+          "contributions": [
+            {
+              "symptom_id": "indigestion",
+              "label": "Indigestion",
+              "present": true,
+              "contribution": 0.04689695417926697
+            },
+            {
+              "symptom_id": "headache",
+              "label": "Headache",
+              "present": true,
+              "contribution": -0.01278271338338083
+            },
+            {
+              "symptom_id": "abdominal_pain",
+              "label": "Abdominal pain",
+              "present": false,
+              "contribution": -0.010933060026887374
+            },
+            {
+              "symptom_id": "blurred_and_distorted_vision",
+              "label": "Blurred and distorted vision",
+              "present": true,
+              "contribution": -0.010814762549900095
+            },
+            {
+              "symptom_id": "acidity",
+              "label": "Acidity",
+              "present": true,
+              "contribution": -0.00947061185081671
+            },
+            {
+              "symptom_id": "loss_of_appetite",
+              "label": "Loss of appetite",
+              "present": false,
+              "contribution": -0.008312252398425564
+            },
+            {
+              "symptom_id": "internal_itching",
+              "label": "Internal itching",
+              "present": false,
+              "contribution": -0.008087767403667326
+            },
+            {
+              "symptom_id": "passage_of_gases",
+              "label": "Passing gas",
+              "present": false,
+              "contribution": -0.007674082904577995
+            }
+          ],
+          "base_value": 0.02563786008230453,
+          "model_output": 0.07,
+          "sources": [
+            {
+              "id": "medlineplus-pepticulcer",
+              "title": "MedlinePlus: Peptic ulcer disease",
+              "url": "https://medlineplus.gov/pepticulcer.html",
+              "publisher": "U.S. National Library of Medicine",
+              "accessed": "2026-10-11"
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Educational model; not clinically validated and not a diagnosis.",
+        "The original dataset's clinical provenance, collection process and population are undocumented.",
+        "4,920 rows collapse to 304 distinct symptom patterns across 41 labels. Templates are highly repetitive.",
+        "Small internal holdout; results do not establish performance on real people or unseen conditions.",
+        "Only recorded symptom presence is modeled. Missing selections are encoded as absent; age, duration and lab values are not model inputs.",
+        "Ranked matches are model similarities, not personal disease probabilities. Some dataset labels describe symptoms or syndromes rather than diagnoses."
+      ],
+      "notice": "Educational exploration only. These are ranked dataset matches, not a diagnosis or personal disease risk. For severe or sudden symptoms, seek urgent medical help; do not rely on this demo."
+    },
+    "explanation": {
+      "sample_id": "migraine",
+      "mode": "prepared",
+      "text": "In this fictional walkthrough, the selected symptoms illustrate how a small dataset can associate a pattern with migraine. Migraine can involve recurrent headache and sensitivity to light or sound, sometimes with nausea. Other explanations are possible. The classifier's ranking is not a diagnosis and the source describes the condition; it does not validate the model.",
+      "source_ids": [
+        "medlineplus-migraine"
+      ],
+      "notice": "Prepared educational explanation for a fictional case. No visitor input was used."
+    }
+  },
+  {
+    "id": "skin",
+    "name": "Something on the surface",
+    "subtitle": "Itching, a rash, discoloured patches.",
+    "symptoms": [
+      "itching",
+      "skin_rash",
+      "dischromic_patches",
+      "nodal_skin_eruptions"
+    ],
+    "duration": "4–7 days",
+    "condition": "Fungal infection",
+    "assessment": {
+      "model_version": "health-rf-1.0.0",
+      "symptoms": [
+        "itching",
+        "skin_rash",
+        "dischromic_patches",
+        "nodal_skin_eruptions"
+      ],
+      "context": [
+        "How long have you noticed these symptoms? 4–7 days"
+      ],
+      "matches": [
+        {
+          "rank": 1,
+          "condition": "Fungal infection",
+          "label": "Fungal infection",
+          "description": "Fungi can cause infections in the skin and other parts of the body.",
+          "supporting_symptoms": [
+            "dischromic_patches",
+            "itching",
+            "nodal_skin_eruptions",
+            "skin_rash"
+          ],
+          "contributions": [
+            {
+              "symptom_id": "nodal_skin_eruptions",
+              "label": "Small raised skin lesions",
+              "present": true,
+              "contribution": 0.1635491237043207
+            },
+            {
+              "symptom_id": "dischromic_patches",
+              "label": "Discoloured skin patches",
+              "present": true,
+              "contribution": 0.06990305442710544
+            },
+            {
+              "symptom_id": "itching",
+              "label": "Itching",
+              "present": true,
+              "contribution": 0.060085193894895986
+            },
+            {
+              "symptom_id": "skin_rash",
+              "label": "Skin rash",
+              "present": true,
+              "contribution": 0.027518609950925213
+            },
+            {
+              "symptom_id": "abdominal_pain",
+              "label": "Abdominal pain",
+              "present": false,
+              "contribution": 0.026797651346035765
+            },
+            {
+              "symptom_id": "stomach_pain",
+              "label": "Stomach pain",
+              "present": false,
+              "contribution": 0.023955346281226655
+            },
+            {
+              "symptom_id": "vomiting",
+              "label": "Vomiting",
+              "present": false,
+              "contribution": 0.02369421147915778
+            },
+            {
+              "symptom_id": "yellowish_skin",
+              "label": "Yellowish skin",
+              "present": false,
+              "contribution": 0.022817131678032784
+            }
+          ],
+          "base_value": 0.016049382716049387,
+          "model_output": 0.96,
+          "sources": [
+            {
+              "id": "medlineplus-fungalinfections",
+              "title": "MedlinePlus: Fungal infection",
+              "url": "https://medlineplus.gov/fungalinfections.html",
+              "publisher": "U.S. National Library of Medicine",
+              "accessed": "2026-10-11"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "condition": "Acne",
+          "label": "Acne",
+          "description": "Acne occurs when hair follicles become blocked and can cause several types of skin lesions.",
+          "supporting_symptoms": [
+            "skin_rash"
+          ],
+          "contributions": [
+            {
+              "symptom_id": "scurring",
+              "label": "Scaly skin",
+              "present": false,
+              "contribution": -0.02365523310244348
+            },
+            {
+              "symptom_id": "dischromic_patches",
+              "label": "Discoloured skin patches",
+              "present": true,
+              "contribution": -0.013001277252124148
+            },
+            {
+              "symptom_id": "nodal_skin_eruptions",
+              "label": "Small raised skin lesions",
+              "present": true,
+              "contribution": -0.011708243448562574
+            },
+            {
+              "symptom_id": "itching",
+              "label": "Itching",
+              "present": true,
+              "contribution": -0.01066892711191481
+            },
+            {
+              "symptom_id": "skin_rash",
+              "label": "Skin rash",
+              "present": true,
+              "contribution": 0.009910803185356382
+            },
+            {
+              "symptom_id": "pus_filled_pimples",
+              "label": "Pus-filled pimples",
+              "present": false,
+              "contribution": -0.0054467583904999955
+            },
+            {
+              "symptom_id": "blackheads",
+              "label": "Blackheads",
+              "present": false,
+              "contribution": -0.0047885370880046555
+            },
+            {
+              "symptom_id": "high_fever",
+              "label": "High fever",
+              "present": false,
+              "contribution": 0.0032895591446539993
+            }
+          ],
+          "base_value": 0.01436213991769548,
+          "model_output": 0.02,
+          "sources": [
+            {
+              "id": "medlineplus-acne",
+              "title": "MedlinePlus: Acne",
+              "url": "https://medlineplus.gov/acne.html",
+              "publisher": "U.S. National Library of Medicine",
+              "accessed": "2026-10-11"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "condition": "Drug Reaction",
+          "label": "Drug reaction",
+          "description": "Medicines can cause unwanted reactions. A symptom match cannot establish which medicine caused a reaction.",
+          "supporting_symptoms": [
+            "itching",
+            "skin_rash"
+          ],
+          "contributions": [
+            {
+              "symptom_id": "stomach_pain",
+              "label": "Stomach pain",
+              "present": false,
+              "contribution": -0.03142432759475893
+            },
+            {
+              "symptom_id": "nodal_skin_eruptions",
+              "label": "Small raised skin lesions",
+              "present": true,
+              "contribution": -0.026729190628781693
+            },
+            {
+              "symptom_id": "itching",
+              "label": "Itching",
+              "present": true,
+              "contribution": 0.014329664573665664
+            },
+            {
+              "symptom_id": "spotting_urination",
+              "label": "Spotting when urinating",
+              "present": false,
+              "contribution": -0.013962473902389373
+            },
+            {
+              "symptom_id": "burning_micturition",
+              "label": "Burning when urinating",
+              "present": false,
+              "contribution": -0.013616016291473068
+            },
+            {
+              "symptom_id": "dischromic_patches",
+              "label": "Discoloured skin patches",
+              "present": true,
+              "contribution": -0.010860772685912514
+            },
+            {
+              "symptom_id": "skin_rash",
+              "label": "Skin rash",
+              "present": true,
+              "contribution": 0.010005491994135649
+            },
+            {
+              "symptom_id": "vomiting",
+              "label": "Vomiting",
+              "present": false,
+              "contribution": 0.003853328753556663
+            }
+          ],
+          "base_value": 0.020699588477366252,
+          "model_output": 0.01,
+          "sources": [
+            {
+              "id": "medlineplus-drugreactions",
+              "title": "MedlinePlus: Drug reaction",
+              "url": "https://medlineplus.gov/drugreactions.html",
+              "publisher": "U.S. National Library of Medicine",
+              "accessed": "2026-10-11"
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Educational model; not clinically validated and not a diagnosis.",
+        "The original dataset's clinical provenance, collection process and population are undocumented.",
+        "4,920 rows collapse to 304 distinct symptom patterns across 41 labels. Templates are highly repetitive.",
+        "Small internal holdout; results do not establish performance on real people or unseen conditions.",
+        "Only recorded symptom presence is modeled. Missing selections are encoded as absent; age, duration and lab values are not model inputs.",
+        "Ranked matches are model similarities, not personal disease probabilities. Some dataset labels describe symptoms or syndromes rather than diagnoses."
+      ],
+      "notice": "Educational exploration only. These are ranked dataset matches, not a diagnosis or personal disease risk. For severe or sudden symptoms, seek urgent medical help; do not rely on this demo."
+    },
+    "explanation": {
+      "sample_id": "skin",
+      "mode": "prepared",
+      "text": "In this fictional walkthrough, the selected symptoms illustrate how a small dataset can associate a pattern with fungal infection. Fungi can cause infections in the skin and other parts of the body. Other explanations are possible. The classifier's ranking is not a diagnosis and the source describes the condition; it does not validate the model.",
+      "source_ids": [
+        "medlineplus-fungalinfections"
+      ],
+      "notice": "Prepared educational explanation for a fictional case. No visitor input was used."
+    }
+  }
+]

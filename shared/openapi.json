@@ -1,0 +1,1191 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "The Shape of Health",
+    "version": "1.1.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/symptoms": {
+      "get": {
+        "summary": "Symptoms",
+        "operationId": "symptoms_api_v1_symptoms_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Registry"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/model-info": {
+      "get": {
+        "summary": "Model Info",
+        "operationId": "model_info_api_v1_model_info_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelInfo"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/assessments": {
+      "post": {
+        "summary": "Assess",
+        "operationId": "assess_api_v1_assessments_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssessmentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Assessment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reports/extract": {
+      "post": {
+        "summary": "Extract",
+        "operationId": "extract_api_v1_reports_extract_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_extract_api_v1_reports_extract_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Extraction"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/samples/{sample_id}/explain": {
+      "post": {
+        "summary": "Sample Explanation",
+        "operationId": "sample_explanation_api_v1_samples__sample_id__explain_post",
+        "parameters": [
+          {
+            "name": "sample_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sample Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SampleExplanation"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Assessment": {
+        "properties": {
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "symptoms": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Symptoms"
+          },
+          "context": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Context"
+          },
+          "matches": {
+            "items": {
+              "$ref": "#/components/schemas/Match"
+            },
+            "type": "array",
+            "title": "Matches"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Limitations"
+          },
+          "notice": {
+            "type": "string",
+            "title": "Notice"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_version",
+          "symptoms",
+          "context",
+          "matches",
+          "limitations",
+          "notice"
+        ],
+        "title": "Assessment"
+      },
+      "AssessmentInput": {
+        "properties": {
+          "symptoms": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 50,
+            "title": "Symptoms"
+          },
+          "followups": {
+            "items": {
+              "$ref": "#/components/schemas/Followup"
+            },
+            "type": "array",
+            "maxItems": 10,
+            "title": "Followups"
+          },
+          "report_symptoms": {
+            "items": {
+              "$ref": "#/components/schemas/ConfirmedReportSymptom"
+            },
+            "type": "array",
+            "maxItems": 50,
+            "title": "Report Symptoms"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "AssessmentInput"
+      },
+      "Body_extract_api_v1_reports_extract_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_extract_api_v1_reports_extract_post"
+      },
+      "ConfirmedReportSymptom": {
+        "properties": {
+          "symptom_id": {
+            "type": "string",
+            "maxLength": 80,
+            "title": "Symptom Id"
+          },
+          "confirmed_current": {
+            "type": "boolean",
+            "title": "Confirmed Current"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "symptom_id",
+          "confirmed_current"
+        ],
+        "title": "ConfirmedReportSymptom"
+      },
+      "Contribution": {
+        "properties": {
+          "symptom_id": {
+            "type": "string",
+            "title": "Symptom Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "present": {
+            "type": "boolean",
+            "title": "Present"
+          },
+          "contribution": {
+            "type": "number",
+            "title": "Contribution"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "symptom_id",
+          "label",
+          "present",
+          "contribution"
+        ],
+        "title": "Contribution"
+      },
+      "ErrorDetail": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorDetail"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorDetail"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "title": "ErrorResponse"
+      },
+      "Evidence": {
+        "properties": {
+          "quote": {
+            "type": "string",
+            "title": "Quote"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "embedded_text",
+              "ocr"
+            ],
+            "title": "Method"
+          },
+          "bbox": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bbox"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "quote",
+          "page",
+          "method"
+        ],
+        "title": "Evidence"
+      },
+      "Extraction": {
+        "properties": {
+          "findings": {
+            "items": {
+              "$ref": "#/components/schemas/Finding"
+            },
+            "type": "array",
+            "title": "Findings"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "pages": {
+            "type": "integer",
+            "title": "Pages"
+          },
+          "partial": {
+            "type": "boolean",
+            "title": "Partial"
+          },
+          "page_details": {
+            "items": {
+              "$ref": "#/components/schemas/ReportPage"
+            },
+            "type": "array",
+            "title": "Page Details"
+          },
+          "mentions": {
+            "items": {
+              "$ref": "#/components/schemas/ReportMention"
+            },
+            "type": "array",
+            "title": "Mentions"
+          },
+          "pipeline_version": {
+            "type": "string",
+            "title": "Pipeline Version",
+            "default": "reports-2.0.0"
+          },
+          "notice": {
+            "type": "string",
+            "title": "Notice",
+            "default": "Check the original report. Only symptoms you confirm as current can enter the model; lab values and documented diagnoses stay separate. Extraction can miss information."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "findings",
+          "warnings",
+          "pages",
+          "partial"
+        ],
+        "title": "Extraction"
+      },
+      "Finding": {
+        "properties": {
+          "test_name": {
+            "type": "string",
+            "title": "Test Name"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit"
+          },
+          "reference_range": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Range"
+          },
+          "source_page": {
+            "type": "integer",
+            "title": "Source Page"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "embedded_text",
+              "ocr",
+              "fictional",
+              "manual"
+            ],
+            "title": "Method"
+          },
+          "needs_review": {
+            "type": "boolean",
+            "title": "Needs Review"
+          },
+          "evidence": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Evidence"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "review_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Review Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "test_name",
+          "value",
+          "unit",
+          "reference_range",
+          "source_page",
+          "method",
+          "needs_review"
+        ],
+        "title": "Finding"
+      },
+      "Followup": {
+        "properties": {
+          "question_id": {
+            "type": "string",
+            "maxLength": 50,
+            "title": "Question Id"
+          },
+          "answer": {
+            "type": "string",
+            "maxLength": 50,
+            "title": "Answer"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "title": "Confirmed",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "question_id",
+          "answer"
+        ],
+        "title": "Followup"
+      },
+      "Health": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ready",
+              "degraded"
+            ],
+            "title": "Status"
+          },
+          "model_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Version"
+          },
+          "capabilities": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "type": "object",
+            "title": "Capabilities"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "model_version",
+          "capabilities"
+        ],
+        "title": "Health"
+      },
+      "Match": {
+        "properties": {
+          "rank": {
+            "type": "integer",
+            "title": "Rank"
+          },
+          "condition": {
+            "type": "string",
+            "title": "Condition"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "supporting_symptoms": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Supporting Symptoms"
+          },
+          "contributions": {
+            "items": {
+              "$ref": "#/components/schemas/Contribution"
+            },
+            "type": "array",
+            "title": "Contributions"
+          },
+          "base_value": {
+            "type": "number",
+            "title": "Base Value"
+          },
+          "model_output": {
+            "type": "number",
+            "title": "Model Output"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "rank",
+          "condition",
+          "label",
+          "description",
+          "supporting_symptoms",
+          "contributions",
+          "base_value",
+          "model_output",
+          "sources"
+        ],
+        "title": "Match"
+      },
+      "Metric": {
+        "properties": {
+          "accuracy": {
+            "type": "number",
+            "title": "Accuracy"
+          },
+          "macro_f1": {
+            "type": "number",
+            "title": "Macro F1"
+          },
+          "top_three_recall": {
+            "type": "number",
+            "title": "Top Three Recall"
+          },
+          "cross_validation": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Cross Validation"
+          },
+          "per_class": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Per Class"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "accuracy",
+          "macro_f1",
+          "top_three_recall",
+          "cross_validation",
+          "per_class"
+        ],
+        "title": "Metric"
+      },
+      "ModelInfo": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "registry_version": {
+            "type": "string",
+            "title": "Registry Version"
+          },
+          "registry_sha256": {
+            "type": "string",
+            "title": "Registry Sha256"
+          },
+          "dataset_sha256": {
+            "type": "string",
+            "title": "Dataset Sha256"
+          },
+          "seed": {
+            "type": "integer",
+            "title": "Seed"
+          },
+          "raw_rows": {
+            "type": "integer",
+            "title": "Raw Rows"
+          },
+          "unique_patterns": {
+            "type": "integer",
+            "title": "Unique Patterns"
+          },
+          "train_count": {
+            "type": "integer",
+            "title": "Train Count"
+          },
+          "test_count": {
+            "type": "integer",
+            "title": "Test Count"
+          },
+          "evaluation": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Metric"
+            },
+            "type": "object",
+            "title": "Evaluation"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Limitations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "version",
+          "registry_version",
+          "registry_sha256",
+          "dataset_sha256",
+          "seed",
+          "raw_rows",
+          "unique_patterns",
+          "train_count",
+          "test_count",
+          "evaluation",
+          "limitations"
+        ],
+        "title": "ModelInfo"
+      },
+      "Question": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt"
+          },
+          "options": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Options"
+          },
+          "suggests": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggests"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "prompt",
+          "options",
+          "suggests"
+        ],
+        "title": "Question"
+      },
+      "Registry": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "symptoms": {
+            "items": {
+              "$ref": "#/components/schemas/Symptom"
+            },
+            "type": "array",
+            "title": "Symptoms"
+          },
+          "questions": {
+            "items": {
+              "$ref": "#/components/schemas/Question"
+            },
+            "type": "array",
+            "title": "Questions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "version",
+          "symptoms",
+          "questions"
+        ],
+        "title": "Registry"
+      },
+      "ReportMention": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "symptom",
+              "diagnosis",
+              "history",
+              "finding",
+              "cause"
+            ],
+            "title": "Category"
+          },
+          "symptom_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Symptom Id"
+          },
+          "polarity": {
+            "type": "string",
+            "enum": [
+              "affirmed",
+              "negated",
+              "uncertain"
+            ],
+            "title": "Polarity"
+          },
+          "timing": {
+            "type": "string",
+            "enum": [
+              "unspecified",
+              "historical",
+              "hypothetical",
+              "resolved"
+            ],
+            "title": "Timing"
+          },
+          "subject": {
+            "type": "string",
+            "enum": [
+              "patient",
+              "family",
+              "unknown"
+            ],
+            "title": "Subject"
+          },
+          "eligible": {
+            "type": "boolean",
+            "title": "Eligible",
+            "default": false
+          },
+          "review_reason": {
+            "type": "string",
+            "title": "Review Reason"
+          },
+          "evidence": {
+            "$ref": "#/components/schemas/Evidence"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "category",
+          "polarity",
+          "timing",
+          "subject",
+          "review_reason",
+          "evidence"
+        ],
+        "title": "ReportMention"
+      },
+      "ReportPage": {
+        "properties": {
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "document_type": {
+            "type": "string",
+            "enum": [
+              "laboratory",
+              "clinical_note",
+              "discharge_summary",
+              "radiology",
+              "template",
+              "unknown"
+            ],
+            "title": "Document Type"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "embedded_text",
+              "ocr"
+            ],
+            "title": "Method"
+          },
+          "quality": {
+            "type": "string",
+            "enum": [
+              "readable",
+              "review",
+              "unreadable"
+            ],
+            "title": "Quality"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "page",
+          "document_type",
+          "method",
+          "quality",
+          "text"
+        ],
+        "title": "ReportPage"
+      },
+      "SampleExplanation": {
+        "properties": {
+          "sample_id": {
+            "type": "string",
+            "title": "Sample Id"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "prepared",
+              "gemini"
+            ],
+            "title": "Mode"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "source_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Ids"
+          },
+          "notice": {
+            "type": "string",
+            "title": "Notice"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sample_id",
+          "mode",
+          "text",
+          "source_ids",
+          "notice"
+        ],
+        "title": "SampleExplanation"
+      },
+      "Source": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "publisher": {
+            "type": "string",
+            "title": "Publisher"
+          },
+          "accessed": {
+            "type": "string",
+            "title": "Accessed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "url",
+          "publisher",
+          "accessed"
+        ],
+        "title": "Source"
+      },
+      "Symptom": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "aliases": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Aliases"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "aliases"
+        ],
+        "title": "Symptom"
+      }
+    }
+  }
+}
