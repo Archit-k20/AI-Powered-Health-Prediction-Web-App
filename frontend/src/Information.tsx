@@ -5,15 +5,15 @@ const percent = (x: number) => `${(x * 100).toFixed(1)}%`;
 export default function Information({ page }: { page: string }) {
   return (
     <main id="main" className="information">
-      <span className="eyebrow">Behind the exhibition / {page}</span>
+      <span className="eyebrow">ABOUT THE TOOLS / {page}</span>
       <h1>
         {page === "methods"
-          ? "Question the method."
+          ? "How the tools work"
           : page === "sources"
-            ? "Follow the evidence."
+            ? "Sources you can read"
             : page === "about"
-              ? "A college idea.\nA new shape."
-              : "Your inputs.\nYour context."}
+              ? "About The Shape of Health"
+              : "Your privacy"}
       </h1>
       {page === "methods" && (
         <>
@@ -188,9 +188,9 @@ export default function Information({ page }: { page: string }) {
                 undocumented.
               </p>
               <p>
-                The visual direction closely follows{" "}
-                <a href="https://shapeofintelligence.com/">
-                  The Shape of Intelligence by Jamie McKaye
+                The interface takes inspiration from{" "}
+                <a href="https://dribbble.com/tags/health-care-website">
+                  healthcare website designs on Dribbble
                 </a>
                 . Health content, graphics and interactive code were made for
                 this project. Typography is self-hosted Inter.
@@ -215,10 +215,9 @@ export default function Information({ page }: { page: string }) {
                 explanations and blind spots into one experience.
               </p>
               <p>
-                The story introduces ideas through original interactive
-                sculptures. The workspace lets you inspect a trained classifier,
-                explore fictional cases and review locally extracted report
-                values.
+                The interface gives you a direct route to symptoms, report
+                reading and downloadable summaries. Fictional examples help you
+                try the tools without entering personal information.
               </p>
             </div>
           </div>
@@ -244,10 +243,10 @@ export default function Information({ page }: { page: string }) {
               <a href="https://github.com/Archit-k20">GitHub ↗</a>
               <p>
                 Visual inspiration:{" "}
-                <a href="https://shapeofintelligence.com/">
-                  The Shape of Intelligence
+                <a href="https://dribbble.com/tags/health-care-website">
+                  healthcare website designs on Dribbble
                 </a>
-                , by Jamie McKaye.
+                .
               </p>
             </div>
           </div>
@@ -268,10 +267,9 @@ export default function Information({ page }: { page: string }) {
                 clears them. They are not written to browser storage.
               </p>
               <p>
-                Only the motion preference is stored locally. Sound starts off.
-                No analytics, advertising or tracking SDK is included. Three
-                fictional cases and their prepared outputs work without the
-                backend.
+                Only the motion preference is stored locally. No analytics,
+                advertising or tracking SDK is included. Three fictional cases
+                and their prepared outputs work without the backend.
               </p>
             </div>
           </div>
@@ -340,8 +338,8 @@ export default function Information({ page }: { page: string }) {
         </>
       )}
       <footer className="information-footer">
-        <Link to="/">← Return to the story</Link>
-        <Link to="/workspace">Try the demo ↗</Link>
+        <Link to="/">← Back to home</Link>
+        <Link to="/workspace">Open the tools →</Link>
       </footer>
     </main>
   );

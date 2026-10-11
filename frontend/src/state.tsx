@@ -35,13 +35,9 @@ const SessionContext = createContext<{
 const PreferencesContext = createContext<{
   motion: boolean;
   setMotion: (x: boolean) => void;
-  sound: boolean;
-  setSound: (x: boolean) => void;
-  ping: () => void;
 }>(null!);
 export const useSession = () => useContext(SessionContext);
 export const usePreferences = () => useContext(PreferencesContext);
-let audio: AudioContext | undefined;
 export function Providers({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session>(emptySession);
   const [motion, setMotionState] = useState(() => {
@@ -54,7 +50,6 @@ export function Providers({ children }: { children: ReactNode }) {
       return false;
     }
   });
-  const [sound, setSoundState] = useState(false);
   useEffect(() => {
     const media = matchMedia("(prefers-reduced-motion: reduce)");
     const change = () => {
@@ -74,33 +69,8 @@ export function Providers({ children }: { children: ReactNode }) {
       /* private mode */
     }
   }
-  function setSound(value: boolean) {
-    setSoundState(value);
-    if (value) {
-      audio ??= new AudioContext();
-      void audio.resume();
-    } else {
-      void audio?.suspend();
-    }
-  }
-  function ping() {
-    if (!sound || !audio || document.hidden) return;
-    const osc = audio.createOscillator();
-    const gain = audio.createGain();
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(220, audio.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(330, audio.currentTime + 0.18);
-    gain.gain.setValueAtTime(0.022, audio.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.3);
-    osc.connect(gain);
-    gain.connect(audio.destination);
-    osc.start();
-    osc.stop(audio.currentTime + 0.31);
-  }
   return (
-    <PreferencesContext.Provider
-      value={{ motion, setMotion, sound, setSound, ping }}
-    >
+    <PreferencesContext.Provider value={{ motion, setMotion }}>
       <SessionContext.Provider value={{ session, setSession }}>
         {children}
       </SessionContext.Provider>

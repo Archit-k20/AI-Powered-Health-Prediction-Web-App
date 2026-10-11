@@ -3,13 +3,13 @@
 Local verification on 2026-10-11:
 
 - 32 backend tests pass inside the Linux runtime with Tesseract. Native macOS runs skip the three OCR cases when Tesseract is absent.
-- Thirteen frontend tests pass, covering all offline examples, aliases, duplicate removal, follow-up confirmation and corrections, backend failure, editable reports, sequential three-file processing, partial failure, keyboard tabs, memory-only data, PDF pagination, chapter controls and a WebGL failure fallback.
-- Production TypeScript and Vite build passes. Heavy Three.js, workspace and PDF code load separately.
+- Thirteen frontend tests pass, covering all offline examples, aliases, duplicate removal, follow-up confirmation and corrections, backend failure, editable reports, sequential three-file processing, partial failure, keyboard tabs, memory-only data, PDF pagination, direct homepage entry points, common-symptom browsing and expandable model explanations.
+- Production TypeScript and Vite build passes. Workspace and PDF code load separately; Three.js and GSAP have been removed.
 - Retraining reproduces model checksum, split hashes and measured metrics. Linux CI reproduced the exact model checksum and metrics; exported SHAP decimals differed by approximately 1e-13 across CPU architectures, so example comparisons allow absolute numerical error up to 1e-10 while requiring identical structure, ranks and sources. All other artifacts are compared byte-for-byte. Source vocabulary is versioned and checked against artifact metadata.
 - Runtime dependency audit and npm audit report no known vulnerabilities at verification time.
 - Browser: all three fictional cases, a live assessment, text PDF/scanned PDF/PNG upload queue, editable result and actual PDF download verified. The public three-report PDF has four pages and contains the corrected value and educational notice.
-- Visual comparison against The Shape of Intelligence at desktop and 390 px mobile widths. The health title, original sculpture and product copy differ; pale/charcoal scenes, large typography, chapter transitions and bottom controls follow the reference. Screenshots are in `docs/screenshots/`.
-- Motion can be disabled without losing navigation or content. Mobile chapter selection moves to the correct section with no horizontal page overflow. Sound starts off and requires an explicit switch.
+- The revised white/teal healthcare interface is checked at desktop and 390 px mobile widths. Homepage actions, form layout, report cards and direct navigation replace the exhibition. Current screenshots use the `clinical-` prefix in `docs/screenshots/`.
+- Motion controls and the system reduced-motion preference disable the minimal transitions. No sound, canvas or pinned scenes remain. Mobile layouts have no horizontal page overflow.
 
 ## Remaining product limitations
 

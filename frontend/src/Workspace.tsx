@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import registry from "../../shared/symptoms.json";
 import samples from "../../shared/samples.json";
+import { examples } from "./Home";
+import { Icon } from "./Icon";
 import { emptySession, usePreferences, useSession, type Report } from "./state";
 import { API, request } from "./api";
 import type {
@@ -52,6 +54,7 @@ export default function Workspace() {
     ? params.get("tab")!
     : "symptoms";
   const [query, setQuery] = useState("");
+  const [browseAll, setBrowseAll] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [status, setStatus] = useState<
@@ -290,6 +293,24 @@ export default function Workspace() {
       v.toLowerCase().replace(/_/g, " ").includes(query.toLowerCase().trim()),
     ),
   );
+  const common = [
+    "headache",
+    "fatigue",
+    "high_fever",
+    "cough",
+    "nausea",
+    "skin_rash",
+    "itching",
+    "breathlessness",
+    "runny_nose",
+    "abdominal_pain",
+    "dizziness",
+    "joint_pain",
+  ];
+  const visibleSymptoms =
+    query.trim() || browseAll
+      ? filtered
+      : filtered.filter((s) => common.includes(s.id));
   const selectedCount = new Set([
     ...session.symptoms,
     ...session.followups
@@ -307,13 +328,12 @@ export default function Workspace() {
     <main id="main" className="workspace">
       <div className="workspace-heading">
         <div>
-          <span className="eyebrow">The tools behind the story</span>
-          <h1>A closer look.</h1>
+          <span className="eyebrow">YOUR HEALTH TOOLS</span>
+          <h1>Your health workspace</h1>
         </div>
         <p>
-          Explore a pattern. Read a report.
-          <br />
-          Keep the questions in view.
+          Start with symptoms or a report.
+          <br /> Review everything in one place.
         </p>
       </div>
       <div className={`connection ${status}`} role="status">
@@ -380,21 +400,24 @@ export default function Workspace() {
       >
         {tab === "symptoms" && (
           <>
-            <div className="sample-strip">
-              <span>Start with a fictional case</span>
-              {samples.map((s, i) => (
-                <button
-                  disabled={busy || extracting}
-                  key={s.id}
-                  aria-pressed={session.sampleId === s.id}
-                  onClick={() => loadSample(s.id)}
-                >
-                  <small>0{i + 1}</small>
-                  {s.name}
-                  <span>↗</span>
-                </button>
-              ))}
-            </div>
+            <details className="example-picker">
+              <summary>Just exploring? Try a fictional example</summary>
+              <div className="sample-strip">
+                <span>Choose an example</span>
+                {samples.map((s, i) => (
+                  <button
+                    disabled={busy || extracting}
+                    key={s.id}
+                    aria-pressed={session.sampleId === s.id}
+                    onClick={() => loadSample(s.id)}
+                  >
+                    <small>0{i + 1}</small>
+                    {examples.find((e) => e.id === s.id)?.title || s.name}
+                    <span>↗</span>
+                  </button>
+                ))}
+              </div>
+            </details>
             <div className="workspace-grid">
               <div className="input-column">
                 <div className="section-heading">
@@ -406,7 +429,7 @@ export default function Workspace() {
                   backend. <Link to="/privacy">How processing works ↗</Link>
                 </p>
                 <label className="search-label" htmlFor="symptom-search">
-                  Search the symptom vocabulary
+                  Search symptoms
                 </label>
                 <div className="search-box">
                   <span aria-hidden="true">⌕</span>
@@ -415,7 +438,7 @@ export default function Workspace() {
                     id="symptom-search"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Try fever, headache, shortness of breath…"
+                    placeholder="Try headache or fever…"
                     autoComplete="off"
                   />
                   <span>{registry.symptoms.length}</span>
@@ -439,8 +462,8 @@ export default function Workspace() {
                   className="symptom-results"
                   aria-label="Available symptoms"
                 >
-                  {filtered.length ? (
-                    filtered.map((s) => (
+                  {visibleSymptoms.length ? (
+                    visibleSymptoms.map((s) => (
                       <button
                         disabled={busy}
                         aria-pressed={session.symptoms.includes(s.id)}
@@ -460,8 +483,18 @@ export default function Workspace() {
                     </p>
                   )}
                 </div>
+                {!query.trim() && (
+                  <button
+                    className="browse-symptoms text-button"
+                    onClick={() => setBrowseAll(!browseAll)}
+                  >
+                    {browseAll
+                      ? "Show common symptoms"
+                      : `Browse all ${registry.symptoms.length} symptoms`}
+                  </button>
+                )}
                 <div className="followups">
-                  <h3>A little more context.</h3>
+                  <h3>A few follow-up questions</h3>
                   {registry.questions.map((q) => {
                     const a = session.followups.find(
                       (f) => f.question_id === q.id,
@@ -511,7 +544,7 @@ export default function Workspace() {
                   disabled={selectedCount < 2 || busy}
                   onClick={assess}
                 >
-                  {busy ? "Looking for patterns…" : "Explore the pattern"}{" "}
+                  {busy ? "Reviewing your symptoms…" : "See possible matches"}{" "}
                   <span>↗</span>
                 </button>
                 {busy && (
@@ -535,17 +568,11 @@ export default function Workspace() {
                   />
                 ) : (
                   <div className="empty-result">
-                    <div className="empty-rings" aria-hidden="true">
-                      <i />
-                      <i />
-                      <i />
-                    </div>
-                    <span className="eyebrow">An open question</span>
-                    <h2>
-                      A pattern begins
-                      <br />
-                      with your inputs.
-                    </h2>
+                    <span className="icon-tile">
+                      <Icon name="summary" />
+                    </span>
+                    <span className="eyebrow">Your results</span>
+                    <h2>Your results will appear here.</h2>
                     <p>
                       Select symptoms, or open a fictional walkthrough. You’ll
                       see ranked matches, contributing features and the limits
@@ -588,12 +615,8 @@ export default function Workspace() {
         {tab === "reports" && (
           <div className="reports-workspace">
             <div className="report-intro">
-              <span className="eyebrow">Read without guessing</span>
-              <h2>
-                From a page
-                <br />
-                to something editable.
-              </h2>
+              <span className="eyebrow">REPORT READER</span>
+              <h2>Read and review a lab report</h2>
               <p>
                 PDF, JPG or PNG. Up to three files, 10 MB each. PDFs can contain
                 up to ten pages; images up to 20 megapixels.
@@ -788,11 +811,7 @@ export default function Workspace() {
               ) : (
                 <div className="empty-result">
                   <span className="eyebrow">Nothing uploaded</span>
-                  <h3>
-                    Keep the source
-                    <br />
-                    in the picture.
-                  </h3>
+                  <h3>Start with a report or an example.</h3>
                   <p>
                     Extracted values appear here with their page and method.
                     Missing or uncertain fields remain visible for review.
@@ -811,8 +830,8 @@ export default function Workspace() {
         {tab === "summary" && (
           <div className="summary-grid">
             <div>
-              <span className="eyebrow">This session, in one place</span>
-              <h2>Keep the context.</h2>
+              <span className="eyebrow">YOUR SUMMARY</span>
+              <h2>Your session summary</h2>
               <p>
                 Your inputs stay in memory until you leave or clear this
                 session. Download a copy if you want to keep it.
@@ -944,11 +963,7 @@ export function Results({
           ? "Fictional walkthrough · precomputed model output"
           : "Live model output"}
       </span>
-      <h2>
-        A few possible
-        <br />
-        patterns.
-      </h2>
+      <h2>Possible matches</h2>
       <p className="muted">
         Ranked matches within a small dataset. These are not probabilities of
         having a condition.
@@ -967,28 +982,30 @@ export function Results({
               {m.supporting_symptoms.map(label).join(", ") ||
                 "No positive selected contribution among these inputs."}
             </p>
-            <h4>Inside this match</h4>
-            <div className="mini-contributions">
-              {m.contributions.map((c) => (
-                <div key={c.symptom_id}>
-                  <span>
-                    {c.label}{" "}
-                    <small>{c.present ? "selected" : "not selected"}</small>
-                  </span>
-                  <b className={c.contribution >= 0 ? "positive" : ""}>
-                    {c.contribution >= 0 ? "+" : ""}
-                    {c.contribution.toFixed(3)}
-                  </b>
-                </div>
-              ))}
-            </div>
-            <p className="fine-print">
-              Largest SHAP contributions for this class, in internal model-score
-              units. Positive raises the score; negative lowers it. Absence can
-              also contribute. These values explain the model, not a medical
-              cause.
-            </p>
-            <h4>Source material</h4>
+            <details className="explanation-details">
+              <summary>Why these symptoms matched</summary>
+              <div className="mini-contributions">
+                {m.contributions.map((c) => (
+                  <div key={c.symptom_id}>
+                    <span>
+                      {c.label}{" "}
+                      <small>{c.present ? "selected" : "not selected"}</small>
+                    </span>
+                    <b className={c.contribution >= 0 ? "positive" : ""}>
+                      {c.contribution >= 0 ? "+" : ""}
+                      {c.contribution.toFixed(3)}
+                    </b>
+                  </div>
+                ))}
+              </div>
+              <p className="fine-print">
+                Largest SHAP contributions for this class, in internal
+                model-score units. Positive raises the score; negative lowers
+                it. Absence can also contribute. These values explain the model,
+                not a medical cause.
+              </p>
+            </details>
+            <h4>Learn about this condition</h4>
             {m.sources.map((s) => (
               <a
                 className="source-link"

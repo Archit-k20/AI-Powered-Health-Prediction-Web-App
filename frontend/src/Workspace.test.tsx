@@ -30,9 +30,22 @@ function setup(route = "/workspace") {
 describe("health workspace", () => {
   it("runs every fictional walkthrough without the backend", async () => {
     const user = setup();
+    await user.click(
+      screen.getByText("Just exploring? Try a fictional example"),
+    );
     for (const s of samples) {
       await user.click(
-        screen.getByRole("button", { name: new RegExp(s.name) }),
+        screen.getByRole("button", {
+          name: new RegExp(
+            (
+              {
+                cold: "Cold-like symptoms",
+                migraine: "Headache symptoms",
+                skin: "Skin symptoms",
+              } as Record<string, string>
+            )[s.id],
+          ),
+        }),
       );
       expect(
         screen.getByText("Fictional walkthrough · precomputed model output"),
@@ -45,7 +58,7 @@ describe("health workspace", () => {
   });
   it("resolves aliases, removes duplicates and requires confirmation for a suggested feature", async () => {
     const user = setup();
-    const search = screen.getByLabelText("Search the symptom vocabulary");
+    const search = screen.getByLabelText("Search symptoms");
     await user.type(search, "shortness of breath");
     await user.click(
       screen.getByRole("button", { name: "Shortness of breath+" }),
@@ -61,13 +74,13 @@ describe("health workspace", () => {
       "Yes",
     );
     expect(
-      screen.getByRole("button", { name: "Explore the pattern ↗" }),
+      screen.getByRole("button", { name: "See possible matches ↗" }),
     ).toBeDisabled();
     await user.click(
       screen.getByRole("checkbox", { name: /Confirm adding high fever/ }),
     );
     expect(
-      screen.getByRole("button", { name: "Explore the pattern ↗" }),
+      screen.getByRole("button", { name: "See possible matches ↗" }),
     ).toBeEnabled();
     await user.selectOptions(
       screen.getByLabelText("Have you also noticed a high fever?"),
@@ -81,7 +94,7 @@ describe("health workspace", () => {
     );
     const user = setup("/workspace?sample=skin");
     await user.click(
-      screen.getByRole("button", { name: "Explore the pattern ↗" }),
+      screen.getByRole("button", { name: "See possible matches ↗" }),
     );
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "The backend is unavailable.",
@@ -93,7 +106,9 @@ describe("health workspace", () => {
     expect(
       screen.queryByText("Fictional walkthrough · precomputed model output"),
     ).not.toBeInTheDocument();
-    expect(screen.getByText(/A pattern begins/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Your results will appear here/),
+    ).toBeInTheDocument();
   });
   it("keeps fictional report values editable and reviewable", async () => {
     const user = setup("/workspace?tab=reports");
@@ -103,7 +118,11 @@ describe("health workspace", () => {
     const value = screen.getByLabelText(
       "Hemoglobin value in Fictional lab report",
     );
-    expect(screen.getAllByRole("checkbox", { name: "Needs review against the original" })[0]).not.toBeChecked();
+    expect(
+      screen.getAllByRole("checkbox", {
+        name: "Needs review against the original",
+      })[0],
+    ).not.toBeChecked();
     await user.clear(value);
     await user.type(value, "14.2");
     expect(value).toHaveValue("14.2");
@@ -176,6 +195,24 @@ describe("health workspace", () => {
     expect(
       screen.getByRole("button", { name: "Download PDF summary ↓" }),
     ).toBeInTheDocument();
+  });
+  it("starts with common symptoms while keeping the full vocabulary searchable", async () => {
+    const user = setup();
+    const symptoms = screen.getByRole("generic", {
+      name: "Available symptoms",
+    });
+    expect(within(symptoms).getAllByRole("button")).toHaveLength(12);
+    await user.click(
+      screen.getByRole("button", { name: "Browse all 131 symptoms" }),
+    );
+    expect(within(symptoms).getAllByRole("button")).toHaveLength(131);
+    await user.click(
+      screen.getByRole("button", { name: "Show common symptoms" }),
+    );
+    await user.type(screen.getByLabelText("Search symptoms"), "scaly skin");
+    expect(
+      within(symptoms).getByRole("button", { name: "Scaly skin+" }),
+    ).toBeVisible();
   });
   it("does not persist health selections in local storage", async () => {
     const spy = vi.spyOn(Storage.prototype, "setItem");

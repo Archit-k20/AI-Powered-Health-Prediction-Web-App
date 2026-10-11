@@ -14,7 +14,7 @@
 
 ## Verified working
 
-- Eight-chapter responsive story, custom ribbon sculpture, shape controls, chapter navigation, motion control and opt-in procedural sound. Desktop and 390 px mobile reference comparisons and screenshots are included.
+- Revised white/soft-teal healthcare homepage with direct symptom/report entry points, familiar navigation, readable forms and restrained transitions. Common symptoms appear first; fictional cases and technical explanations expand when needed. Desktop and 390 px mobile checks are included.
 - Three fictional symptom walkthroughs work without a backend. Live symptom assessments return ranked matches, actual class-specific SHAP contributions, model version and source links.
 - Public browser-to-Cloud-Run assessment and sequential text PDF / scanned PDF / PNG extraction. Each synthetic report produced four findings; deliberately missing fields remained blank. Edited values appeared in the downloaded four-page PDF.
 - Backend public API checks cover all three sample patterns, embedded-text extraction, OCR, prepared explanation fallback and rejection of visitor-written content at the fictional explanation endpoint. See `public-api-checks.json`.
@@ -28,7 +28,7 @@
 
 Gemini has **no key configured**. Its optional fictional-example button returns a clearly labeled prepared explanation. No live Gemini generation is claimed. Core tools are fully functional without it, and real visitor inputs cannot be submitted to that endpoint.
 
-A newly created Cloud Run instance took approximately 30 seconds to reach the readiness probe during initial deployment. Scale-to-zero is configured. Idle wake-up latency varies and has not been separately benchmarked; the UI shows a starting/unavailable message and preserves fictional examples if a request times out. The API does not receive a keep-alive ping schedule.
+A newly created Cloud Run instance took approximately 30 seconds to reach the readiness probe during initial deployment. Scale-to-zero is configured. A later public browser check also verified idle wake-up: the UI displayed its connecting state and the queued assessment completed successfully. System logs measured about 10 seconds from that autoscaling instance start to readiness. Idle wake-up latency varies; the UI preserves fictional examples if a request times out. The API does not receive a keep-alive ping schedule.
 
 The model is not clinically validated. Perfect scores on 61 holdout patterns from a repetitive historical dataset do not establish clinical performance. Dataset provenance and population remain undocumented.
 
@@ -42,5 +42,9 @@ Production was deployed from local prebuilt output. Automatic Git-to-Vercel depl
 - `docs/VERIFICATION.md` — test coverage and known product limitations
 - `docs/DEPLOYMENT.md` — deployment and operations instructions
 - `docs/cloud-run-config.json` — sanitized resource configuration
-- `docs/screenshots/public-*` — public demo desktop/mobile captures
+- `docs/screenshots/clinical-*` — public demo desktop/mobile captures
 - `docs/example-summary.pdf` — actual browser-exported fictional summary
+
+## Healthcare interface revision
+
+The exhibition was replaced following user feedback. The core model, API, privacy boundary, report parser and hosting configuration are unchanged. Three.js, GSAP, procedural sound and the eight-chapter navigation were removed. The main JavaScript entry decreased from about 140 kB to 86 kB compressed; the separate 132 kB compressed sculpture bundle is no longer needed. These are build sizes, not a measured page-speed score.

@@ -1,6 +1,6 @@
 # The Shape of Health
 
-An interactive, educational portfolio project by **Archit**. Eight scrolling chapters connect a sculptural exhibition to a workspace for symptom exploration, report extraction and downloadable summaries.
+An educational health project by **Archit**, with a calm, accessible interface for symptom exploration, report extraction and downloadable summaries. The homepage leads directly to the tools.
 
 **[Open the live demo →](https://the-shape-of-health.vercel.app)** · [Open the workspace](https://the-shape-of-health.vercel.app/workspace) · [Release record](docs/RELEASE.md)
 
@@ -9,7 +9,7 @@ An interactive, educational portfolio project by **Archit**. Eight scrolling cha
 ## Explore
 
 - React + TypeScript + Vite, custom CSS, self-hosted Inter.
-- Original Three.js ribbon sculpture, GSAP scroll scenes, chapter navigation, motion controls and optional procedural sound.
+- White and soft-teal healthcare layout, clear forms, responsive cards and minimal transitions. No WebGL, sound or scroll-driven exhibition.
 - 131 supported symptom features with canonical IDs and search aliases.
 - Three fictional walkthroughs with real precomputed model outputs; no backend required.
 - Live random-forest matches, class-specific SHAP contributions and attributed descriptions.
@@ -17,7 +17,7 @@ An interactive, educational portfolio project by **Archit**. Eight scrolling cha
 - Paginated PDF summaries created in the browser. Separate optional adult BMI arithmetic.
 - Methodology, source catalog, about and privacy pages.
 
-The visual direction closely follows [The Shape of Intelligence](https://shapeofintelligence.com/) by Jamie McKaye. Health content, sculpture geometry and interaction code were built for this project.
+The interface takes inspiration from [healthcare website designs on Dribbble](https://dribbble.com/tags/health-care-website). It prioritizes direct access to symptoms and reports, common symptoms before the complete vocabulary, and expandable technical explanations. It does not offer diagnosis or treatment.
 
 ## Run locally
 
@@ -43,7 +43,7 @@ npm ci
 VITE_API_URL=http://localhost:8080 npm run dev
 ```
 
-Default CORS permits `localhost:5173` and `127.0.0.1:5173`. Set `ALLOWED_ORIGINS` to the exact dev origin if Vite selects a different port. With no `VITE_API_URL`, the exhibition and fictional examples work and live tools show an explicit unavailable state.
+Default CORS permits `localhost:5173` and `127.0.0.1:5173`. Set `ALLOWED_ORIGINS` to the exact dev origin if Vite selects a different port. With no `VITE_API_URL`, the homepage and fictional examples work and live tools show an explicit unavailable state.
 
 ## What changed in the model
 
