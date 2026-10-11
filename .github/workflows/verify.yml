@@ -14,7 +14,9 @@ jobs:
       - run: pip install -r training/requirements.txt
       - run: python -m pytest backend/tests -q
       - run: python training/train.py && python training/export_samples.py
-      - run: git diff --exit-code -- backend/models shared
+      - run: |
+          git diff --exit-code -- backend/models shared ":(exclude)shared/samples.json"
+          python training/verify_samples.py
   frontend:
     runs-on: ubuntu-latest
     steps:
