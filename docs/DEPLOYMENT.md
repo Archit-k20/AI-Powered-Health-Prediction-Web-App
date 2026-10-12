@@ -1,10 +1,10 @@
 # Deployment and operations
 
-Frontend: Vercel Hobby (noncommercial portfolio). API: Google Cloud Run, project `shape-health-archit-2026`, region `us-central1`.
+Frontend: Vercel Hobby (noncommercial portfolio). API: Google Cloud Run, project `shape-health-demo-2026`, region `us-central1`.
 
 ## Prerequisites
 
-Sign in with `gcloud auth login` and `npx vercel login`. Use a dedicated GCP project linked to an enabled billing account. Do not deploy into an unrelated application project. The checked-in code includes no credentials.
+Sign in with `gcloud auth login` and `npx vercel login`. When multiple Google accounts are signed in, pass `--account=YOUR_GOOGLE_EMAIL` on GCP commands and confirm that account owns the intended project. Use a dedicated GCP project linked to an open billing account. Do not deploy into an unrelated application project. The checked-in code includes no credentials.
 
 Enable `run.googleapis.com`, `artifactregistry.googleapis.com`, `iam.googleapis.com`, and `billingbudgets.googleapis.com`. Create a Docker Artifact Registry repository named `health-demo` and a dedicated runtime service account with no additional IAM roles. The runtime needs no access to GCP data services.
 
@@ -15,11 +15,11 @@ Build an AMD64 image from the repository root. Cloud Run cannot use the ARM-only
 ```sh
 gcloud auth configure-docker us-central1-docker.pkg.dev
 docker buildx build --platform linux/amd64 -f backend/Dockerfile.backend \
-  -t us-central1-docker.pkg.dev/shape-health-archit-2026/health-demo/api:v3 --push .
-gcloud run deploy health-api --project shape-health-archit-2026 \
+  -t us-central1-docker.pkg.dev/shape-health-demo-2026/health-demo/api:v3 --push .
+gcloud run deploy health-api --project shape-health-demo-2026 \
   --region us-central1 \
-  --image us-central1-docker.pkg.dev/shape-health-archit-2026/health-demo/api:v3 \
-  --service-account health-runtime@shape-health-archit-2026.iam.gserviceaccount.com \
+  --image us-central1-docker.pkg.dev/shape-health-demo-2026/health-demo/api:v3 \
+  --service-account health-runtime@shape-health-demo-2026.iam.gserviceaccount.com \
   --cpu 1 --memory 1Gi --min 0 --max 1 --min-instances 0 --max-instances 1 \
   --concurrency 4 --timeout 120 --cpu-throttling --no-cpu-boost \
   --startup-probe httpGet.path=/api/v1/health,httpGet.port=8080,periodSeconds=10,timeoutSeconds=5,failureThreshold=12 \
@@ -35,7 +35,7 @@ Core features require **no Gemini key**. For optional fictional explanations, st
 
 ## Frontend
 
-From `frontend/`, link the Vercel project and set `VITE_API_URL` to the verified Cloud Run URL for production and preview environments. The deployed URL is `https://health-api-888697615614.us-central1.run.app`. Vite embeds this public endpoint at build time; changing it requires a new build.
+From `frontend/`, link the Vercel project and set `VITE_API_URL` to the verified Cloud Run URL for production and preview environments. The deployed URL is `https://health-api-1080173394372.us-central1.run.app`. Vite embeds this public endpoint at build time; changing it requires a new build.
 
 ```sh
 npm ci
@@ -64,3 +64,9 @@ Official references: [Cloud Run pricing](https://cloud.google.com/run/pricing), 
 5. Check privacy, methodology and direct `/workspace?tab=reports` links.
 6. Verify CORS from the production domain and rejection of a different origin.
 7. Confirm the deployed instance limits and no public secrets. Leave Gemini unconfigured if optional AI output is not required.
+
+## If live tools become unavailable
+
+Check the API health endpoint and Cloud Run error logs before assuming a cold start. A service can still show a ready revision while Google rejects requests because its billing account is closed. Check both the project's billing link and the linked account's `open` status; a project-level `billingEnabled: true` alone is insufficient.
+
+The current project is `shape-health-demo-2026`. After a project migration, update `VITE_API_URL` in Vercel and the `connect-src` origin in `frontend/vercel.json`, then rebuild and deploy. Verify a live assessment and fictional report extraction from the production origin. The previous project is not a fallback if its billing account is closed.
